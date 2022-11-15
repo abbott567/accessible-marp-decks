@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Landmarks demo - HTML: Back to basics</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.2rem; margin:auto; }
+      body { margin:0; padding:0; }
+      main { min-height: 25rem; }
+      header { background:black; color:white; padding:2rem; }
+      footer { background:lightgrey; padding:2rem; border-top:2px solid darkgrey; }
+      nav a { color:white; }
+      nav ul { padding-left:0; margin:.75rem 0 0 }
+      nav li { display:inline; margin-right:.75rem }
+      .container { max-width:800px; margin:auto; }
+      a:focus { border:3px solid black; background:yellow; color:black; }
+      .skip-link { padding: .5rem; display: block; }
+      .skip-link {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+      .skip-link:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: inherit;
+        overflow: visible;
+        clip: auto;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        margin: 1rem 0;
+      }
+      .col-two-thirds {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 2;
+        margin-right: 1rem;
+      }
+      .col-one-third {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        margin-right: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+      <div class="container">
+        <p>
+          HTML: Back to basics
+        </p>
+        <nav>
+          <ul>
+            <li><a href="#">Nav link 1</a></li>
+            <li><a href="#">Nav link 2</a></li>
+            <li><a href="#">Nav link 3</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-two-thirds">
+          <main id="main-content">
+            <h1>Landmarks demo</h1>
+            <p>
+              The content in this section is in the main landmark.
+            </p>
+            <p>
+              You can navigate to it by using the skip-link at the top of the page, 
+              or through the functionality of your screen reader.
+            </p>
+            <p>
+              <a href="#">This is a link inside the main tag</a>.
+            </p>
+          </main>
+        </div>
+        <div class="col-one-third">
+          <section aria-labelledby="sidebar-heading">
+            <h2 id="sidebar-heading">Sidebar</h2>
+            <p>
+              This content is in a section element. 
+            </p>
+            <p>
+              If the content in this section is related to the main content of 
+              the page, then using an aside element might be more suitable.
+            </p>
+            <p>
+              <a href="#">This is a link inside the sidebar</a>.
+            </p>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <h2>Support links</h2>
+        <ul>
+          <li><a href="#">Footer link 4</a></li>
+          <li><a href="#">Footer link 5</a></li>
+          <li><a href="#">Footer link 6</a></li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

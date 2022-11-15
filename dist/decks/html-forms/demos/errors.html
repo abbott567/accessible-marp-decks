@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error: Your details - Error example - HTML: forms</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      label { display:block; }
+      input { font-size: 1rem; border: 1px solid black; padding:10px; margin-bottom:1rem; }
+      input:focus { border: 5px solid #000000; outline: 3px solid gold; }
+      button { font-size:1rem; display:block; padding: 10px; background-color:darkolivegreen; color:white; }
+      button:focus { border: 5px solid #000000; outline: 3px solid gold; }
+      .error-summary { border: 3px solid firebrick; padding: 1rem; max-width: 66%; }
+      .error-link { color: firebrick; }
+      .error-link:focus { background-color: gold; color: black; border-bottom: 5px solid black; outline: none; text-decoration: none; }
+      .error-message { margin: 0; color: firebrick; font-weight: bold; display: block; }
+      .error-field { border: 3px solid firebrick;}
+    </style>
+  </head>
+
+  <body>
+    <main>
+
+      <div class="error-summary">
+        <h2>There's a problem</h2>
+        <ul>
+          <li><a class="error-link" href="#first-name">Enter your first name</a></li>
+        </ul>
+      </div>
+      
+      <h1>Your details</h1>
+      <form>
+        <label for="first-name">
+          First name
+        </label>
+        <p class="error-message">Error: Enter your first name</p>
+        <input class="error-field" id="first-name" type="text" autocomplete="first-name">
+        
+        <label for="last-name">Last name</label>
+        <input id="last-name" type="text" autocomplete="last-name" value="Smith">
+
+        <button>Continue</button>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector('form')
+      form.addEventListener('submit', e => e.preventDefault())
+    </script>
+  </body>
+</html>

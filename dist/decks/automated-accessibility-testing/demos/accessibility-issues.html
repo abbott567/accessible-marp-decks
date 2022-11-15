@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Browser tools will find different issues - Automated Testing</title>
+    <style>
+      * { font-family: sans-serif; }
+      body { padding: 3rem}
+      main { width: 100%; max-width: 660px; }
+      p, a { font-size: 1.2rem; }
+      hr { margin: 2rem 0; }
+      h2, h5 { font-size: 1.5rem; margin-bottom: 1rem;}
+      .contrast { color: #969696; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Browser tools will find different issues</h1>
+      <p class="contrast">
+        The text in this paragraph fails colour contrast. 
+        All 3 tools should find it.
+      </p>
+      
+      <hr role="presentation">
+      
+      <h2>Missing alt text</h2>
+      <p>
+        All 3 tools should find that the following image of a sleepy kitten does 
+        not have any alternative text.
+      </p>
+      <img src="../images/300.jpeg">
+
+      <hr role="presentation">
+
+      <h5>Skipped heading level</h5>
+      <p>
+        All 3 tools should also find that the heading for this section is a h5 
+        and it should be a h2.
+      </p>
+
+      <hr role="presentation">
+
+      <h2>Invalid roles</h2>
+      <p role="potato">
+        ARC Toolkit and Axe DevTools should find that this paragraph is using an 
+        invalid role of 'potato'.
+      </p>
+      <p role="paragraph">
+        This paragraph is also using an invalid role of 'paragraph'. But, only 
+        ARC Toolkit will find it. Axe will ignore it.
+      </p>
+      <p>
+        Wave wont see either as errors and will mark them as features and you'll 
+        need to figure out yourself that they're not valid.
+      </p>
+
+      <hr role="presentation">
+
+      <h2>Bad link text</h2>
+      <p>
+        The link after this paragraph is a common accessibility failure as it does 
+        not provide enough context. Wave will mark it as being suspicious but Axe 
+        DevTools and ARC Toolkit will ignore it.
+      </p>
+      <a href="#">Read more</a>
+
+      <p>
+        ARC Toolkit will pick links up if you use terminology like 
+        <a href="#">Click here to view file</a>, but it just shows how varied the tools are.
+      </p>
+      <p>
+        Axe DevTools literally doesn't care about either.
+      </p>
+
+      <hr role="presentation">
+
+      <h2>ARC warnings</h2>
+      <p>
+        ARC will warn that there is no navigation landmark. There isn't a nav 
+        menu on this page, so we don't have to fix it. But on most pages you 
+        would have a nav element, so it's good that it flags it.
+      </p>
+      <p>
+        It will also flag that there is no bypass blocks method. Again, because 
+        there is no header or navigation menu on this page it doesn't matter. But 
+        in most cases you'd want to have one.
+      </p>
+      <p>
+        Axe and Wave will not warn you of either of these issues.
+      </p>
+
+      <hr role="presentation">
+
+      <h2>Line breaks</h2>
+      <p>
+        ARC Toolkit will point out that a linebreak is used at the end of this 
+        section, even though its a valid use of one.
+      </p>
+      <p>
+        Axe DevTools and Wave will not care.
+      </p>
+      <p>
+        Thanks,<br>
+        Craig
+      </p>
+    </main>
+  </body>
+</html>

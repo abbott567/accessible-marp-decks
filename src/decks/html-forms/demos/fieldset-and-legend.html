@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fieldsets demo - HTML: forms</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      label { display:block; }
+      input { font-size: 1rem; border: 1px solid black; padding:10px; margin-bottom:1rem; }
+      input:focus { border: 5px solid #000000; outline: 3px solid gold; }
+      button { font-size:1rem; display:block; padding: 10px; background-color:darkolivegreen; color:white; }
+      button:focus { border: 5px solid #000000; outline: 3px solid gold; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Fieldsets demo</h1>
+
+      <form>
+        <fieldset>
+          <legend>Address</legend>
+        
+          <label for="line1">Line 1</label>
+          <input id="line1" type="text" autocomplete="address-line1">
+        
+          <label for="line2">Line 2</label>
+          <input id="line2" type="text" autocomplete="address-line2">
+        
+          <label for="town-or-city">Town or city</label>
+          <input id="town-or-city" type="text" autocomplete="address-level2">
+        
+          <label for="postcode">Postcode</label>
+          <input id="postcode" type="text" autocomplete="postal-code">
+        </fieldset>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector('form')
+      form.addEventListener('submit', e => e.preventDefault())
+    </script>
+  </body>
+</html>

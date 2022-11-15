@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>My ADHD and Me</title>
+    <meta name="description" content="Session on my ADHD and some coping strategies I have put in place.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+      div.marpit>section {
+        width: 1280px;
+        height: 720px;
+
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+
+        scroll-snap-align: center center;
+      }
+
+      div.marpit>section::after {
+        bottom: 0;
+        content: attr(data-marpit-pagination);
+        padding: inherit;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+      }
+
+      div.marpit>section:not([data-marpit-pagination])::after {
+        display: none;
+      }
+
+      /* Normalization */
+      div.marpit>section h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+
+      div.marpit>section video::-webkit-media-controls {
+        will-change: transform;
+      }
+
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+
+      @media print {
+
+        html,
+        body {
+          background-color: #fff;
+          margin: 0;
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+        div.marpit>section {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        div.marpit>section,
+        div.marpit>section * {
+          -webkit-print-color-adjust: exact !important;
+          animation-delay: 0s !important;
+          animation-duration: 0s !important;
+          color-adjust: exact !important;
+          transition: none !important;
+        }
+
+        div.marpit>svg[data-marpit-svg] {
+          display: block;
+          height: 100vh;
+          width: 100vw;
+        }
+      }
+
+      /* @theme handwritten */
+      /*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+      @font-face {
+        font-family: 'Fuzzy Bubbles';
+        src: url("./fonts/FuzzyBubbles-Bold.woff2") format("woff2"), url("./fonts/FuzzyBubbles-Bold.woff") format("woff");
+        font-weight: bold;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: 'Fuzzy Bubbles';
+        src: url("./fonts/FuzzyBubbles-Regular.woff2") format("woff2"), url("./fonts/FuzzyBubbles-Regular.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      div.marpit>section .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        margin: calc(var(--marpit-root-font-size, 1rem) * 1) 0;
+      }
+
+      div.marpit>section .col {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        margin-right: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section .pagination {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        top: 0;
+      }
+
+      div.marpit>section section.pagination {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important;
+        border: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section h3,
+      div.marpit>section h4,
+      div.marpit>section h5,
+      div.marpit>section h6,
+      div.marpit>section a,
+      div.marpit>section a:visited {
+        color: #990000;
+      }
+
+      div.marpit>section {
+        font-family: 'Fuzzy Bubbles', 'Comic Sans MS', 'Comic Sans';
+      }
+
+      div.marpit>section pre code,
+      div.marpit>section code {
+        font-family: monospace, monospace;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section p {
+        max-width: 66%;
+      }
+
+      div.marpit>section {
+        line-height: 1.2;
+        font-size: 29px;
+        color: #111111;
+        background: white;
+        align-items: stretch;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 720px;
+        justify-content: center;
+        padding: 78.5px;
+        width: 1280px;
+        background-size: cover;
+      }
+
+      div.marpit>section {
+        --marpit-root-font-size: 29px;
+      }
+
+      div.marpit>section:after {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        bottom: 21px;
+      }
+
+      div.marpit>section:after {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section>*:last-child,
+      div.marpit>section section[data-footer]> :nth-last-child(2) {
+        margin-bottom: 0;
+      }
+
+      div.marpit>section>*:first-child,
+      div.marpit>section header:first-child+* {
+        margin-top: 0;
+      }
+
+      div.marpit>section pre {
+        margin: 0;
+        overflow: visible;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section pre code {
+        display: block;
+        overflow-y: visible;
+        overflow-x: auto;
+        padding: calc(var(--marpit-root-font-size, 1rem) * .75);
+        border: 1px dashed;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+      }
+
+      div.marpit>section pre code:focus {
+        outline: 4px solid #111111;
+        outline-offset: 4px;
+        box-shadow: 0px 0px 0px 5px gold;
+      }
+
+      div.marpit>section code {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        background-color: #F5F5FF;
+        padding: 0 calc(var(--marpit-root-font-size, 1rem) * .2);
+        border-radius: 5px;
+      }
+
+      div.marpit>section h1 {
+        border-bottom: none;
+        font-size: 1.75em;
+      }
+
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2 {
+        border-bottom: none;
+        font-size: 1.6em;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section h3 {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+
+      div.marpit>section h4 {
+        font-size: 1.05em;
+      }
+
+      div.marpit>section h5 {
+        font-size: 1em;
+      }
+
+      div.marpit>section h6 {
+        font-size: 0.9em;
+      }
+
+      div.marpit>section a:focus {
+        outline: none;
+        padding: 3px;
+        text-decoration: none;
+        background-color: gold;
+        color: #111111;
+        border-bottom: 5px solid #111111;
+      }
+
+      div.marpit>section hr {
+        height: 0;
+        padding-top: 0.25em;
+      }
+
+      div.marpit>section header {
+        top: 21px;
+      }
+
+      div.marpit>section footer {
+        bottom: 21px;
+      }
+
+      div.marpit>section header,
+      div.marpit>section footer {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .75);
+        margin: 0;
+        position: absolute;
+        left: 30px;
+        width: 1240px;
+        min-height: 30px;
+      }
+
+      div.marpit>section kbd {
+        color: #111111;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+        border: 1px solid grey;
+      }
+
+      div.marpit>section img,
+      div.marpit>section figure {
+        margin-top: 0;
+        width: 100%;
+      }
+
+      div.marpit>section p {
+        margin-top: 0;
+      }
+
+      div.marpit>section input {
+        padding: calc(var(--marpit-root-font-size, 1rem) * .25);
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border: 2px solid black;
+        display: block;
+      }
+
+      div.marpit>section figure {
+        margin: 0;
+        border: 0;
+      }
+
+      div.marpit>section ul,
+      div.marpit>section ol {
+        margin-top: 0;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1.5);
+      }
+
+      div.marpit>section ul li,
+      div.marpit>section ol li {
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        line-height: 1.5;
+      }
+
+      div.marpit>section ul.list--no-bullet {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      div.marpit>section blockquote {
+        margin: 0;
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border-left: 10px solid #b1b4b6;
+      }
+
+      div.marpit>section blockquote p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-style: italic;
+      }
+
+      div.marpit>section dd {
+        margin-left: 0;
+        padding-left: 20px;
+        border-left: 8px solid #b1b4b6;
+      }
+
+      div.marpit>section pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 1em;
+      }
+
+      div.marpit>section code.hljs {
+        padding: 3px 5px;
+      }
+
+      /*!
+  Theme: a11y-light
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+      div.marpit>section .hljs {
+        background: #fefefe;
+        color: #545454;
+      }
+
+      div.marpit>section .hljs-comment,
+      div.marpit>section .hljs-quote {
+        color: #696969;
+      }
+
+      div.marpit>section .hljs-deletion,
+      div.marpit>section .hljs-name,
+      div.marpit>section .hljs-regexp,
+      div.marpit>section .hljs-selector-class,
+      div.marpit>section .hljs-selector-id,
+      div.marpit>section .hljs-tag,
+      div.marpit>section .hljs-template-variable,
+      div.marpit>section .hljs-variable {
+        color: #d91e18;
+      }
+
+      div.marpit>section .hljs-attribute,
+      div.marpit>section .hljs-built_in,
+      div.marpit>section .hljs-link,
+      div.marpit>section .hljs-literal,
+      div.marpit>section .hljs-meta,
+      div.marpit>section .hljs-number,
+      div.marpit>section .hljs-params,
+      div.marpit>section .hljs-type {
+        color: #aa5d00;
+      }
+
+      div.marpit>section .hljs-addition,
+      div.marpit>section .hljs-bullet,
+      div.marpit>section .hljs-string,
+      div.marpit>section .hljs-symbol {
+        color: green;
+      }
+
+      div.marpit>section .hljs-section,
+      div.marpit>section .hljs-title {
+        color: #007faa;
+      }
+
+      div.marpit>section .hljs-keyword,
+      div.marpit>section .hljs-selector-tag {
+        color: #7928a1;
+      }
+
+      div.marpit>section .hljs-emphasis {
+        font-style: italic;
+      }
+
+      div.marpit>section .hljs-strong {
+        font-weight: 700;
+      }
+
+      @media screen and (-ms-high-contrast: active) {
+
+        div.marpit>section .hljs-addition,
+        div.marpit>section .hljs-attribute,
+        div.marpit>section .hljs-built_in,
+        div.marpit>section .hljs-bullet,
+        div.marpit>section .hljs-comment,
+        div.marpit>section .hljs-link,
+        div.marpit>section .hljs-literal,
+        div.marpit>section .hljs-meta,
+        div.marpit>section .hljs-number,
+        div.marpit>section .hljs-params,
+        div.marpit>section .hljs-quote,
+        div.marpit>section .hljs-string,
+        div.marpit>section .hljs-symbol,
+        div.marpit>section .hljs-type {
+          color: highlight;
+        }
+
+        div.marpit>section .hljs-keyword,
+        div.marpit>section .hljs-selector-tag {
+          font-weight: 700;
+        }
+      }
+
+      body {
+        background: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      div.marpit>section {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="marpit">
+        <section id="1" data-marpit-pagination-total="48" aria-label="Slide 1: My ADHD and Me">
+          <h1 aria-describedby="page-number-1" id="slide-1">My ADHD and Me</h1>
+          <p>Craig Abbott<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 1</p>
+              <p id="page-number-1" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>1</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="2" data-marpit-pagination-total="48" aria-label="Slide 2: Hi, my name is Craig">
+          <h2 aria-describedby="page-number-2" id="slide-2">Hi, my name is Craig</h2>
+          <p>I have <a href="https://www.additudemag.com/3-types-of-adhd/">combined presentation ADHD</a>.</p>
+          <p>
+            <img src="./images/headshot.jpg" alt="Portrait of Craig Abbott." style="width: 300px;" width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 2</p>
+              <p id="page-number-2" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>2</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="3" data-marpit-pagination-total="48" aria-label="Slide 3: What does ADHD stand for?">
+          <h2 aria-describedby="page-number-3" id="slide-3">What does ADHD stand for?</h2>
+          <p>In this talk, when I use the acronym <strong>“ADHD”</strong>, I am referring to “<a href="https://www.nhs.uk/conditions/attention-deficit-hyperactivity-disorder-adhd/">Attention Deficit Hyperactivity Disorder</a>”.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 3</p>
+              <p id="page-number-3" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>3</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="4" data-marpit-pagination-total="48" aria-label="Slide 4: Before we start…">
+          <h2 aria-describedby="page-number-4" id="slide-4">Before we start…</h2>
+          <p><strong>I’m not an expert.</strong></p>
+          <p>Everything in these slides is just my experience and everybody is different.</p>
+          <p>The “advice” in these slides is a combination of strategies I’ve made up or borrowed from other people. They may not work for everyone.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 4</p>
+              <p id="page-number-4" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>4</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="5" data-marpit-pagination-total="48" aria-label="Slide 5: ADHD is just one of my issues">
+          <h2 aria-describedby="page-number-5" id="slide-5">ADHD is just one of my issues</h2>
+          <p>I have a few things going on. Most people do, but we just don’t talk about it.</p>
+          <p>
+            <img src="./images/venn-diagram.jpg" alt="A venn diagram showing 3 overlapping circles labelled Anxiety, Depression and ADHD. Where they all overlap in the centre there is a label that reads: Danger Zone." style="width: 500px;" width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 5</p>
+              <p id="page-number-5" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>5</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="6" data-marpit-pagination-total="48" aria-label="Slide 6: Before my diagnosis">
+          <h2 aria-describedby="page-number-6" id="slide-6">Before my diagnosis</h2>
+          <p>I was in and out of counselling trying to understand my own behaviours.</p>
+          <p>
+            <img src="./images/behaviour-circle.jpg" alt="A circle rotating through 4 labels for Depression, Impulsivity, Anxiety, and Self Loathing. The circle completes and starts again." style="width: 500px;" width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 6</p>
+              <p id="page-number-6" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>6</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="7" data-marpit-pagination-total="48" aria-label="Slide 7: Impostor Syndrome">
+          <h3 aria-describedby="page-number-7" id="slide-7">Impostor Syndrome</h3>
+          <p>Feeling out of your depth. Like you’re a fraud, and you’re just waiting to be found out.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 7</p>
+              <p id="page-number-7" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>7</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="8" data-marpit-pagination-total="48" aria-label="Slide 8: “It’s textbook ADHD”">
+          <h2 aria-describedby="page-number-8" id="slide-8">“It’s textbook ADHD”</h2>
+          <p>I was 35 when the Psychiatrist confirmed my diagnoses.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 8</p>
+              <p id="page-number-8" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>8</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="9" data-marpit-pagination-total="48" aria-label="Slide 9: Like everybody else, I had a preconceived idea of what ADHD looked like…">
+          <h2 aria-describedby="page-number-9" id="slide-9">Like everybody else, I had a preconceived idea of what ADHD looked like…</h2>
+          <p>…and it wasn’t particularly positive.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 9</p>
+              <p id="page-number-9" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>9</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="10" data-marpit-pagination-total="48" aria-label="Slide 10: The ADHD stigma">
+          <h2 aria-describedby="page-number-10" id="slide-10">The ADHD stigma</h2>
+          <p>A lot of people assume we’ll be running around the office high on blue Smarties, not doing any work and being disruptive.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 10</p>
+              <p id="page-number-10" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>10</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="11" data-marpit-pagination-total="48" aria-label="Slide 11: Attention Deficit, Hyperactivity, Disorder.">
+          <h3 aria-describedby="page-number-11" id="slide-11">Attention Deficit, Hyperactivity, Disorder.</h3>
+          <p>The name ADHD implies people are abnormal, easily distracted and wayward.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 11</p>
+              <p id="page-number-11" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>11</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="12" data-marpit-pagination-total="48" aria-label="Slide 12: Sir George Still">
+          <div class="row">
+            <div class="col">
+              <h3 aria-describedby="page-number-12" id="slide-12">Sir George Still</h3>
+              <p>A British Paediatrician who described some children as having “an abnormal defect of moral control”.</p>
+              <p>He described these children as intelligent, but said they could not control their behaviour in the same way <strong>“typical children”</strong> could.</p>
+            </div>
+            <div class="col">
+              <p>
+                <img src="./images/george-still.jpg" alt="A portrait of Sir George Still." style="width: 500px;" width="500">
+              </p>
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 12</p>
+              <p id="page-number-12" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>12</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="13" data-marpit-pagination-total="48" aria-label="Slide 13: The problem with Still’s observations">
+          <h4 aria-describedby="page-number-13" id="slide-13">The problem with Still’s observations</h4>
+          <p>A “lack of moral control” and “serious problems with sustained attention”, appear to be entirely based on the children being unable to pay attention to things which&nbsp;<strong>he</strong>&nbsp;considered to be the priority.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 13</p>
+              <p id="page-number-13" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>13</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="14" data-marpit-pagination-total="48" aria-label="Slide 14: ADHD is not problem with sustained attention">
+          <h5 aria-describedby="page-number-14" id="slide-14">ADHD is not problem with sustained attention</h5>
+          <p>It’s is impairment in our ability to choose what we focus on, not an inability to focus at all.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 14</p>
+              <p id="page-number-14" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>14</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="15" data-marpit-pagination-total="48" aria-label="Slide 15: We often have an unrivalled ability to hyper-focus">
+          <h2 aria-describedby="page-number-15" id="slide-15">We often have an unrivalled ability to hyper-focus</h2>
+          <p>If something holds our attention, we can <a href="https://www.additudemag.com/understanding-adhd-hyperfocus/">hyper-focus</a>. This can mean ridiculously productive periods for 5-10 hours at a time.</p>
+          <p>But, as my psychiatrist pointed out, if you forget to eat or check in with your family, then perhaps you’re distracted from life.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 15</p>
+              <p id="page-number-15" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>15</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="16" data-marpit-pagination-total="48" aria-label="Slide 16: Aroreretini">
+          <figure>
+            <dl>
+              <dt>
+                <h2 lang="mi" aria-describedby="page-number-16" id="slide-16">Aroreretini</h2>
+              </dt>
+              <dd>
+                Attention goes to many things.
+              </dd>
+            </dl>
+
+            <i lang="mi">Te Reo Māori</i>
+
+          </figure>
+          <footer>Translation: <a href="https://www.tereohapai.nz/Browse/Terms/mi-NZ#:~:text=Female-,Aroreretini,-Attention%20goes%20to">Attention goes to many things</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 16</p>
+              <p id="page-number-16" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>16</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="17" data-marpit-pagination-total="48" aria-label="Slide 17: Some of my “textbook ADHD” traits">
+          <h2 aria-describedby="page-number-17" id="slide-17">Some of my “textbook ADHD” traits</h2>
+          <p>…and how I deal with them.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 17</p>
+              <p id="page-number-17" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>17</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="18" data-marpit-pagination-total="48" aria-label="Slide 18: Task Management">
+          <h3 aria-describedby="page-number-18" id="slide-18">Task Management</h3>
+          <p>I can prioritise tasks fine on paper, but executing them in order is a challenge.</p>
+          <p>I’ll always gravitate towards the interesting tasks first, or accidentally work on them without realising my attention has drifted from the priority.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 18</p>
+              <p id="page-number-18" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>18</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="19" data-marpit-pagination-total="48" aria-label="Slide 19: Analog Diary">
+          <h4 aria-describedby="page-number-19" id="slide-19">Analog Diary</h4>
+          <p>I have a complex diary system based on the original <a href="https://bulletjournal.com/">Bullet Journal</a> by <a href="https://www.rydercarroll.com/">Ryder Carroll</a>.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 19</p>
+              <p id="page-number-19" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>19</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="20" data-marpit-pagination-total="48" aria-label="Slide 20: Basic bullet journal">
+          <h5 aria-describedby="page-number-20" id="slide-20">Basic bullet journal</h5>
+          <ul class="list--no-bullet">
+            <li>
+              <i aria-hidden="true">•&nbsp;&nbsp;</i><span class="visually-hidden">A dot represents an&nbsp;</span><span>Incomplete task</span>
+            </li>
+            <li>
+              <i aria-hidden="true">X </i><span class="visually-hidden">An X represents a&nbsp;</span><span>Completed task</span>
+            </li>
+            <li>
+              <i aria-hidden="true">O </i><span class="visually-hidden">A hollow circle represents a&nbsp;</span><span>Meeting</span>
+            </li>
+            <li style="text-decoration: line-through;">
+              <i aria-hidden="true">•&nbsp;&nbsp;</i><span class="visually-hidden">A strike through represents a&nbsp;</span><span>Cancelled task or meeting</span>
+            </li>
+            <li>
+              <i aria-hidden="true">&gt;&nbsp;</i><span class="visually-hidden">A forward arrow represents a task you&nbsp;</span><span>Didn't finish, move to tomorrow</span>
+            </li>
+            <li>
+              <i aria-hidden="true">&lt;&nbsp;</i><span class="visually-hidden">A backwards arrow represents a task you&nbsp;</span><span>Didn't finish, move to a future date</span>
+            </li>
+            <li>
+              <i aria-hidden="true">-&nbsp;</i><span class="visually-hidden">A hyphen represents a&nbsp;</span><span>Note</span>
+            </li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 20</p>
+              <p id="page-number-20" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>20</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="21" data-marpit-pagination-total="48" aria-label="Slide 21: Highlighters help">
+          <h6 aria-describedby="page-number-21" id="slide-21">Highlighters help</h6>
+          <ul class="list--no-bullet">
+            <li style="background:#BAFFC9; border-radius:50%; width:50%;">
+              <i aria-hidden="true">X </i><span>Completed tasks are green</span>
+            </li>
+            <li style="text-decoration:line-through; background:#bae1ff; border-radius:50%; width:50%;">
+              <i aria-hidden="true">•&nbsp;&nbsp;</i><span>Cancelled tasks are blue</span>
+            </li>
+            <li style="background:#ffb3ba; border-radius:50%; width:50%;">
+              <i aria-hidden="true">&gt;&nbsp;</i><span>Tasks you didn't finish are red</span>
+            </li>
+            <li style="background:#ffff97; border-radius:50%; width:50%;">
+              <i aria-hidden="true">-&nbsp;</i><span>Notes are yellow</span>
+            </li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 21</p>
+              <p id="page-number-21" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>21</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="22" data-marpit-pagination-total="48" aria-label="Slide 22: Time keeping">
+          <h3 aria-describedby="page-number-22" id="slide-22">Time keeping</h3>
+          <p>My ability to monitor or predict time is flawed. It is sometimes known as&nbsp;“<a href="https://www.additudemag.com/time-blindness-running-late-adhd/">time blindness</a>”.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 22</p>
+              <p id="page-number-22" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>22</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="23" data-marpit-pagination-total="48" aria-label="Slide 23: My internal clock is broken">
+          <h4 aria-describedby="page-number-23" id="slide-23">My internal clock is broken</h4>
+          <p>Almost all animals have a primitive in built clock called <a href="https://en.wikipedia.org/wiki/Circadian_rhythm">Circadian Rhythm</a>.</p>
+          <p>Most adult humans develop an innate awareness of time and the passing of it.</p>
+          <p>My internal clock is broken. I cannot guess what time it is, or accurately guage the passing of it.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 23</p>
+              <p id="page-number-23" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>23</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="24" data-marpit-pagination-total="48" aria-label="Slide 24: Routines and alarms">
+          <h4 aria-describedby="page-number-24" id="slide-24">Routines and alarms</h4>
+          <p>I rely heavily on routines and alarms. If I don’t set alarms, 1 hour can pass in what feels like 10 minutes.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 24</p>
+              <p id="page-number-24" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>24</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="25" data-marpit-pagination-total="48" aria-label="Slide 25: Pomodoro Technique">
+          <h4 aria-describedby="page-number-25" id="slide-25">Pomodoro Technique</h4>
+          <p>I set a timer for 25 minutes on my phone and remove all distractions.</p>
+          <p>After 25 minutes, have a 5 minute break and then repeat.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 25</p>
+              <p id="page-number-25" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>25</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="26" data-marpit-pagination-total="48" aria-label="Slide 26: Organisation">
+          <h3 aria-describedby="page-number-26" id="slide-26">Organisation</h3>
+          <p>Expensive stuff has a dedicated place and I know where it is at all times.</p>
+          <p>Inexpensive things, I have more than one so finding it is doesn’t drive me crazy.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 26</p>
+              <p id="page-number-26" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>26</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="27" data-marpit-pagination-total="48" aria-label="Slide 27: Organised chaos">
+          <div class="row">
+            <div class="col">
+              <h4 aria-describedby="page-number-27" id="slide-27">Organised chaos</h4>
+              <p>When I find a system or product which works for me, I duplicate it.</p>
+              <p>It’s easier to remember the right bag than the 20 things I need to put in it.</p>
+            </div>
+            <div class="col">
+              <p>
+                <img src="./images/bags.jpg" alt="4 bags. The top two are identical black tactical style backpacks. The bottom 2 are identical hiking style backpacks." style="width: 500px;" width="500">
+              </p>
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 27</p>
+              <p id="page-number-27" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>27</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="28" data-marpit-pagination-total="48" aria-label="Slide 28: Emotional Dysregulation">
+          <h3 aria-describedby="page-number-28" id="slide-28">Emotional Dysregulation</h3>
+          <p>I struggle with highs that are too high and lows that are too low. In the extremes I get overwhelmed and I shut down.</p>
+          <footer><a href="https://www.additudemag.com/emotional-numbness-adhd-adults/">Emotional Numbness and the Spectrum of ADHD Feelings</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 28</p>
+              <p id="page-number-28" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>28</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="29" data-marpit-pagination-total="48" aria-label="Slide 29: Complete numbness">
+          <h4 aria-describedby="page-number-29" id="slide-29">Complete numbness</h4>
+          <p>Just an absolute lack of feeling for anything good or bad.</p>
+          <p>In these times I can’t find tears and I can’t find joy. I become disinterested in hobbies and I can seem cold or robot-like.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 29</p>
+              <p id="page-number-29" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>29</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="30" data-marpit-pagination-total="48" aria-label="Slide 30: Dopamine Dysregulation">
+          <h4 aria-describedby="page-number-30" id="slide-30">Dopamine Dysregulation</h4>
+          <p>Studies suggest&nbsp;people with ADHD are more likely to struggle with addiction&nbsp;because we appear to regulate important brain chemicals like dopamine differently.</p>
+          <footer><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2626918/">Attention-deficit-hyperactivity disorder and reward deficiency syndrome</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 30</p>
+              <p id="page-number-30" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>30</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="31" data-marpit-pagination-total="48" aria-label="Slide 31: The cycle of dopamine hunting">
+          <h5 aria-describedby="page-number-31" id="slide-31">The cycle of dopamine hunting</h5>
+          <p>I get consumed by new interests, only to suddenly find them utterly disinteresting a few weeks later.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 31</p>
+              <p id="page-number-31" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>31</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="32" data-marpit-pagination-total="48" aria-label="Slide 32: My dopamine hunting pattern">
+          <h5 aria-describedby="page-number-32" id="slide-32">My dopamine hunting pattern</h5>
+          <ol>
+            <li>Discover new thing</li>
+            <li>Become obsessed with it</li>
+            <li>Buy tools and equipment</li>
+            <li>Get bored</li>
+            <li>Go back to step 3 a few times</li>
+            <li>Quit and sell everything</li>
+          </ol>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 32</p>
+              <p id="page-number-32" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>32</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="33" data-marpit-pagination-total="48" aria-label="Slide 33: Dopamine and addiction">
+          <h5 aria-describedby="page-number-33" id="slide-33">Dopamine and addiction</h5>
+          <p>We get hooked on the highs of the dopamine hits, and insidiously justify our behaviours to ourselves to get more of them.</p>
+          <p>It could be why your diet always starts on Monday, why your credit cards are always maxed out, or why going out for ‘a few drinks’ always ends up with you staggering home at 7am.</p>
+          <footer><a href="https://www.additudemag.com/brain-stimulation-and-adhd-cravings-dependency-and-regulation/">Never Enough? Why ADHD Brains Crave Stimulation</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 33</p>
+              <p id="page-number-33" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>33</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="34" data-marpit-pagination-total="48" aria-label="Slide 34: Some addictions are not frowned upon by society, so it makes it more difficult">
+          <h6 aria-describedby="page-number-34" id="slide-34">Some addictions are not frowned upon by society, so it makes it more difficult</h6>
+          <p>The two things I still consistently struggle with are junk food and impulsive purchases.</p>
+          <p>Nobody really gets concerned if I eat 3 chocolate bars or buy a camera.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 34</p>
+              <p id="page-number-34" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>34</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="35" data-marpit-pagination-total="48" aria-label="Slide 35: Getting a diagnosis">
+          <h2 aria-describedby="page-number-35" id="slide-35">Getting a diagnosis</h2>
+          <p>I have to again stress <strong>this is my personal journey</strong>. Other peoples experiences or advice may vary.</p>
+          <p>I am not paid by or in any way affiliated with any services I recommend in this section.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 35</p>
+              <p id="page-number-35" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>35</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="36" data-marpit-pagination-total="48" aria-label="Slide 36: NHS vs Private">
+          <h3 aria-describedby="page-number-36" id="slide-36">NHS vs Private</h3>
+          <p>Whenever I’ve tried to access <a href="https://www.nhs.uk/nhs-services/mental-health-services/">NHS Mental Health Services</a> they seem completely overwhelmed.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 36</p>
+              <p id="page-number-36" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>36</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="37" data-marpit-pagination-total="48" aria-label="Slide 37: Talking Therapies waiting times">
+          <h4 aria-describedby="page-number-37" id="slide-37">Talking Therapies waiting times</h4>
+          <p>When I needed counselling, I was told the waiting list for&nbsp;<a href="https://www.nhs.uk/mental-health/talking-therapies-medicine-treatments/talking-therapies-and-counselling/types-of-talking-therapies/">NHS Talking Therapies</a>&nbsp;would be more than 12 months.</p>
+          <p>If I was suicidal, or what they deemed to be <strong>“in crisis”</strong>, it was reduced, but it was still estimated to be around 3 months.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 37</p>
+              <p id="page-number-37" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>37</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="38" data-marpit-pagination-total="48" aria-label="Slide 38: I went to North East Counselling Services">
+          <h4 aria-describedby="page-number-38" id="slide-38">I went to North East Counselling Services</h4>
+          <p>When I went, it was around £45 per session, but they do sometimes have funding available to be able to offer it at a reduced cost or for free.</p>
+          <footer><a href="https://necounselling.org.uk/">North East Counselling Services</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 38</p>
+              <p id="page-number-38" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>38</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="39" data-marpit-pagination-total="48" aria-label="Slide 39: Anxious Minds">
+          <h4 aria-describedby="page-number-39" id="slide-39">Anxious Minds</h4>
+          <p>Anxious Minds&nbsp;is another North East mental health service which can offer reduced price counselling.</p>
+          <footer><a href="https://www.anxiousminds.co.uk/">Anxious Minds</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 39</p>
+              <p id="page-number-39" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>39</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="40" data-marpit-pagination-total="48" aria-label="Slide 40: ADHD diagnosis">
+          <h3 aria-describedby="page-number-40" id="slide-40">ADHD diagnosis</h3>
+          <p>Through the NHS, I would have been looking at around 15 to 24 months at least.</p>
+          <p>There seems to be a greater desire just to write prescriptions to treat those comorbid conditions like anxiety and depression.</p>
+          <p>I often came away from the GP meetings with anti-depressants and anti-anxiety medications, rather than the answers I needed.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 40</p>
+              <p id="page-number-40" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>40</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="41" data-marpit-pagination-total="48" aria-label="Slide 41: I got my diagnosis through Psychiatry-UK.com">
+          <h4 aria-describedby="page-number-41" id="slide-41">I got my diagnosis through <a href="http://Psychiatry-UK.com">Psychiatry-UK.com</a></h4>
+          <p>But at the time of writing this, they currently don’t have any appointments available for 6 months.</p>
+          <p>This again highlights the overwhelming need for more mental health services in the UK.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 41</p>
+              <p id="page-number-41" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>41</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="42" data-marpit-pagination-total="48" aria-label="Slide 42: Going private is expensive">
+          <h4 aria-describedby="page-number-42" id="slide-42">Going private is expensive</h4>
+          <p>It cost me around £360 to get a diagnosis.</p>
+          <p>This doesn’t include treatment which you have to pay for separately.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 42</p>
+              <p id="page-number-42" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>42</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="43" data-marpit-pagination-total="48" aria-label="Slide 43: Paying for medication privately can be REALLY expensive">
+          <h5 aria-describedby="page-number-43" id="slide-43">Paying for medication privately can be <em>REALLY</em> expensive</h5>
+          <p>It will cost you around:</p>
+          <ul>
+            <li>£80 in nurse fees</li>
+            <li>£25 in prescription fees</li>
+            <li>£150 to buy a 28 days supply of <a href="https://www.netdoctor.co.uk/medicines/adhd-add/a8828/elvanse-lisdexamfetamine/">Elvanse</a></li>
+          </ul>
+          <p>You won’t be allowed on NHS dispensation until you have worked with your private physician to get the dosage correct.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 43</p>
+              <p id="page-number-43" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>43</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="44" data-marpit-pagination-total="48" aria-label="Slide 44: Life after the diagnosis">
+          <h2 aria-describedby="page-number-44" id="slide-44">Life after the diagnosis</h2>
+          <p>When I was first diagnosed, I doubted if I knew myself at all. But now, I embrace the fact that I’m a bit different.</p>
+          <p>ADHD does not define me as a person. But, whether I like it or not, it is part of who I am.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 44</p>
+              <p id="page-number-44" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>44</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="45" data-marpit-pagination-total="48" aria-label="Slide 45: ADHD can be overwhelming, erratic and destructive.">
+          <h3 aria-describedby="page-number-45" id="slide-45">ADHD can be overwhelming, erratic and destructive.</h3>
+          <p>But, if you can tame it, sometimes it can feel like a super-power.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 45</p>
+              <p id="page-number-45" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>45</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="46" data-marpit-pagination-total="48" aria-label="Slide 46: I get a lot done, but sometimes at a cost">
+          <h3 aria-describedby="page-number-46" id="slide-46">I get a lot done, but sometimes at a cost</h3>
+          <p>I’m passionate and I get things done. I’m probably not what you’d imagine when you think about somebody who has ADHD.</p>
+          <p>But I don’t look after myself properly. I work too many hours and I burn out regularly. So I won’t pretend to have everything figured out.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 46</p>
+              <p id="page-number-46" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>46</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="47" data-marpit-pagination-total="48" aria-label="Slide 47: I’m always open to talking about mental health">
+          <h2 aria-describedby="page-number-47" id="slide-47">I’m always open to talking about mental health</h2>
+          <p>You’d be surprised how many people are not neurotypical and just hide it. If you have any questions, just reach out.</p>
+          <p>My Direct Messages on Twitter are always open.</p>
+          <footer><a href="https://twitter.com/abbott567">@abbott567</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 47</p>
+              <p id="page-number-47" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>47</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="48" data-marpit-pagination-total="48" aria-label="Slide 48: Thanks!">
+          <h2 aria-describedby="page-number-48" id="slide-48">Thanks!</h2>
+          <p>Craig Abbott,<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 48</p>
+              <p id="page-number-48" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>48</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+
+  </body>
+
+</html>

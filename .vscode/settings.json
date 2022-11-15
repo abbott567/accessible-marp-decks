@@ -1,0 +1,7 @@
+{
+  "markdown.marp.themes": [
+    "dist/themes/handwritten.css",
+    "dist/themes/purple-theme.css",
+    "dist/themes/black-yellow.css"
+  ]
+}

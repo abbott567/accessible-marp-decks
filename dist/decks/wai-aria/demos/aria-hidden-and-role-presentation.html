@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ARIA hidden Vs the presentation role - HTML: ARIA</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      p { max-width: 66%; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>ARIA hidden Vs the presentation role</h1>
+
+      <h2>ARIA hidden</h2>
+      <p>
+        All of the links in this section are hidden from assistive technology 
+        because <code>aria-hidden</code> is inherited.
+      </p>
+      <nav aria-hidden="true">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+      <h2>Presentation role</h2>
+      <p>
+        Only the navigation landmark is hidden from assistive technology using 
+        <code>role="presentation"</code>. The links are still available in the 
+        accessibility tree.
+      </p>
+      <nav role="presentation">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+
+    </main>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ARIA labels - HTML: ARIA</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      input { border: 2px solid black; font-size: 1rem; padding: 5px; display: block; margin-bottom: 1rem; }
+      hr { margin: 3rem 0 }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>ARIA labels</h1>
+
+      <label>
+        This is a native label
+        <input type="text">
+      </label>
+
+      <hr role="presentation">
+
+      <input type="text" aria-label="This is labelled using aria label">
+
+      <hr role="presentation">
+
+      <p id="p-example">This is a paragraph assigned to the input below using aria labelled by</p>
+      <input aria-labelledby="p-example">
+
+      <hr role="presentation">
+
+      <label for="db-example">
+        This is a another native label
+      </label>
+      <p id="db-hint">This is a paragraph which adds additional context using aria described by</p>
+      <input id="db-example" type="text" aria-describedby="db-hint">
+    </main>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ARIA Expanded - HTML: ARIA</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      .hidden { display: none; }
+      button { font-size: 1rem; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>ARIA Expanded</h1>
+
+      <div id="content">
+        <h2>The content</h2>
+        <p>
+          This content is visible by default.
+        </p>
+        <p>
+          With JavaScript turned on, you will be able to hide and reveal it using 
+          a button.
+        </p>
+      </div>
+
+    </main>
+
+    <script>
+      // Assign some variables
+      const main = document.querySelector('main')
+      const content = document.querySelector('#content')
+
+      // Create the button
+      const btn = document.createElement("button")
+      btn.textContent = 'Show content'
+
+      // Add aria attributes to the button
+      btn.setAttribute('aria-expanded', "false")
+      btn.setAttribute('aria-controls', "content")
+
+      // Add an event listener for the button
+      btn.addEventListener('click', e => {
+        // If the content is hidden
+        if (content.classList.contains('hidden')) {
+          // Remove the hidden class to reveal it
+          content.classList.remove('hidden')
+          // Change the text on the button
+          btn.innerHTML = 'Hide content'
+          // Set aria-expanded to true
+          btn.setAttribute('aria-expanded', 'true')
+        } else { // If the content is visible
+          // Add the hidden class to hide it
+          content.classList.add('hidden')
+          // Change the text on the button
+          btn.innerHTML = 'Show content'
+          // Set aria-expanded to false
+          btn.setAttribute('aria-expanded', 'false')
+        }
+      })
+
+      // Insert the button before the content
+      main.insertBefore(btn, content)
+      
+      // Finally, hide the content
+      content.classList.add('hidden')
+    </script>
+  </body>
+</html>

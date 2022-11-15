@@ -1,0 +1,9 @@
+body {
+  background: #333;
+  margin: 0;
+  padding: 0;
+}
+
+div.marpit > section {
+  margin: 1rem;
+}

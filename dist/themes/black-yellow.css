@@ -1,0 +1,318 @@
+/* @theme black-yellow */
+/*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-Medium.woff2") format("woff2"), url("./fonts/Ubuntu-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-LightItalic.woff2") format("woff2"), url("./fonts/Ubuntu-LightItalic.woff") format("woff");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-Light.woff2") format("woff2"), url("./fonts/Ubuntu-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-BoldItalic.woff2") format("woff2"), url("./fonts/Ubuntu-BoldItalic.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-Italic.woff2") format("woff2"), url("./fonts/Ubuntu-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-Bold.woff2") format("woff2"), url("./fonts/Ubuntu-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-MediumItalic.woff2") format("woff2"), url("./fonts/Ubuntu-MediumItalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap; }
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url("./fonts/Ubuntu-Regular.woff2") format("woff2"), url("./fonts/Ubuntu-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; }
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
+  margin: 1rem 0; }
+
+.col {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  margin-right: 1rem; }
+
+.pagination {
+  color: #505a5f;
+  font-size: 24px;
+  position: absolute;
+  padding: 0;
+  right: 30px;
+  top: 0; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  -webkit-clip-path: inset(50%) !important;
+  clip-path: inset(50%) !important;
+  border: 0 !important;
+  white-space: nowrap !important; }
+
+section {
+  font-family: 'Ubuntu', sans-serif; }
+
+pre code, code {
+  font-family: monospace, monospace; }
+
+h1, h2, p {
+  max-width: 66%; }
+
+section {
+  line-height: 1.2;
+  font-size: 29px;
+  color: #ffd479;
+  background: #1e1e1e;
+  align-items: stretch;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 720px;
+  justify-content: center;
+  padding: 78.5px;
+  width: 1280px;
+  background-size: cover; }
+  section:after {
+    color: #ffd479;
+    font-size: 24px;
+    position: absolute;
+    padding: 0;
+    right: 30px;
+    bottom: 21px; }
+  section > *:last-child, section section[data-footer] > :nth-last-child(2) {
+    margin-bottom: 0; }
+  section > *:first-child, section header:first-child + * {
+    margin-top: 0; }
+
+pre {
+  margin: 0;
+  overflow: visible;
+  margin-bottom: 1rem; }
+  pre code {
+    display: block;
+    overflow-y: visible;
+    overflow-x: auto;
+    padding: .75rem;
+    border: 1px dashed;
+    font-size: .9rem; }
+  pre code:focus {
+    outline: 4px solid #1e1e1e;
+    outline-offset: 4px;
+    box-shadow: 0px 0px 0px 5px gold; }
+
+code {
+  font-size: 1rem;
+  padding: 0 .2rem;
+  border-radius: 5px; }
+
+h1 {
+  border-bottom: none;
+  font-size: 1.75em; }
+
+h2 {
+  border-bottom: none;
+  font-size: 1.6em;
+  margin-bottom: 1rem; }
+
+h3 {
+  font-size: 1.1em;
+  margin-top: 0; }
+
+h4 {
+  font-size: 1.05em; }
+
+h5 {
+  font-size: 1em; }
+
+h6 {
+  font-size: 0.9em; }
+
+a:focus {
+  outline: none;
+  padding: 3px;
+  text-decoration: none;
+  background-color: gold;
+  color: #1e1e1e;
+  border-bottom: 5px solid #1e1e1e; }
+
+hr {
+  height: 0;
+  padding-top: 0.25em; }
+
+header {
+  top: 21px; }
+
+footer {
+  bottom: 21px; }
+
+header, footer {
+  font-size: .75rem;
+  margin: 0;
+  position: absolute;
+  left: 30px;
+  width: 1240px;
+  min-height: 30px; }
+
+kbd {
+  color: #ffd479;
+  font-size: .9rem;
+  border: 1px solid grey; }
+
+img, figure {
+  margin-top: 0;
+  width: 100%; }
+
+p {
+  margin-top: 0; }
+
+input {
+  padding: .25rem;
+  font-size: 1rem;
+  border: 2px solid black;
+  display: block; }
+
+figure {
+  margin: 0;
+  border: 0; }
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 1.5rem; }
+  ul li, ol li {
+    padding-left: 1rem;
+    line-height: 1.5; }
+
+ul.list--no-bullet {
+  list-style: none;
+  padding-left: 0; }
+
+blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 10px solid #ffd479; }
+  blockquote p {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-style: italic; }
+
+dd {
+  margin-left: 0;
+  padding-left: 20px;
+  border-left: 8px solid #ffd479; }
+
+em {
+  font-style: normal;
+  font-weight: 700; }
+
+button {
+  font-size: 19px; }
+  button:focus {
+    outline: 4px solid #1e1e1e;
+    outline-offset: 4px;
+    box-shadow: 0px 0px 0px 5px gold; }
+
+video {
+  margin-top: 30px; }
+
+pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em; }
+
+code.hljs {
+  padding: 3px 5px; }
+
+/*!
+  Theme: a11y-dark
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+.hljs {
+  background: #2b2b2b;
+  color: #f8f8f2; }
+
+.hljs-comment, .hljs-quote {
+  color: #d4d0ab; }
+
+.hljs-deletion, .hljs-name, .hljs-regexp, .hljs-selector-class, .hljs-selector-id, .hljs-tag, .hljs-template-variable, .hljs-variable {
+  color: #ffa07a; }
+
+.hljs-built_in, .hljs-link, .hljs-literal, .hljs-meta, .hljs-number, .hljs-params, .hljs-type {
+  color: #f5ab35; }
+
+.hljs-attribute {
+  color: gold; }
+
+.hljs-addition, .hljs-bullet, .hljs-string, .hljs-symbol {
+  color: #abe338; }
+
+.hljs-section, .hljs-title {
+  color: #00e0e0; }
+
+.hljs-keyword, .hljs-selector-tag {
+  color: #dcc6e0; }
+
+.hljs-emphasis {
+  font-style: italic; }
+
+.hljs-strong {
+  font-weight: 700; }
+
+@media screen and (-ms-high-contrast: active) {
+  .hljs-addition, .hljs-attribute, .hljs-built_in, .hljs-bullet, .hljs-comment, .hljs-link, .hljs-literal, .hljs-meta, .hljs-number, .hljs-params, .hljs-quote, .hljs-string, .hljs-symbol, .hljs-type {
+    color: highlight; }
+  .hljs-keyword, .hljs-selector-tag {
+    font-weight: 700; } }
+
+section.light {
+  background-color: white;
+  color: #1e1e1e; }

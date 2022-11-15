@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Label in name demo - HTML: forms</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      label { display:block; }
+      input { display:block; font-size: 1rem; border: 1px solid black; padding:10px; margin-bottom:1rem; }
+      input:focus { border: 5px solid #000000; outline: 3px solid gold; }
+      button { font-size:1rem; display:block; padding: 10px; background-color:darkolivegreen; color:white; }
+      button:focus { border: 5px solid #000000; outline: 3px solid gold; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Label in name</h1>
+      
+      <h2>Pass example</h2>
+      <form>
+        <label>
+          Search
+          <input type="search" aria-label="Search for people, pages or blog posts">
+        </label>
+      </form>
+
+      <h2>Fail example</h2>
+      <form>
+        <label>
+          Search
+          <input type="search" aria-label="Find people, pages or blog posts">
+        </label>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector('form')
+      form.addEventListener('submit', e => e.preventDefault())
+    </script>
+  </body>
+</html>

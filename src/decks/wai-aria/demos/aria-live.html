@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ARIA live - HTML: ARIA</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      button { font-size: 1rem; }
+      p { border: 1px solid grey; padding: .5rem; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>ARIA live example</h1>
+
+      
+      <figure>
+        <blockquote>
+          "I wish for a world that views disability, mental or physical, not as a hindrance but as unique attributes that 
+          can be seen as powerful assets if given the right opportunities."
+          <figcaption>Oliver Sacks</figcaption>
+        </blockquote>
+      </figure>
+        
+
+      <p id="text" aria-live="polite">
+        The text in this paragraph will change in about 10 seconds, and the screen 
+        reader should read it out even though it's not focused.
+      </p>
+
+    </main>
+
+    <script>
+      const text = document.querySelector('#text')
+      setTimeout(() => {
+        text.innerHTML = 'The screen reader is now reading out the text in the aria-live region as it noticed it changed.'
+      }, 10000)
+    </script>
+  </body>
+</html>

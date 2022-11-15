@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Common WCAG Failures</title>
+    <meta name="description" content="Session on common WCAG failures delivered for Global Accessibility Awareness day.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+      div.marpit>section {
+        width: 1280px;
+        height: 720px;
+
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+
+        scroll-snap-align: center center;
+      }
+
+      div.marpit>section::after {
+        bottom: 0;
+        content: attr(data-marpit-pagination);
+        padding: inherit;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+      }
+
+      div.marpit>section:not([data-marpit-pagination])::after {
+        display: none;
+      }
+
+      /* Normalization */
+      div.marpit>section h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+
+      div.marpit>section video::-webkit-media-controls {
+        will-change: transform;
+      }
+
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+
+      @media print {
+
+        html,
+        body {
+          background-color: #fff;
+          margin: 0;
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+        div.marpit>section {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        div.marpit>section,
+        div.marpit>section * {
+          -webkit-print-color-adjust: exact !important;
+          animation-delay: 0s !important;
+          animation-duration: 0s !important;
+          color-adjust: exact !important;
+          transition: none !important;
+        }
+
+        div.marpit>svg[data-marpit-svg] {
+          display: block;
+          height: 100vh;
+          width: 100vw;
+        }
+      }
+
+      /* @theme dwp-theme */
+      /*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+      div.marpit>section .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        margin: calc(var(--marpit-root-font-size, 1rem) * 1) 0;
+      }
+
+      div.marpit>section .col {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        margin-right: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section .pagination {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        top: 0;
+      }
+
+      div.marpit>section section.pagination {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section .pagination span:last-of-type {
+        border-radius: 50%;
+        padding: 5px 10px;
+        background-color: white;
+      }
+
+      div.marpit>section .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important;
+        border: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section h3,
+      div.marpit>section h4,
+      div.marpit>section h5,
+      div.marpit>section h6,
+      div.marpit>section a,
+      div.marpit>section a:visited {
+        color: #4c2b91;
+      }
+
+      div.marpit>section {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      div.marpit>section pre code,
+      div.marpit>section code {
+        font-family: monospace, monospace;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section p {
+        max-width: 66%;
+      }
+
+      div.marpit>section {
+        line-height: 1.2;
+        font-size: 29px;
+        color: #111111;
+        background: white;
+        align-items: stretch;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 720px;
+        justify-content: center;
+        padding: 78.5px;
+        width: 1280px;
+        background-size: cover;
+      }
+
+      div.marpit>section {
+        --marpit-root-font-size: 29px;
+      }
+
+      div.marpit>section:after {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        bottom: 21px;
+      }
+
+      div.marpit>section:after {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section>*:last-child,
+      div.marpit>section section[data-footer]> :nth-last-child(2) {
+        margin-bottom: 0;
+      }
+
+      div.marpit>section>*:first-child,
+      div.marpit>section header:first-child+* {
+        margin-top: 0;
+      }
+
+      div.marpit>section pre {
+        margin: 0;
+        overflow: visible;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section pre code {
+        display: block;
+        overflow-y: visible;
+        overflow-x: auto;
+        padding: calc(var(--marpit-root-font-size, 1rem) * .75);
+        border: 1px dashed;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+      }
+
+      div.marpit>section pre code:focus {
+        outline: 4px solid #111111;
+        outline-offset: 4px;
+        box-shadow: 0px 0px 0px 5px gold;
+      }
+
+      div.marpit>section code {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        background-color: #F5F5FF;
+        padding: 0 calc(var(--marpit-root-font-size, 1rem) * .2);
+        border-radius: 5px;
+      }
+
+      div.marpit>section h1 {
+        border-bottom: none;
+        font-size: 1.75em;
+      }
+
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2 {
+        border-bottom: none;
+        font-size: 1.6em;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section h3 {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+
+      div.marpit>section h4 {
+        font-size: 1.05em;
+      }
+
+      div.marpit>section h5 {
+        font-size: 1em;
+      }
+
+      div.marpit>section h6 {
+        font-size: 0.9em;
+      }
+
+      div.marpit>section a:focus {
+        outline: none;
+        padding: 3px;
+        text-decoration: none;
+        background-color: gold;
+        color: #111111;
+        border-bottom: 5px solid #111111;
+      }
+
+      div.marpit>section hr {
+        height: 0;
+        padding-top: 0.25em;
+      }
+
+      div.marpit>section header {
+        top: 21px;
+      }
+
+      div.marpit>section footer {
+        bottom: 21px;
+      }
+
+      div.marpit>section header,
+      div.marpit>section footer {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .75);
+        margin: 0;
+        position: absolute;
+        left: 30px;
+        width: 1240px;
+        min-height: 30px;
+      }
+
+      div.marpit>section kbd {
+        color: #111111;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+        border: 1px solid grey;
+      }
+
+      div.marpit>section img,
+      div.marpit>section figure {
+        margin-top: 0;
+        width: 100%;
+        border: 1px solid #b1b4b6;
+      }
+
+      div.marpit>section p {
+        margin-top: 0;
+      }
+
+      div.marpit>section input {
+        padding: calc(var(--marpit-root-font-size, 1rem) * .25);
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border: 2px solid black;
+        display: block;
+      }
+
+      div.marpit>section figure {
+        margin: 0;
+        border: 0;
+      }
+
+      div.marpit>section ul,
+      div.marpit>section ol {
+        margin-top: 0;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1.5);
+      }
+
+      div.marpit>section ul li,
+      div.marpit>section ol li {
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        line-height: 1.5;
+      }
+
+      div.marpit>section blockquote {
+        margin: 0;
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border-left: 10px solid #b1b4b6;
+      }
+
+      div.marpit>section blockquote p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-style: italic;
+      }
+
+      div.marpit>section pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 1em;
+      }
+
+      div.marpit>section code.hljs {
+        padding: 3px 5px;
+      }
+
+      /*!
+  Theme: a11y-light
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+      div.marpit>section .hljs {
+        background: #fefefe;
+        color: #545454;
+      }
+
+      div.marpit>section .hljs-comment,
+      div.marpit>section .hljs-quote {
+        color: #696969;
+      }
+
+      div.marpit>section .hljs-deletion,
+      div.marpit>section .hljs-name,
+      div.marpit>section .hljs-regexp,
+      div.marpit>section .hljs-selector-class,
+      div.marpit>section .hljs-selector-id,
+      div.marpit>section .hljs-tag,
+      div.marpit>section .hljs-template-variable,
+      div.marpit>section .hljs-variable {
+        color: #d91e18;
+      }
+
+      div.marpit>section .hljs-attribute,
+      div.marpit>section .hljs-built_in,
+      div.marpit>section .hljs-link,
+      div.marpit>section .hljs-literal,
+      div.marpit>section .hljs-meta,
+      div.marpit>section .hljs-number,
+      div.marpit>section .hljs-params,
+      div.marpit>section .hljs-type {
+        color: #aa5d00;
+      }
+
+      div.marpit>section .hljs-addition,
+      div.marpit>section .hljs-bullet,
+      div.marpit>section .hljs-string,
+      div.marpit>section .hljs-symbol {
+        color: green;
+      }
+
+      div.marpit>section .hljs-section,
+      div.marpit>section .hljs-title {
+        color: #007faa;
+      }
+
+      div.marpit>section .hljs-keyword,
+      div.marpit>section .hljs-selector-tag {
+        color: #7928a1;
+      }
+
+      div.marpit>section .hljs-emphasis {
+        font-style: italic;
+      }
+
+      div.marpit>section .hljs-strong {
+        font-weight: 700;
+      }
+
+      @media screen and (-ms-high-contrast: active) {
+
+        div.marpit>section .hljs-addition,
+        div.marpit>section .hljs-attribute,
+        div.marpit>section .hljs-built_in,
+        div.marpit>section .hljs-bullet,
+        div.marpit>section .hljs-comment,
+        div.marpit>section .hljs-link,
+        div.marpit>section .hljs-literal,
+        div.marpit>section .hljs-meta,
+        div.marpit>section .hljs-number,
+        div.marpit>section .hljs-params,
+        div.marpit>section .hljs-quote,
+        div.marpit>section .hljs-string,
+        div.marpit>section .hljs-symbol,
+        div.marpit>section .hljs-type {
+          color: highlight;
+        }
+
+        div.marpit>section .hljs-keyword,
+        div.marpit>section .hljs-selector-tag {
+          font-weight: 700;
+        }
+      }
+
+      body {
+        background: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      div.marpit>section {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="marpit">
+        <section id="1" data-marpit-pagination-total="59" aria-label="Slide 1: Common WCAG failures">
+          <h1 aria-describedby="page-number-1" id="slide-1">Common WCAG failures</h1>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 1</p>
+              <p id="page-number-1" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>1</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="2" data-background-image="url(&quot;./images/twitter.png&quot;)" data-marpit-pagination-total="59" style="background-image: url(&quot;./images/twitter.png&quot;);" aria-label="Slide 2: Hello, I'm Craig">
+          <h2 class="visually-hidden" aria-describedby="page-number-2" id="slide-2">Hello, I'm Craig</h2>
+          <p class="visually-hidden">
+            I'm the head of accessibility at <a href="https://twitter.com/dwpdigital">DWP Digital</a>.
+          </p>
+          <p class="visually-hidden">
+            I'm a cat botherer and code writer. I have combined presentation ADHD, and my pronouns are <em>He</em> or <em>They</em>, either is fine.
+          </p>
+          <p class="visually-hidden">
+            You can find me on Twitter using the handle: <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 2</p>
+              <p id="page-number-2" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>2</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="3" data-marpit-pagination-total="59" aria-label="Slide 3: The Web Content Accessibility Guidelines (WCAG) are complex">
+          <h2 aria-describedby="page-number-3" id="slide-3">The Web Content Accessibility Guidelines (WCAG) are complex</h2>
+          <p>We need to check against 50 criteria for WCAG 2.1 level AA, but most of the failures we see are on a small number of those.</p>
+          <footer><a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines (WCAG) 2.1</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 3</p>
+              <p id="page-number-3" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>3</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="4" data-marpit-pagination-total="59" aria-label="Slide 4: A years worth of audit data">
+          <h2 aria-describedby="page-number-4" id="slide-4">A years worth of audit data</h2>
+          <p>Central Digital and Data Office (CDD) have released a years worth of audit data, and found most failures are on a handful of criteria. This echos our experience too.</p>
+          <footer><a href="https://www.gov.uk/government/publications/accessibility-monitoring-of-public-sector-websites-and-mobile-apps-2020-2021/accessibility-monitoring-of-public-sector-websites-and-mobile-apps-2020-2021">Accessibility monitoring of public sector websites and mobile apps 2020-2021</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 4</p>
+              <p id="page-number-4" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>4</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="5" data-marpit-pagination-total="59" aria-label="Slide 5: On GOVUK style services, about 25% of the criteria never fail">
+          <h2 aria-describedby="page-number-5" id="slide-5">On GOVUK style services, about 25% of the criteria never fail</h2>
+          <ul>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/orientation.html">1.3.4 Orientation</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/audio-control.html">1.4.2:&nbsp;Audio Control</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/text-spacing.html">1.4.12:&nbsp;Text Spacing</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/content-on-hover-or-focus.html">1.4.13:&nbsp;Content on Hover or Focus</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/character-key-shortcuts.html">2.1.4:&nbsp;Character Key Shortcuts</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/pause-stop-hide.html">2.2.2:&nbsp;Pause, Stop, Hide</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/three-flashes-or-below-threshold.html">2.3.1:&nbsp;Three Flashes or Below Threshold</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/pointer-gestures.html">2.5.1:&nbsp;Pointer Gestures</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/pointer-cancellation.html">2.5.2:&nbsp;Pointer Cancellation</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/motion-actuation.html">2.5.4:&nbsp;Motion Actuation</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 5</p>
+              <p id="page-number-5" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>5</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="6" data-marpit-pagination-total="59" aria-label="Slide 6: In this talk">
+          <h2 aria-describedby="page-number-6" id="slide-6">In this talk</h2>
+          <p>We’ll look at some of the common things which <em>do</em> fail in a bit more depth.</p>
+          <ul>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html">1.3.1 Info and Relationships</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html">1.4.3 Contrast Minimum</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html">1.4.10 Reflow</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html">1.4.11 Non-text Contrast</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/page-titled.html">2.4.2 Page Titled</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html">2.4.4 Link Purpose (In Context)</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html">2.4.6 Headings and Labels</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html">3.3.2 Labels or Instructions</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html">4.1.2 Name, Role, Value</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 6</p>
+              <p id="page-number-6" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>6</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="7" data-marpit-pagination-total="59" aria-label="Slide 7: 1.4.10 Reflow">
+          <h2 aria-describedby="page-number-7" id="slide-7">1.4.10 Reflow</h2>
+          <p>The intent of this success criterion is to support people with low vision who need to enlarge text and read it in a single column.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/reflow.html">WCAG criterion 1.4.10 Reflow</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 7</p>
+              <p id="page-number-7" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>7</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="8" data-marpit-pagination-total="59" aria-label="Slide 8: People often wrongly assume reflow does not apply">
+          <h3 aria-describedby="page-number-8" id="slide-8">People often wrongly assume reflow does not apply</h3>
+          <p>It’s wrong to assume it’s only for people using mobile phones. We often here people say things like:</p>
+          <blockquote>
+            <p>“We know the users will be using the Edge Browser on Windows 10 devices. They won’t be using mobile phones, so this criterion is not applicable to us!”</p>
+          </blockquote>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 8</p>
+              <p id="page-number-8" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>8</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="9" data-marpit-pagination-total="59" aria-label="Slide 9: Reflow also applies to zooming in using the browser">
+          <h3 aria-describedby="page-number-9" id="slide-9">Reflow also applies to zooming in using the browser</h3>
+          <div class="row">
+            <div class="col">
+              <p>Desktop view:</p>
+              <img src="./images/reflow-full-width.png" alt="Example of the GOV.UK Design System website in desktop view" width="500">
+            </div>
+            <div class="col">
+              <p>Zoomed view:</p>
+              <img src="./images/reflow-zoomed-view.png" alt="Example of the GOV.UK Design System website in mobile view" style="max-width:400px" width="500">
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 9</p>
+              <p id="page-number-9" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>9</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="10" data-marpit-pagination-total="59" aria-label="Slide 10: No horizontal scrolling at 320px">
+          <h3 aria-describedby="page-number-10" id="slide-10">No horizontal scrolling at 320px</h3>
+          <p>For reflow to pass, there must be no horizontal scrolling at 320px wide, unless it is <em>essential</em> to the understanding of the content, such as a map, a data table or a code example.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 10</p>
+              <p id="page-number-10" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>10</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="11" data-marpit-pagination-total="59" aria-label="Slide 11: Even when scrolling is allowed, it must be contained">
+          <h3 aria-describedby="page-number-11" id="slide-11">Even when scrolling is allowed, it must be contained</h3>
+          <div class="row" style="margin-top: 0">
+            <div class="col">
+              <p class="visually-hidden">Good Example:</p>
+              <img src="./images/horizontal-scrolling-contained.png" alt="A code example which is contained within a horizontal scrolling element." style="border: 0; max-width:400px" width="500">
+            </div>
+            <div class="col">
+              <p class="visually-hidden">Bad Example:</p>
+              <img src="./images/horizontal-scrolling-not-contained.png" alt="A code example which is breaking out of it's container and being clipped off the side of the page." style="border: 0; max-width:400px" width="500">
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 11</p>
+              <p id="page-number-11" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>11</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="12" data-marpit-pagination-total="59" aria-label="Slide 12: The 400% zoom misconception">
+          <h3 aria-describedby="page-number-12" id="slide-12">The 400% zoom misconception</h3>
+          <p>There’s a myth that if you have no horizontal scrolling at 400% zoom, then you pass reflow.</p>
+          <p>But, it’s more complicated than that. Zooming to 400% is only accurate on displays which are 1280px wide. This is because 320 multiplied by 400% is 1280.</p>
+          <p>For example:<br>
+            <code>320px * 400% = 1280px</code>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 12</p>
+              <p id="page-number-12" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>12</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="13" data-marpit-pagination-total="59" aria-label="Slide 13: How to accurately test reflow">
+          <h3 aria-describedby="page-number-13" id="slide-13">How to accurately test reflow</h3>
+          <p>You should use the DevTools in your browser to accurately set the dimensions of the viewport.</p>
+          <img src="./images/reflow-chrome-tools.png" alt="The DevTools panel in Google Chrome. The responsive tools are highlighted in red." width="500">
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 13</p>
+              <p id="page-number-13" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>13</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="14" data-marpit-pagination-total="59" aria-label="Slide 14: 2.4.2 Page Titled">
+          <h2 aria-describedby="page-number-14" id="slide-14">2.4.2 Page Titled</h2>
+          <p>The intent of this Success Criterion is to help users find content and orient themselves within it by ensuring that each Web page has a descriptive title. Titles identify the current location without requiring users to read or interpret page content.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/page-titles.html">WCAG criterion 2.4.2 Page Titled</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 14</p>
+              <p id="page-number-14" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>14</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="15" data-marpit-pagination-total="59" aria-label="Slide 15: Page title example">
+          <h3 aria-describedby="page-number-15" id="slide-15">Page title example</h3>
+          <p>The user should be able to tell what page they’re on and which service or website they’re on from the title alone.</p>
+          <p>You may add additional content if the website is under an umbrellar, such as <a href="http://GOV.UK">GOV.UK</a>.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>
+  What is your name? - Apply for Universal Credit - GOV.UK
+<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 15</p>
+              <p id="page-number-15" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>15</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="16" data-marpit-pagination-total="59" aria-label="Slide 16: Page titles must be unique">
+          <h3 aria-describedby="page-number-16" id="slide-16">Page titles must be unique</h3>
+          <div class="row" style="margin-top: 0">
+            <div class="col">
+              <code>Your details: What is your name?</code>
+              <img src="./images/title-your-details-1.png" alt="A code example which is contained within a horizontal scrolling element." style="border: 0; max-width:400px" width="500">
+            </div>
+            <div class="col">
+              <code>Your details: What is your home postcode?</code>
+              <img src="./images/title-your-details-2.png" alt="A code example which is breaking out of it's container and being clipped off the side of the page." style="border: 0; max-width:400px" width="500">
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 16</p>
+              <p id="page-number-16" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>16</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="17" data-marpit-pagination-total="59" aria-label="Slide 17: Your page title and your page description should be consistent">
+          <h3 aria-describedby="page-number-17" id="slide-17">Your page title and your page description should be consistent</h3>
+          <p>In most cases, the <code>&lt;title&gt;</code> and the <code>&lt;h1&gt;</code> should be identical.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>What is you name? – Apply for Universal Credit<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>What is your name?<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 17</p>
+              <p id="page-number-17" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>17</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="18" data-marpit-pagination-total="59" aria-label="Slide 18: Personal information is the exception">
+          <h3 aria-describedby="page-number-18" id="slide-18">Personal information is the exception</h3>
+          <p>The page title may be passed to analytics software and that needs to be anonymous.</p>
+          <p>If the <code>&lt;h1&gt;</code> contains personal information, the <code>&lt;title&gt;</code> should be different but consistent.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>What is your partners date of birth? – Apply for Marriage Allowance<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>What is John Smith's date of birth?<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 18</p>
+              <p id="page-number-18" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>18</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="19" data-marpit-pagination-total="59" aria-label="Slide 19: 4.1.2 Name, Role, Value">
+          <h2 aria-describedby="page-number-19" id="slide-19">4.1.2 Name, Role, Value</h2>
+          <p>The intent of this Success Criterion is to ensure that Assistive Technologies can gather information about, activate (or set) and keep up to date on the status of user interface controls in the content.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/name-role-value.html">WCAG criterion 4.1.2 Name, Role, Value</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 19</p>
+              <p id="page-number-19" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>19</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="20" data-marpit-pagination-total="59" aria-label="Slide 20: Name">
+          <h3 aria-describedby="page-number-20" id="slide-20">Name</h3>
+          <p>Anything which is interactive needs to have an accessible name so a screen reader can set expectations with the user.</p>
+          <p>Text is the easiest way to give an element a name.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>
+  Play
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 20</p>
+              <p id="page-number-20" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>20</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="21" data-marpit-pagination-total="59" aria-label="Slide 21: You can use CSS to visually hide text from the screen">
+          <h3 aria-describedby="page-number-21" id="slide-21">You can use CSS to visually hide text from the screen</h3>
+          <p>You can visually hide it, but don’t use <code>display:none</code> or <code>visibility:hidden</code> or it will also be hidden to assistive technology.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"play-btn"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"visually-hidden"</span>&gt;</span>Play<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 21</p>
+              <p id="page-number-21" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>21</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="22" data-marpit-pagination-total="59" aria-label="Slide 22: Alt text on an image will count as an accessible name">
+          <h3 aria-describedby="page-number-22" id="slide-22">Alt text on an image will count as an accessible name</h3>
+          <p>The text in the alt attribute will become the accessible name in the accessibility tree.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"play-icon.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Play"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 22</p>
+              <p id="page-number-22" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>22</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="23" data-marpit-pagination-total="59" aria-label="Slide 23: An aria-label will also count as a name">
+          <h3 aria-describedby="page-number-23" id="slide-23">An aria-label will also count as a name</h3>
+          <p>ARIA labels can make your code more complex and difficult to read. You might also fail <a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html">1.3.1 Info and Relationships</a> if there is no visual label. So be careful!</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"play"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 23</p>
+              <p id="page-number-23" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>23</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="24" data-marpit-pagination-total="59" aria-label="Slide 24: Role">
+          <h2 aria-describedby="page-number-24" id="slide-24">Role</h2>
+          <p>The role allows users to recognise interactive elements and interact with them in a predictable way.</p>
+          <p><em>If it looks like a thing, it should behave like that thing.</em></p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 24</p>
+              <p id="page-number-24" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>24</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="25" data-marpit-pagination-total="59" aria-label="Slide 25: Implicit roles">
+          <h3 aria-describedby="page-number-25" id="slide-25">Implicit roles</h3>
+          <p>All interactive elements will have an implicit role, so if you’re using them properly you shouldn’t have to worry about it.</p>
+          <p>For example:</p>
+          <ul>
+            <li><code>&lt;a&gt;</code> = link</li>
+            <li><code>&lt;button&gt;</code> = button</li>
+            <li><code>&lt;img&gt;</code> = img</li>
+            <li><code>&lt;img alt=""&gt;</code> = presentation</li>
+            <li><code>&lt;input type="text"&gt;</code> = text input</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 25</p>
+              <p id="page-number-25" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>25</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="26" data-marpit-pagination-total="59" aria-label="Slide 26: Mismatched roles">
+          <h3 aria-describedby="page-number-26" id="slide-26">Mismatched roles</h3>
+          <p>Making a link look like a button using CSS styling, without giving it the correct role, is a really common failure.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">“btn”</span>&gt;</span>
+  Register
+<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 26</p>
+              <p id="page-number-26" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>26</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="27" data-marpit-pagination-total="59" aria-label="Slide 27: If it looks like a button, it must behave like a button">
+          <h3 aria-describedby="page-number-27" id="slide-27">If it looks like a button, it must behave like a button</h3>
+          <p>If you change the style to look like something else, then you also need to change the role.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">“btn”</span> <span class="hljs-attr">role</span>=<span class="hljs-string">“button”</span>&gt;</span>
+  Register
+<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 27</p>
+              <p id="page-number-27" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>27</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="28" data-marpit-pagination-total="59" aria-label="Slide 28: Value">
+          <h3 aria-describedby="page-number-28" id="slide-28">Value</h3>
+          <p>For interface components which have changeable states such as sliders or expandable sections, then the information must be available to assistive technologies.</p>
+          <p>Bad example:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">“accordion</span> <span class="hljs-attr">open</span>”&gt;</span>
+</code></pre>
+          <p>Good example:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">“accordion”</span> <span class="hljs-attr">aria-expanded</span>=<span class="hljs-string">“true”</span> <span class="hljs-attr">open</span>=<span class="hljs-string">“true”</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 28</p>
+              <p id="page-number-28" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>28</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="29" data-marpit-pagination-total="59" aria-label="Slide 29: 2.4.4 Link Purpose (In Context)">
+          <h2 aria-describedby="page-number-29" id="slide-29">2.4.4 Link Purpose (In Context)</h2>
+          <p>The intent of this Success Criterion is to help users understand the purpose of each link so they can decide whether they want to follow the link.</p>
+          <p>Whenever possible, provide link text that identifies the purpose of the link without needing additional context.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html">WCAG criterion 4.1.2 Link Purpose (In Context)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 29</p>
+              <p id="page-number-29" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>29</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="30" data-marpit-pagination-total="59" aria-label="Slide 30: Examples of links">
+          <h3 aria-describedby="page-number-30" id="slide-30">Examples of links</h3>
+          <p>Good example:<br>
+            You can read more about the <a href="https://design-system.service.gov.uk/">GOVUK Design System</a>.</p>
+          <p>Bad example:<br>
+            You can <a href="https://design-system.service.gov.uk/">read more</a> about the GOVUK Design System.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 30</p>
+              <p id="page-number-30" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>30</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="31" data-marpit-pagination-total="59" aria-label="Slide 31: Technically, the bad example might still pass">
+          <h4 aria-describedby="page-number-31" id="slide-31">Technically, the bad example might still pass</h4>
+          <p>A bad example can pass depending on the surrounding text, but it becomes subjective.</p>
+          <p>Potential pass:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>You can <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>read more<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> about the GOV.UK Design System.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <p>Definite fail:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>You can find more examples in the GOV.UK Design System.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Read more<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 31</p>
+              <p id="page-number-31" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>31</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="32" data-marpit-pagination-total="59" aria-label="Slide 32: Context may not help screen reader users">
+          <h4 aria-describedby="page-number-32" id="slide-32">Context may not help screen reader users</h4>
+          <p>Even if it’s technically a pass, using links “in context” means some screen reader functionality will be broken.</p>
+          <p>
+            <img alt="Links rotor" src="./images/links-rotor.png" style="width: 400px" width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 32</p>
+              <p id="page-number-32" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>32</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="33" data-marpit-pagination-total="59" aria-label="Slide 33: Always work to 2.4.9 Link Purpose (Link Only)">
+          <h4 aria-describedby="page-number-33" id="slide-33">Always work to 2.4.9 Link Purpose (Link Only)</h4>
+          <p>If you work to <a href="https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html">2.4.9&nbsp;Link Purpose (Link Only)</a> you will always pass <a href="https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-in-context.html">2.4.4 Link Purpose (In Context)</a> and create fewer barriers for people</p>
+          <p>If you write bad links and rely on that additional context, the outcome of your accessibility audit then becomes subjective, and you want to be certain it will pass!</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 33</p>
+              <p id="page-number-33" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>33</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="34" data-marpit-pagination-total="59" aria-label="Slide 34: 1.4.3: Contrast (Minimum)">
+          <h2 aria-describedby="page-number-34" id="slide-34">1.4.3: Contrast (Minimum)</h2>
+          <p>The intent of this Success Criterion is to provide enough contrast between text and its background so that it can be read by people with moderately low vision (who do not use contrast-enhancing assistive technology).</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/link-purpose-link-only.html">WCAG criterion 1.4.3 Contrast (Minimum)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 34</p>
+              <p id="page-number-34" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>34</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="35" data-marpit-pagination-total="59" aria-label="Slide 35: Contrast ratio: large vs normal">
+          <h3 aria-describedby="page-number-35" id="slide-35">Contrast ratio: large vs normal</h3>
+          <p>WCAG says:</p>
+          <ul>
+            <li>Large text must have a contrast ratio of 3:1</li>
+            <li>Normal text must have a contrast ratio of 4.5:1</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 35</p>
+              <p id="page-number-35" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>35</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="36" data-marpit-pagination-total="59" aria-label="Slide 36: Font size: large vs normal">
+          <h3 aria-describedby="page-number-36" id="slide-36">Font size: large vs normal</h3>
+          <p>WCAG says:</p>
+          <ul>
+            <li>Large, is text that is 18pt or larger</li>
+            <li>Or, 14pt or larger and bold</li>
+          </ul>
+          <p>So, by process of elimination, it means normal text is anything which is smaller than 18pt and not bold.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 36</p>
+              <p id="page-number-36" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>36</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="37" data-marpit-pagination-total="59" aria-label="Slide 37: Points (pt) vs Pixels (px)">
+          <h3 aria-describedby="page-number-37" id="slide-37">Points (pt) vs Pixels (px)</h3>
+          <p>When comparing points to pixels:</p>
+          <ul>
+            <li>18pt is roughly 24px</li>
+            <li>14pt is roughly 19px</li>
+          </ul>
+          <p>So if your font size is:</p>
+          <ul>
+            <li>24px or larger, you need a 3:1 ratio</li>
+            <li>19px or larger and bold, you need a ratio of 3:1</li>
+            <li>Smaller than 24px and not bold, you need a ratio of 4.5:1</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 37</p>
+              <p id="page-number-37" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>37</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="38" data-marpit-pagination-total="59" aria-label="Slide 38: Contrast Minimum example">
+          <h3 aria-describedby="page-number-38" id="slide-38">Contrast Minimum example</h3>
+          <div class="row">
+            <div class="col">
+              <p>Pass:</p>
+              <img src="./images/contrast-minimum-pass.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. There is a label which shows the contrast ratio between the text and the button background is 4.51 to 1." width="500">
+            </div>
+            <div class="col">
+              <p>Fail:</p>
+              <img src="./images/contrast-minimum-fail.png" style="border:0;width:300px" alt="A blue button with white blue text reading 'Sign up'. There is a label which shows the contrast ratio between the text and the button background is 1.91 to 1." width="500">
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 38</p>
+              <p id="page-number-38" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>38</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="39" data-marpit-pagination-total="59" aria-label="Slide 39: 1.4.11: Non-text Contrast">
+          <h2 aria-describedby="page-number-39" id="slide-39">1.4.11: Non-text Contrast</h2>
+          <p>The intent of this Success Criterion is to ensure that active user interface components (i.e., controls) and meaningful graphics are distinguishable by people with moderately low vision.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html">WCAG criterion 1.4.11 Non Text Contrast</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 39</p>
+              <p id="page-number-39" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>39</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="40" data-marpit-pagination-total="59" aria-label="Slide 40: Non-text Contrast is the colour contrast of things which are not text">
+          <h3 aria-describedby="page-number-40" id="slide-40">Non-text Contrast is the colour contrast of things which are not text</h3>
+          <p>For example:</p>
+          <ul>
+            <li>Icons</li>
+            <li>Button styles</li>
+            <li>Focus styles</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 40</p>
+              <p id="page-number-40" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>40</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="41" data-marpit-pagination-total="59" aria-label="Slide 41: Same example, different fail">
+          <h3 aria-describedby="page-number-41" id="slide-41">Same example, different fail</h3>
+          <p>We established earlier, the dark blue text against the light blue background meets the minimum standard for <a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html">1.4.3: Contrast (Minimum)</a>.</p>
+          <p>
+            <img src="./images/contrast-minimum-pass.png" style="border:0;width:300px" alt="The same button example shown as a pass on a previous slide. A blue button with dark blue text reading 'Sign up'. There is a label which shows the contrast ratio between the text and the button background is 4.51 to 1." width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 41</p>
+              <p id="page-number-41" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>41</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="42" data-marpit-pagination-total="59" aria-label="Slide 42: 1.4.11: Non-text Contrast">
+          <h2 aria-describedby="page-number-42" id="slide-42">1.4.11: Non-text Contrast</h2>
+          <p>The blue background against the white is so poor some people may not be able to see it, so it won’t be perceivable as a button at all. So it fails on a different WCAG criterion.</p>
+          <p>Fail example:</p>
+          <p>
+            <img src="./images/non-text-contrast-fail.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. There is a label which shows the contrast ratio between the button background and the page background is 1.96 to 1." width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 42</p>
+              <p id="page-number-42" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>42</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="43" data-marpit-pagination-total="59" aria-label="Slide 43: Borders count as contrast">
+          <h3 aria-describedby="page-number-43" id="slide-43">Borders count as contrast</h3>
+          <p>By adding a border which meets the minimum standard, the fact the light blue fails no longer matters. The background of the button could be white and it would still look like a button.</p>
+          <p>Pass example:</p>
+          <p>
+            <img src="./images/non-text-contrast-pass.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. There is a border surrounting the button in the same dark blue. There is a label which shows the contrast ratio between the button background and the page background is 4.51 to 1." width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 43</p>
+              <p id="page-number-43" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>43</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="44" data-marpit-pagination-total="59" aria-label="Slide 44: Focus styles">
+          <h3 aria-describedby="page-number-44" id="slide-44">Focus styles</h3>
+          <p>Focus styles are often overlooked when it comes to contrast. This is for keyboard users when they are tabbing through interactive elements.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 44</p>
+              <p id="page-number-44" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>44</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="45" data-marpit-pagination-total="59" aria-label="Slide 45: Low contrast focus colour">
+          <h3 aria-describedby="page-number-45" id="slide-45">Low contrast focus colour</h3>
+          <p>When the item is focused, it is now again failing on colour contrast because the pink is not strong enough against the white.</p>
+          <p>
+            <img src="./images/focus-styles-fail.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. It has a pale pink outline to show it is focused. There is a label which shows the contrast ratio between the focus style and the page background is 2.01 to 1." width="500">
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 45</p>
+              <p id="page-number-45" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>45</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="46" data-marpit-pagination-total="59" aria-label="Slide 46: Fixing focus styles to meet the requirements">
+          <h3 aria-describedby="page-number-46" id="slide-46">Fixing focus styles to meet the requirements</h3>
+          <p>You can get creative. There are many ways to do it, just make sure there is at least 1 visual indicator which meets the contrast ratio.</p>
+          <div class="row">
+            <div class="col">
+              <p>Pass by adding a border:</p>
+              <img src="./images/focus-styles-pass-1.png" style="border:0;width:300px" alt="A dark blue button with white text reading 'Sign up'. It has a pale pink outline showing it is focused. There is a label which shows the contrast ratio between the button background and the page background is 4.51 to 1." width="500">
+            </div>
+            <div class="col">
+              <p>Pass by changing the background:</p>
+              <img src="./images/focus-styles-pass-2.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. It has a pale pink outline to show it is focused. There is a label which shows the contrast ratio between the focus style and the page background is 2.01 to 1." width="500">
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 46</p>
+              <p id="page-number-46" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>46</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="47" data-marpit-pagination-total="59" aria-label="Slide 47: People wrongly assume colour contrast is a blocker to creativity and branding">
+          <h3 aria-describedby="page-number-47" id="slide-47">People wrongly assume colour contrast is a blocker to creativity and branding</h3>
+          <p>It does not fail if there is enough contrast to distinguish what the element is supposed to be. It only fails if you’re not smart about how you accent your colour palette.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 47</p>
+              <p id="page-number-47" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>47</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="48" data-marpit-pagination-total="59" aria-label="Slide 48: 1.3.1 Info and relationships">
+          <h2 aria-describedby="page-number-48" id="slide-48">1.3.1 Info and relationships</h2>
+          <p>The intent of this Success Criterion is to ensure that information and relationships that are implied by visual or auditory formatting are preserved when the presentation format changes. For example, the presentation format changes when the content is read by a screen reader or when a user style sheet is substituted for the style sheet provided by the author.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html">WCAG criterion 1.3.1 Info and Relationships</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 48</p>
+              <p id="page-number-48" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>48</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="49" data-marpit-pagination-total="59" aria-label="Slide 49: Info and Relationships is about how content is perceived">
+          <h3 aria-describedby="page-number-49" id="slide-49">Info and Relationships is about how content is perceived</h3>
+          <p>If you can <em>see</em> a visual relationship on the page, that relationship must also be available to a assistive technology.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 49</p>
+              <p id="page-number-49" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>49</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="50" data-marpit-pagination-total="59" aria-label="Slide 50: Oprpaned Labels">
+          <h3 aria-describedby="page-number-50" id="slide-50">Oprpaned Labels</h3>
+          <p>Orphaned labels are where they are visually related, but they’re not linked together in the code.</p>
+          <p>Fail:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Full Name<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">“text”</span>&gt;</span>
+</code></pre>
+          <p>Pass:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">“name”</span>&gt;</span>Full Name<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">“name”</span> <span class="hljs-attr">type</span>=<span class="hljs-string">“text”</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 50</p>
+              <p id="page-number-50" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>50</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="51" data-marpit-pagination-total="59" aria-label="Slide 51: Headings not marked up correctly">
+          <h2 aria-describedby="page-number-51" id="slide-51">Headings not marked up correctly</h2>
+          <p>Don’t just make text <em>look</em> like a heading. Make sure you use the correct heading tag.</p>
+          <p>Fail:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">“heading-xl”</span>&gt;</span>
+  WCAG 2.1
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <p>Pass:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">“heading-xl”</span>&gt;</span>
+  WCAG 2.1
+<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 51</p>
+              <p id="page-number-51" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>51</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="52" data-marpit-pagination-total="59" aria-label="Slide 52: WCAG is hard!">
+          <h2 aria-describedby="page-number-52" id="slide-52">WCAG is hard!</h2>
+          <p>It’s so fragmented its easy to make mistakes.</p>
+          <p>For headings or labels you actually need to cover 3 different criteria:</p>
+          <ul>
+            <li>headings and labels need to be marked up correctly</li>
+            <li>headings and labels need to make sense</li>
+            <li>all inputs need to have a label</li>
+          </ul>
+          <p><em>Note, at level AA WCAG, does not care if headings are missing. Just that if you have them, they are marked up correctly and make sense.</em></p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 52</p>
+              <p id="page-number-52" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>52</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="53" data-marpit-pagination-total="59" aria-label="Slide 53: How does 1.3.1 Info and Relationships apply to headings and labels?">
+          <h3 aria-describedby="page-number-53" id="slide-53">How does 1.3.1 Info and Relationships apply to headings and labels?</h3>
+          <p>It <em>does not</em> matter if:</p>
+          <ul>
+            <li>headings or labels are missing from the page</li>
+            <li>headings or labels do not make sense</li>
+          </ul>
+          <p>It <em>only</em> matters that:</p>
+          <ul>
+            <li>if there are headings and labels on the page, they are marked up correctly</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 53</p>
+              <p id="page-number-53" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>53</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="54" data-marpit-pagination-total="59" aria-label="Slide 54: How does 2.4.6 Headings and Labels apply?">
+          <h3 aria-describedby="page-number-54" id="slide-54">How does 2.4.6 Headings and Labels apply?</h3>
+          <p>It <em>does not</em> matter if:</p>
+          <ul>
+            <li>headings and labels are missing from the page</li>
+            <li>headings and labels are not marked up correctly</li>
+          </ul>
+          <p>It <em>only</em> matters that:</p>
+          <ul>
+            <li>if there are headings and labels, they make sense</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 54</p>
+              <p id="page-number-54" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>54</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="55" data-marpit-pagination-total="59" aria-label="Slide 55: How does 3.3.2 Labels or Instructions apply?">
+          <h3 aria-describedby="page-number-55" id="slide-55">How does 3.3.2 Labels or Instructions apply?</h3>
+          <p>It <em>does not</em> matter if:</p>
+          <ul>
+            <li>labels are marked up correctly</li>
+            <li>the label does not make sense</li>
+          </ul>
+          <p>It <em>only</em> matters if:</p>
+          <ul>
+            <li>It only cares if they are missing from the page.</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 55</p>
+              <p id="page-number-55" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>55</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="56" data-marpit-pagination-total="59" aria-label="Slide 56: Basic Accessibility Checks">
+          <h2 aria-describedby="page-number-56" id="slide-56">Basic Accessibility Checks</h2>
+          <p>We’ve compiled a list of 10 checks which cover all of the WCAG issues we see fail regularly!</p>
+          <p>It won’t tell you if your website is 100% compliant. But it will let you know very quickly if it has some of the major barriers we see.</p>
+          <footer><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks">Basic accessibility checks</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 56</p>
+              <p id="page-number-56" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>56</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="57" data-marpit-pagination-total="59" aria-label="Slide 57: It also humanises a lot why each check is important">
+          <h3 aria-describedby="page-number-57" id="slide-57">It also humanises a lot why each check is important</h3>
+          <p>For example:</p>
+          <p>Charlie has Retinitis Pigmentosa, also known as “tunnel vision”. They have no vision in their right eye, but have a narrow vertical band of usable vision in the left.</p>
+          <p>They are registered blind, but try not to use a screen reader as they still find it easier to read themselves. To help, they have a monitor mounted in portrait mode, slightly off centre to the left of their desk.</p>
+          <p>If the website does not reflow to work in portrait mode, it does not fit into Charlie’s vertical band of vision and their ability use the website is significantly impacted.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 57</p>
+              <p id="page-number-57" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>57</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="58" data-marpit-pagination-total="59" aria-label="Slide 58: 10 checks cover around half of the WCAG AA criteria, and all of the ones we see fail regularly!">
+          <h3 aria-describedby="page-number-58" id="slide-58">10 checks cover around half of the WCAG AA criteria, and all of the ones we see fail regularly!</h3>
+          <ol>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#1-automated-tools">Automated tools</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#2-responsive-design">Responsive design</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#3-keyboard-accessibility">Keyboard accessibility</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#4-headings-and-labels">Headings and labels</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#5-page-title">Page title</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#6-links-and-buttons">Links and buttons</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#7-colour-contrast">Colour contrast</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#8-images">Images</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#9-announcements-and-alerts">Announcements and alerts</a></li>
+            <li><a href="https://accessibility-manual.dwp.gov.uk/tools-and-resources/basic-accessibility-checks#10-session-timeouts">Session timeouts</a></li>
+          </ol>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 58</p>
+              <p id="page-number-58" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>58</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="59" data-marpit-pagination-total="59" aria-label="Slide 59: Thank you!">
+          <h2 aria-describedby="page-number-59" id="slide-59">Thank you!</h2>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 59</p>
+              <p id="page-number-59" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>59</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+
+  </body>
+
+</html>

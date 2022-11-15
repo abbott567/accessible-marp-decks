@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Skip-link demo - HTML: Back to basics</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; max-width:660px; margin:auto; }
+      header { background:black; color:white; padding: 1rem 2rem 2rem; }
+      nav a { color:white; }
+      nav ul { padding-left:0; margin:.75rem 0 0 }
+      nav li { display:inline; margin-right:.75rem }
+      a:focus { border: 5px solid black; background:yellow; color:black; }
+      .skip-link { padding: .5rem; display: block; }
+      
+      /* Hide skip-link */
+      .skip-link {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: 0;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+      .skip-link:focus {
+        position: static;
+        width: auto;
+        height: auto;
+        margin: inherit;
+        overflow: visible;
+        clip: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+      <p>
+        HTML: Back to basics
+      </p>
+      <nav>
+        <ul>
+          <li><a href="#">Nav link 1</a></li>
+          <li><a href="#">Nav link 2</a></li>
+          <li><a href="#">Nav link 3</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <h1>Skip-link demo</h1>
+      
+      <p>
+        If you use the skip-link, the next focusable item should be the following link: 
+        <a href="#">First link inside main tag</a>, as it's the first interactive element 
+        inside the main tag.
+      </p>
+      <p>
+        If you don't use the skip-link, pressing the tab key will move you sequentially 
+        through all the focusable items on the page and you will eventually get to 
+        following link: <a href="#">Last link inside main tag</a>.
+      </p>
+    </main>
+  </body>
+</html>

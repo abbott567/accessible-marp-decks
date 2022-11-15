@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Input types demo - HTML: forms</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      label { display:block; }
+      input { font-size: 1rem; border: 1px solid black; padding:10px; margin-bottom:1rem; }
+      input:focus { border: 5px solid #000000; outline: 3px solid gold; }
+      button { font-size:1rem; display:block; padding: 10px; background-color:darkolivegreen; color:white; }
+      button:focus { border: 5px solid #000000; outline: 3px solid gold; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Input types</h1>
+
+      <form>
+        <label for="text-input">First name</label>
+        <input type="text" id="text-input">
+  
+        <label for="number-input">Age</label>
+        <input type="number" id="number-input">
+  
+        <label for="tel-input">Phone number</label>
+        <input type="tel" id="tel-input">
+  
+        <label for="date-input">Date of birth</label>
+        <input type="date" id="date-input">
+  
+        <button>Continue</button>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector('form')
+      form.addEventListener('submit', e => e.preventDefault())
+    </script>
+  </body>
+</html>

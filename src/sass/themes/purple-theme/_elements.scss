@@ -1,0 +1,186 @@
+%purpleText { color: $brand-colour; }
+%defaultFont { font-family: Arial, Helvetica, sans-serif; }
+%codeFont { font-family: monospace, monospace; }
+%twoThids { max-width: 66%; }
+
+section {
+  @extend %defaultFont;
+  line-height: 1.2;
+  font-size: 29px;
+  color: $primary-text-colour;
+  background: $slide-background-colour;
+  align-items: stretch;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 720px;
+  justify-content: center;
+  padding: 78.5px;
+  width: 1280px;
+  background-size: cover;
+  &:after {
+    color: $secondary-text-colour;
+    font-size: 24px;
+    position: absolute;
+    padding: 0;
+    right: 30px;
+    bottom: 21px;
+  }
+  > *:last-child, section[data-footer] > :nth-last-child(2) {
+    margin-bottom: 0;
+  }
+  > *:first-child, header:first-child + * {
+    margin-top: 0;
+  }
+}
+
+pre {
+  margin: 0;
+  overflow: visible;
+  margin-bottom: 1rem;
+  
+  code {
+    @extend %codeFont;
+    display: block;
+    overflow-y: visible;
+    overflow-x: auto;
+    padding: .75rem;
+    border: 1px dashed;
+    font-size: .9rem;
+  }
+  code:focus {
+    outline: 4px solid $focus-outline-colour;
+    outline-offset: 4px;
+    box-shadow: 0px 0px 0px 5px $focus-bg-colour;
+  }
+}
+
+code {
+  @extend %codeFont;
+  font-size: 1rem;
+  background-color: $lightest-purple;
+  padding: 0 .2rem;
+  border-radius: 5px;
+}
+
+h1 {
+  @extend %purpleText;
+  @extend %twoThids;
+  border-bottom: none;
+  font-size: 1.75em;
+}
+section h2:first-of-type,
+section h3:first-of-type,
+section h4:first-of-type,
+section h5:first-of-type,
+section h6:first-of-type,
+h2 {
+  @extend %purpleText;
+  @extend %twoThids;
+  border-bottom: none;
+  font-size: 1.6em;
+  margin-bottom: 1rem;
+}
+h3 {
+  @extend %purpleText;
+  font-size: 1.1em;
+  margin-top: 0;
+}
+h4 { 
+  @extend %purpleText;
+  font-size: 1.05em;
+}
+h5 {
+  @extend %purpleText;
+  font-size: 1em;
+}
+h6 {
+  @extend %purpleText;
+  font-size: 0.9em;
+}
+
+a {
+  @extend %purpleText;
+  &:visited {
+    @extend a;
+  }
+  &:focus {
+    outline: none;
+    padding: 3px;
+    text-decoration: none;
+    background-color: $focus-bg-colour;
+    color: $focus-colour;
+    border-bottom: 5px solid $focus-outline-colour;
+  }
+}
+
+hr {
+  height: 0;
+  padding-top: 0.25em;
+}
+
+header {
+  @extend %headerFooter;
+  top: 21px;
+}
+footer {
+  @extend %headerFooter;
+  bottom: 21px;
+}
+%headerFooter {
+  font-size: .75rem;
+  margin: 0;
+  position: absolute;
+  left: 30px;
+  width: 1240px;
+  min-height: 30px;
+}
+
+kbd {
+  color: $primary-text-colour;
+  font-size: .9rem;
+  border: 1px solid grey;
+}
+
+img, figure {
+  margin-top: 0;
+  width: 100%;
+  border: 1px solid $border-colour;
+}
+
+p {
+  @extend %twoThids;
+  margin-top: 0;
+}
+
+input {
+  padding: .25rem;
+  font-size: 1rem;
+  border: 2px solid black;
+  display: block;
+}
+
+figure {
+  margin: 0;
+  border: 0;
+}
+
+ul, ol {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  li {
+    padding-left: 1rem;
+    line-height: 1.5;
+  }
+}
+
+blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 10px solid $border-colour;
+  p {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-style: italic;
+  }
+}

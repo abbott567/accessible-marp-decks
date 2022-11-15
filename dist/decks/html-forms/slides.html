@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>HTML Forms - National Coding Week</title>
+    <meta name="description" content="Session on HTML forms for National Coding Week.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+      div.marpit>section {
+        width: 1280px;
+        height: 720px;
+
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+
+        scroll-snap-align: center center;
+      }
+
+      div.marpit>section::after {
+        bottom: 0;
+        content: attr(data-marpit-pagination);
+        padding: inherit;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+      }
+
+      div.marpit>section:not([data-marpit-pagination])::after {
+        display: none;
+      }
+
+      /* Normalization */
+      div.marpit>section h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+
+      div.marpit>section video::-webkit-media-controls {
+        will-change: transform;
+      }
+
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+
+      @media print {
+
+        html,
+        body {
+          background-color: #fff;
+          margin: 0;
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+        div.marpit>section {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        div.marpit>section,
+        div.marpit>section * {
+          -webkit-print-color-adjust: exact !important;
+          animation-delay: 0s !important;
+          animation-duration: 0s !important;
+          color-adjust: exact !important;
+          transition: none !important;
+        }
+
+        div.marpit>svg[data-marpit-svg] {
+          display: block;
+          height: 100vh;
+          width: 100vw;
+        }
+      }
+
+      /* @theme dwp-theme */
+      /*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+      div.marpit>section .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        margin: calc(var(--marpit-root-font-size, 1rem) * 1) 0;
+      }
+
+      div.marpit>section .col {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        margin-right: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section .pagination {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        top: 0;
+      }
+
+      div.marpit>section section.pagination {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important;
+        border: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section h3,
+      div.marpit>section h4,
+      div.marpit>section h5,
+      div.marpit>section h6,
+      div.marpit>section a,
+      div.marpit>section a:visited {
+        color: #4c2b91;
+      }
+
+      div.marpit>section {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      div.marpit>section pre code,
+      div.marpit>section code {
+        font-family: monospace, monospace;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section p {
+        max-width: 66%;
+      }
+
+      div.marpit>section {
+        line-height: 1.2;
+        font-size: 29px;
+        color: #111111;
+        background: white;
+        align-items: stretch;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 720px;
+        justify-content: center;
+        padding: 78.5px;
+        width: 1280px;
+        background-size: cover;
+      }
+
+      div.marpit>section {
+        --marpit-root-font-size: 29px;
+      }
+
+      div.marpit>section:after {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        bottom: 21px;
+      }
+
+      div.marpit>section:after {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section>*:last-child,
+      div.marpit>section section[data-footer]> :nth-last-child(2) {
+        margin-bottom: 0;
+      }
+
+      div.marpit>section>*:first-child,
+      div.marpit>section header:first-child+* {
+        margin-top: 0;
+      }
+
+      div.marpit>section pre {
+        margin: 0;
+        overflow: visible;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section pre code {
+        display: block;
+        overflow-y: visible;
+        overflow-x: auto;
+        padding: calc(var(--marpit-root-font-size, 1rem) * .75);
+        border: 1px dashed;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+      }
+
+      div.marpit>section pre code:focus {
+        outline: 4px solid #111111;
+        outline-offset: 4px;
+        box-shadow: 0px 0px 0px 5px gold;
+      }
+
+      div.marpit>section code {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        background-color: #F5F5FF;
+        padding: 0 calc(var(--marpit-root-font-size, 1rem) * .2);
+        border-radius: 5px;
+      }
+
+      div.marpit>section h1 {
+        border-bottom: none;
+        font-size: 1.75em;
+      }
+
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2 {
+        border-bottom: none;
+        font-size: 1.6em;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section h3 {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+
+      div.marpit>section h4 {
+        font-size: 1.05em;
+      }
+
+      div.marpit>section h5 {
+        font-size: 1em;
+      }
+
+      div.marpit>section h6 {
+        font-size: 0.9em;
+      }
+
+      div.marpit>section a:focus {
+        outline: none;
+        padding: 3px;
+        text-decoration: none;
+        background-color: gold;
+        color: #111111;
+        border-bottom: 5px solid #111111;
+      }
+
+      div.marpit>section hr {
+        height: 0;
+        padding-top: 0.25em;
+      }
+
+      div.marpit>section header {
+        top: 21px;
+      }
+
+      div.marpit>section footer {
+        bottom: 21px;
+      }
+
+      div.marpit>section header,
+      div.marpit>section footer {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .75);
+        margin: 0;
+        position: absolute;
+        left: 30px;
+        width: 1240px;
+        min-height: 30px;
+      }
+
+      div.marpit>section kbd {
+        color: #111111;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+        border: 1px solid grey;
+      }
+
+      div.marpit>section img,
+      div.marpit>section figure {
+        margin-top: 0;
+        width: 100%;
+        border: 1px solid #b1b4b6;
+      }
+
+      div.marpit>section p {
+        margin-top: 0;
+      }
+
+      div.marpit>section input {
+        padding: calc(var(--marpit-root-font-size, 1rem) * .25);
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border: 2px solid black;
+        display: block;
+      }
+
+      div.marpit>section figure {
+        margin: 0;
+        border: 0;
+      }
+
+      div.marpit>section ul,
+      div.marpit>section ol {
+        margin-top: 0;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1.5);
+      }
+
+      div.marpit>section ul li,
+      div.marpit>section ol li {
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        line-height: 1.5;
+      }
+
+      div.marpit>section blockquote {
+        margin: 0;
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border-left: 10px solid #b1b4b6;
+      }
+
+      div.marpit>section blockquote p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-style: italic;
+      }
+
+      div.marpit>section pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 1em;
+      }
+
+      div.marpit>section code.hljs {
+        padding: 3px 5px;
+      }
+
+      /*!
+  Theme: a11y-light
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+      div.marpit>section .hljs {
+        background: #fefefe;
+        color: #545454;
+      }
+
+      div.marpit>section .hljs-comment,
+      div.marpit>section .hljs-quote {
+        color: #696969;
+      }
+
+      div.marpit>section .hljs-deletion,
+      div.marpit>section .hljs-name,
+      div.marpit>section .hljs-regexp,
+      div.marpit>section .hljs-selector-class,
+      div.marpit>section .hljs-selector-id,
+      div.marpit>section .hljs-tag,
+      div.marpit>section .hljs-template-variable,
+      div.marpit>section .hljs-variable {
+        color: #d91e18;
+      }
+
+      div.marpit>section .hljs-attribute,
+      div.marpit>section .hljs-built_in,
+      div.marpit>section .hljs-link,
+      div.marpit>section .hljs-literal,
+      div.marpit>section .hljs-meta,
+      div.marpit>section .hljs-number,
+      div.marpit>section .hljs-params,
+      div.marpit>section .hljs-type {
+        color: #aa5d00;
+      }
+
+      div.marpit>section .hljs-addition,
+      div.marpit>section .hljs-bullet,
+      div.marpit>section .hljs-string,
+      div.marpit>section .hljs-symbol {
+        color: green;
+      }
+
+      div.marpit>section .hljs-section,
+      div.marpit>section .hljs-title {
+        color: #007faa;
+      }
+
+      div.marpit>section .hljs-keyword,
+      div.marpit>section .hljs-selector-tag {
+        color: #7928a1;
+      }
+
+      div.marpit>section .hljs-emphasis {
+        font-style: italic;
+      }
+
+      div.marpit>section .hljs-strong {
+        font-weight: 700;
+      }
+
+      @media screen and (-ms-high-contrast: active) {
+
+        div.marpit>section .hljs-addition,
+        div.marpit>section .hljs-attribute,
+        div.marpit>section .hljs-built_in,
+        div.marpit>section .hljs-bullet,
+        div.marpit>section .hljs-comment,
+        div.marpit>section .hljs-link,
+        div.marpit>section .hljs-literal,
+        div.marpit>section .hljs-meta,
+        div.marpit>section .hljs-number,
+        div.marpit>section .hljs-params,
+        div.marpit>section .hljs-quote,
+        div.marpit>section .hljs-string,
+        div.marpit>section .hljs-symbol,
+        div.marpit>section .hljs-type {
+          color: highlight;
+        }
+
+        div.marpit>section .hljs-keyword,
+        div.marpit>section .hljs-selector-tag {
+          font-weight: 700;
+        }
+      }
+
+      body {
+        background: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      div.marpit>section {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="marpit">
+        <section id="1" data-marpit-pagination-total="57" aria-label="Slide 1: HTML Forms">
+          <h1 aria-describedby="page-number-1" id="slide-1">HTML Forms</h1>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 1</p>
+              <p id="page-number-1" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>1</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="2" data-marpit-pagination-total="57" aria-label="Slide 2: Forms are the backbone of all Digital Services">
+          <h2 aria-describedby="page-number-2" id="slide-2">Forms are the backbone of all Digital Services</h2>
+          <p>When you apply or renew anything on <a href="http://GOV.UK">GOV.UK</a> it’s essentially just a well designed web form.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 2</p>
+              <p id="page-number-2" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>2</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="3" data-marpit-pagination-total="57" aria-label="Slide 3: “Users prefer less clicks” is one of the most persistent design myths">
+          <h2 aria-describedby="page-number-3" id="slide-3">“Users prefer less clicks” is one of the most persistent design myths</h2>
+          <p>Research shows that breaking complex things into small manageable parts creates a more successful user journey.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 3</p>
+              <p id="page-number-3" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>3</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="4" data-marpit-pagination-total="57" aria-label="Slide 4: Forms should be dynamic and as easy as possible to use">
+          <h2 aria-describedby="page-number-4" id="slide-4">Forms should be dynamic and as easy as possible to use</h2>
+          <p>The user should not have to engage with anything which is not relevant.</p>
+          <p>Bad example:<br>
+            <i>Only answer this question if you answered ‘yes’ to the previous one</i>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 4</p>
+              <p id="page-number-4" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>4</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="5" data-marpit-pagination-total="57" aria-label="Slide 5: The basic building blocks of forms">
+          <h2 aria-describedby="page-number-5" id="slide-5">The basic building blocks of forms</h2>
+          <ul>
+            <li>The form element</li>
+            <li>Input elements</li>
+            <li>Labels</li>
+            <li>Legends</li>
+            <li>Form groups</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 5</p>
+              <p id="page-number-5" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>5</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="6" data-marpit-pagination-total="57" aria-label="Slide 6: The form element">
+          <h2 aria-describedby="page-number-6" id="slide-6">The form element</h2>
+          <p>Inputs must be placed inside a <code>&lt;form&gt;</code> element. This creates a landmark so assistive technology users can find interactive elements easier.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"username"</span>&gt;</span>Username<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"username"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"password"</span>&gt;</span>Password<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"password"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"password"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>Sign in<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">The Form Element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 6</p>
+              <p id="page-number-6" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>6</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="7" data-marpit-pagination-total="57" aria-label="Slide 7: Input element">
+          <h2 aria-describedby="page-number-7" id="slide-7">Input element</h2>
+          <p>The input element is the main way to collect data from a user. They may type data into a field, or they may select options using buttons.</p>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">The Input Element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 7</p>
+              <p id="page-number-7" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>7</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="8" data-marpit-pagination-total="57" aria-label="Slide 8: Inputs you type in">
+          <h3 aria-describedby="page-number-8" id="slide-8">Inputs you type in</h3>
+          <p>Some common inputs you type in are:</p>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date">date</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email">email</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number">number</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/password">password</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search">search</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/tel">tel</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text">text</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 8</p>
+              <p id="page-number-8" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>8</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="9" data-marpit-pagination-total="57" aria-label="Slide 9: Input types you select">
+          <h3 aria-describedby="page-number-9" id="slide-9">Input types you select</h3>
+          <p>Some common input types you click on or select using a keyboard:</p>
+          <ul>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/button">button</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox">checkbox</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio">radio</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/submit">submit</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 9</p>
+              <p id="page-number-9" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>9</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="10" data-marpit-pagination-total="57" aria-label="Slide 10: The ‘type’ is used for 3 things">
+          <h3 aria-describedby="page-number-10" id="slide-10">The ‘type’ is used for 3 things</h3>
+          <ul>
+            <li>To activate HTML5 validation</li>
+            <li>To set context for screen readers</li>
+            <li>To show the correct virtual keyboard on devices like mobile phones</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 10</p>
+              <p id="page-number-10" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>10</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="11" data-marpit-pagination-total="57" aria-label="Slide 11: HTML5 validation is not recommended">
+          <h3 aria-describedby="page-number-11" id="slide-11">HTML5 validation is not recommended</h3>
+          <p>It is not robust and it can get confusing.</p>
+          <p>Turning off HTML5 validation means you can implement your own accessible validation patterns using good content and interaction design.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 11</p>
+              <p id="page-number-11" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>11</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="12" data-marpit-pagination-total="57" aria-label="Slide 12: Demo of HTML5 validation">
+          <h4 aria-describedby="page-number-12" id="slide-12">Demo of HTML5 validation</h4>
+          <p>Can be found at the following path:<br>
+            <code>/demos/html5-validation.html</code>
+          </p>
+          <footer><a href="./demos/html5-validation.html" target="_blank">Demo of HTML5 validation (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 12</p>
+              <p id="page-number-12" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>12</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="13" data-marpit-pagination-total="57" aria-label="Slide 13: The type of input can add context for screen reader users">
+          <h3 aria-describedby="page-number-13" id="slide-13">The type of input can add context for screen reader users</h3>
+          <p>If it reads out <i>“input, type equals email”</i>, then it’s clear that it you need to put an email address in the field.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 13</p>
+              <p id="page-number-13" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>13</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="14" data-marpit-pagination-total="57" aria-label="Slide 14: But, the context is not always consistent">
+          <h4 aria-describedby="page-number-14" id="slide-14">But, the context is not always consistent</h4>
+          <p>For example, <code>type="number"</code> may be called an <i>“incremental edit text number field”</i> in Safari. In Chrome and Firefox it may be called a <i>“stepper”</i>.</p>
+          <p>In Firefox there is sometimes a bug where it reads out <i>“NaN”</i> (not a number) when the field is empty.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 14</p>
+              <p id="page-number-14" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>14</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="15" data-marpit-pagination-total="57" aria-label="Slide 15: The number type is a bit broken">
+          <h3 aria-describedby="page-number-15" id="slide-15">The number type is a bit broken</h3>
+          <p>It has the following accessibility issues:</p>
+          <ul>
+            <li><a href="https://github.com/alphagov/govuk-frontend/issues/1449#issuecomment-503186819">Chrome silently discards non-numeric input</a></li>
+            <li><a href="https://github.com/alphagov/govuk-frontend/issues/1449#issuecomment-503186819">users can accidentally change number using the arrow keys without realising</a></li>
+            <li><a href="https://bradfrost.com/blog/post/you-probably-dont-need-input-typenumber/">users can accidentally change the number using the scroll wheel on the mouse or the scroll gesture</a></li>
+            <li><a href="https://github.com/alphagov/reported-bugs/issues/41">they appear as unlabeled in NVDA’s element list</a></li>
+            <li><a href="https://github.com/alphagov/reported-bugs/issues/34">users of Dragon Naturally Speaking cannot dictate into them as expected</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 15</p>
+              <p id="page-number-15" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>15</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="16" data-marpit-pagination-total="57" aria-label="Slide 16: Dates can also be problematic">
+          <h3 aria-describedby="page-number-16" id="slide-16">Dates can also be problematic</h3>
+          <p>For example:</p>
+          <ul>
+            <li>Voiceover may ignore the label</li>
+            <li>Voiceover can read dates as percentages</li>
+            <li>Chrome, Safari and Firefox have inconsistent date pickers</li>
+            <li>Chrome and Firefox date pickers may not be keyboard accessible</li>
+            <li>Firefox bug which jams Voiceover when using a mouse</li>
+            <li>Safari has a bug which doesn’t complete the full date when using Voiceover</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 16</p>
+              <p id="page-number-16" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>16</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="17" data-marpit-pagination-total="57" aria-label="Slide 17: Demo of input types">
+          <h3 aria-describedby="page-number-17" id="slide-17">Demo of input types</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/input-types.html</code>
+          </p>
+          <footer><a href="./demos/input-types.html" target="_blank">Demo of input types (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 17</p>
+              <p id="page-number-17" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>17</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="18" data-marpit-pagination-total="57" aria-label="Slide 18: Research shows that text inputs can be made to work for most things">
+          <h3 aria-describedby="page-number-18" id="slide-18">Research shows that text inputs can be made to work for most things</h3>
+          <p>But, you need to have a clear label, and you need to provide additional attributes so browsers know which virtual keyboard to show.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 18</p>
+              <p id="page-number-18" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>18</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="19" data-marpit-pagination-total="57" aria-label="Slide 19: The inputmode attribute can tell the browser which keyboard to show">
+          <h4 aria-describedby="page-number-19" id="slide-19">The inputmode attribute can tell the browser which keyboard to show</h4>
+          <p>This is particularly important for mobile devices.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"age"</span>&gt;</span>Age<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"age"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">inputmode</span>=<span class="hljs-string">"number"</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode">The Inputmode attribute on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 19</p>
+              <p id="page-number-19" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>19</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="20" data-marpit-pagination-total="57" aria-label="Slide 20: Examples of virtual keyboards">
+          <h5 aria-describedby="page-number-20" id="slide-20">Examples of virtual keyboards</h5>
+          <div class="row">
+            <div class="col">
+              <p><code>inputmode="text"</code></p>
+              <div>
+                <img src="./images/keyboard-text.jpeg" alt="IOS Text Keyboard" width="500">
+              </div>
+            </div>
+            <div class="col">
+              <p><code>inputmode="email"</code></p>
+              <div>
+                <img src="./images/keyboard-email.jpeg" alt="IOS Email Keyboard" width="500">
+              </div>
+            </div>
+            <div class="col">
+              <p><code>inputmode="tel"</code></p>
+              <div>
+                <img src="./images/keyboard-tel.jpeg" alt="IOS Telephone Keyboard" width="500">
+              </div>
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 20</p>
+              <p id="page-number-20" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>20</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="21" data-marpit-pagination-total="57" aria-label="Slide 21: The text type can work better for numbers">
+          <h4 aria-describedby="page-number-21" id="slide-21">The text type can work better for numbers</h4>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"age"</span>&gt;</span>Age<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"age"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">inputmode</span>=<span class="hljs-string">"numeric"</span> <span class="hljs-attr">spellcheck</span>=<span class="hljs-string">"false"</span>&gt;</span>
+</code></pre>
+          <p>More advanced examples can be found in the <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a>.</p>
+          <footer><a href="https://design-system.service.gov.uk/components/text-input/">The GOVUK text input component</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 21</p>
+              <p id="page-number-21" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>21</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="22" data-marpit-pagination-total="57" aria-label="Slide 22: The text type is also better for dates">
+          <h4 aria-describedby="page-number-22" id="slide-22">The text type is also better for dates</h4>
+          <p>Again, a good example can be found in the <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a>:</p>
+          <p>
+            <img src="./images/date-input.png" alt="GOV.UK Pattern for Dates" width="500">
+          </p>
+          <footer><a href="https://design-system.service.gov.uk/components/date-input/">The GOVUK date input component</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 22</p>
+              <p id="page-number-22" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>22</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="23" data-marpit-pagination-total="57" aria-label="Slide 23: Should you use type or inputmode?">
+          <h3 aria-describedby="page-number-23" id="slide-23">Should you use type or inputmode?</h3>
+          <p>As a general rule of thumb:</p>
+          <ol>
+            <li>avoid using <code>type="number"</code> and <code>type="date"</code></li>
+            <li>use the other <code>type</code> attributes if the context is correct</li>
+            <li>for anything else use <code>type="text"</code> and assign a suitable <code>inputmode</code> for virtual keyboards</li>
+            <li>Test it thoroughly!</li>
+          </ol>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 23</p>
+              <p id="page-number-23" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>23</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="24" data-marpit-pagination-total="57" aria-label="Slide 24: Helping the user identify the purpose of each input">
+          <h3 aria-describedby="page-number-24" id="slide-24">Helping the user identify the purpose of each input</h3>
+          <p>For fields which are common on the web, you should mark them up correctly so that the browser can attempt to autocomplete data. You will need this to pass <a href="https://www.w3.org/WAI/WCAG21/Understanding/identify-input-purpose.html">WCAG criterion 1.3.5 Identify Input Purpose</a></p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 24</p>
+              <p id="page-number-24" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>24</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="25" data-marpit-pagination-total="57" aria-label="Slide 25: Autocomplete">
+          <h3 aria-describedby="page-number-25" id="slide-25">Autocomplete</h3>
+          <p>By using the right autocomplete values, things like your name and address can be filled in quickly rather than being typed out repeatedly. But it will only work if the browser knows what the field is for.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"full-name"</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">"name"</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete">The autocomplete attribute on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 25</p>
+              <p id="page-number-25" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>25</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="26" data-marpit-pagination-total="57" aria-label="Slide 26: Autocomplete values">
+          <h4 aria-describedby="page-number-26" id="slide-26">Autocomplete values</h4>
+          <p>There is a full list of autocomplete values. So go through them and match them against your designs.</p>
+          <p>For example:</p>
+          <ul>
+            <li><code>name</code> = Full name</li>
+            <li><code>given-name</code> = First name</li>
+            <li><code>family-name</code> = Last name</li>
+            <li><code>email</code> = Email address</li>
+            <li><code>postal-code</code> = Postcode</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 26</p>
+              <p id="page-number-26" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>26</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="27" data-marpit-pagination-total="57" aria-label="Slide 27: Autocomplete should only be when users fill in their own data">
+          <h4 aria-describedby="page-number-27" id="slide-27">Autocomplete should only be when users fill in their own data</h4>
+          <p>If people are entering other peoples information, then you want to make sure you disable autocomplete, as some browsers will still <em>try</em> to be helpful if it thinks it might recognise a field.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"claimant-name"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">"off"</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 27</p>
+              <p id="page-number-27" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>27</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="28" data-marpit-pagination-total="57" aria-label="Slide 28: Labels">
+          <h2 aria-describedby="page-number-28" id="slide-28">Labels</h2>
+          <p>Every input needs a text label. This lets the user know what they need to use it for.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 28</p>
+              <p id="page-number-28" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>28</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="29" data-marpit-pagination-total="57" aria-label="Slide 29: Labels and WCAG">
+          <h3 aria-describedby="page-number-29" id="slide-29">Labels and WCAG</h3>
+          <p>Labels are covered by 4 WCAG criteria:</p>
+          <ul>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html">1.3.1 Info and relationships</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/headings-and-labels.html">2.4.6 Headings and labels</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/labels-or-instructions.html">3.3.2 Labels or Instructions</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/label-in-name.html">2.5.3 Label in name</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 29</p>
+              <p id="page-number-29" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>29</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="30" data-marpit-pagination-total="57" aria-label="Slide 30: To cover all the WCAG criteria">
+          <h4 aria-describedby="page-number-30" id="slide-30">To cover all the WCAG criteria</h4>
+          <ul>
+            <li>Every input must have a label</li>
+            <li>Labels must be clear</li>
+            <li>It must be obvious which input the label is related to</li>
+            <li>The visible label must be part of the accessible label</li>
+            <li>It must be obvious if a field is required or optional</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 30</p>
+              <p id="page-number-30" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>30</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="31" data-marpit-pagination-total="57" aria-label="Slide 31: Assigning labels">
+          <h3 aria-describedby="page-number-31" id="slide-31">Assigning labels</h3>
+          <p>There are 2 ways to easily assign a label to an input. You could also use aria, but that overcomplicates things.</p>
+          <div class="row">
+            <div class="col">
+              <p>Using <code>for</code> and <code>id</code>:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"last-name"</span>&gt;</span>
+  Last name
+<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"last-name"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
+</code></pre>
+            </div>
+            <div class="col">
+              <p>Nesting:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>
+  Last name
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+</code></pre>
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 31</p>
+              <p id="page-number-31" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>31</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="32" data-marpit-pagination-total="57" aria-label="Slide 32: The ‘orphaned’ input">
+          <h4 aria-describedby="page-number-32" id="slide-32">The ‘orphaned’ input</h4>
+          <p>A really common accessibility issue is an input which looks like it has a label, but they’re not actually assigned to one another correctly.</p>
+          <div class="row">
+            <div class="col">
+              <p>How it looks in the code:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Last name<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
+</code></pre>
+            </div>
+            <div class="col">
+              <p>How it looks on the page:</p>
+              <div>
+                <label>Last name</label>
+                <input type="text">
+              </div>
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 32</p>
+              <p id="page-number-32" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>32</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="33" data-marpit-pagination-total="57" aria-label="Slide 33: Demo of orphaned input">
+          <h5 aria-describedby="page-number-33" id="slide-33">Demo of orphaned input</h5>
+          <p>Can be found at the following path:<br>
+            <code>/demos/orphaned-input.html</code>
+          </p>
+          <footer><a href="./demos/orphaned-input.html" target="_blank">Demo of orphaned input (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 33</p>
+              <p id="page-number-33" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>33</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="34" data-marpit-pagination-total="57" aria-label="Slide 34: Label in name">
+          <h3 aria-describedby="page-number-34" id="slide-34">Label in name</h3>
+          <p>You can have different labels for visual and non-visual users. But, what is visible <em>must</em> also be in the accessible label too!</p>
+          <p>Pass example:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"search"</span>&gt;</span>Search<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Search for people, pages or blog posts"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span>&gt;</span>
+</code></pre>
+          <p>Fail example:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"search"</span>&gt;</span>Search<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"search"</span> <span class="hljs-attr">aria-label</span>=<span class="hljs-string">"Find people, pages or blog posts"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"search"</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 34</p>
+              <p id="page-number-34" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>34</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="35" data-marpit-pagination-total="57" aria-label="Slide 35: Demo of label-in-name">
+          <h4 aria-describedby="page-number-35" id="slide-35">Demo of label-in-name</h4>
+          <p>Can be found at the following path:<br>
+            <code>/demos/label-in-name.html</code>
+          </p>
+          <footer><a href="./demos/label-in-name.html" target="_blank">Demo of label in name (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 35</p>
+              <p id="page-number-35" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>35</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="36" data-marpit-pagination-total="57" aria-label="Slide 36: The fieldset element">
+          <h2 aria-describedby="page-number-36" id="slide-36">The fieldset element</h2>
+          <p>The <code>&lt;fieldset&gt;</code> element is used to group related inputs. This provides additional context. You should always use a legend with a fieldset.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 36</p>
+              <p id="page-number-36" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>36</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="37" data-marpit-pagination-total="57" aria-label="Slide 37: Legend element">
+          <h3 aria-describedby="page-number-37" id="slide-37">Legend element</h3>
+          <p>The <code>&lt;legend&gt;</code> provides a label for a grouped elements:</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">fieldset</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">legend</span>&gt;</span>Address<span class="hljs-tag">&lt;/<span class="hljs-name">legend</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"line1"</span>&gt;</span>Line 1<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"line1"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">"address-line1"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"line2"</span>&gt;</span>Line 2<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"line2"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">"address-line2"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"town-or-city"</span>&gt;</span>Town or city<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"town-or-city"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">"address-level2"</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"postcode"</span>&gt;</span>Postcode<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"postcode"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">autocomplete</span>=<span class="hljs-string">"postal-code"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">fieldset</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 37</p>
+              <p id="page-number-37" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>37</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="38" data-marpit-pagination-total="57" aria-label="Slide 38: Demo of fieldset and legend">
+          <h3 aria-describedby="page-number-38" id="slide-38">Demo of fieldset and legend</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/fieldset-and-legend.html</code>
+          </p>
+          <footer><a href="./demos/fieldset-and-legend.html" target="_blank">Demo of fieldset and legend (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 38</p>
+              <p id="page-number-38" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>38</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="39" data-marpit-pagination-total="57" aria-label="Slide 39: Required fields">
+          <h2 aria-describedby="page-number-39" id="slide-39">Required fields</h2>
+          <p>Many websites use an asterisk and assume people will know what it means.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"surname"</span>&gt;</span>Surname *<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"surname"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 39</p>
+              <p id="page-number-39" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>39</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="40" data-marpit-pagination-total="57" aria-label="Slide 40: If you do use an asterisk, you must explain what it means before people use the form">
+          <h3 aria-describedby="page-number-40" id="slide-40">If you do use an asterisk, you must explain what it means before people use the form</h3>
+          <p>This will probably do enough to pass WCAG 2.1. But it will still be awful for the user.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Required fields are marked with an asterisk (*).<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">form</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"first-name"</span>&gt;</span>First name *<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"first-name"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 40</p>
+              <p id="page-number-40" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>40</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="41" data-marpit-pagination-total="57" aria-label="Slide 41: Demo of asterisk and required fields">
+          <h3 aria-describedby="page-number-41" id="slide-41">Demo of asterisk and required fields</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/asterisk-and-required-fields.html</code>
+          </p>
+          <footer><a href="./demos/asterisk-and-required-fields.html" target="_blank">Demo of asterisk and required field (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 41</p>
+              <p id="page-number-41" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>41</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="42" data-marpit-pagination-total="57" aria-label="Slide 42: In user centred design, it’s likely most fields will be required">
+          <h3 aria-describedby="page-number-42" id="slide-42">In user centred design, it’s likely most fields will be required</h3>
+          <p>If you don’t need it, then why ask for it?</p>
+          <p>So, rather than marking every required field, you can mark the optional ones instead.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">label</span>&gt;</span>Email (optional)<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 42</p>
+              <p id="page-number-42" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>42</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="43" data-marpit-pagination-total="57" aria-label="Slide 43: Submitting a form">
+          <h2 aria-describedby="page-number-43" id="slide-43">Submitting a form</h2>
+          <p>A form should not submit without a very deliberate action. This is covered by:</p>
+          <ul>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/on-focus.html">3.2.1 On Focus</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/on-input.html">3.2.2 On Input</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 43</p>
+              <p id="page-number-43" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>43</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="44" data-marpit-pagination-total="57" aria-label="Slide 44: 3.2.1 On focus">
+          <h3 aria-describedby="page-number-44" id="slide-44">3.2.1 On focus</h3>
+          <p>This simply means that tabbing to an element with the keyboard does not submit the form.</p>
+          <p>I’ve never seen this happen to date. So unless you’re doing something weird it’s probably not something to worry about.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/on-focus.html">WCAG 3.2.1 On Focus</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 44</p>
+              <p id="page-number-44" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>44</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="45" data-marpit-pagination-total="57" aria-label="Slide 45: 3.2.2 On input">
+          <h3 aria-describedby="page-number-45" id="slide-45">3.2.2 On input</h3>
+          <p>This one is more common. It means you can’t submit a form by selecting something other than a deliberate action.</p>
+          <p>For example, you can’t submit a form by selecting a radio button.</p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Understanding/on-input.html">WCAG 3.2.2 On Input</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 45</p>
+              <p id="page-number-45" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>45</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="46" data-marpit-pagination-total="57" aria-label="Slide 46: Button vs Submit">
+          <h3 aria-describedby="page-number-46" id="slide-46">Button vs Submit</h3>
+          <p>You should submit a form with a button or by using an input with <code>type="submit"</code>.</p>
+          <p>A <code>&lt;button&gt;</code> element is more flexible, you can add images or icons by wrapping them in the code block.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"Continue"</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">button</span>&gt;</span>
+  Continue
+  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"arrow-right-icon.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 46</p>
+              <p id="page-number-46" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>46</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="47" data-marpit-pagination-total="57" aria-label="Slide 47: Errors">
+          <h2 aria-describedby="page-number-47" id="slide-47">Errors</h2>
+          <p>Errors are covered by 3 WCAG criteria:</p>
+          <ul>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/error-identification.html">3.3.1 Error identification</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/error-suggestion.html">3.3.3 Error suggestion</a></li>
+            <li><a href="https://www.w3.org/WAI/WCAG21/Understanding/error-prevention-legal-financial-data.html">3.3.4 Error prevention (Legal, Financial, Data)</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 47</p>
+              <p id="page-number-47" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>47</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="48" data-marpit-pagination-total="57" aria-label="Slide 48: Error identification">
+          <h3 aria-describedby="page-number-48" id="slide-48">Error identification</h3>
+          <p>You must highlight and name the field which caused the error. But, this criterion doesn’t really care if you tell the user <em>why</em> it’s broken.</p>
+          <p>For example:<br>
+            <i>There’s an error with the date your passport was issued</i>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 48</p>
+              <p id="page-number-48" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>48</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="49" data-marpit-pagination-total="57" aria-label="Slide 49: Error suggestion">
+          <h3 aria-describedby="page-number-49" id="slide-49">Error suggestion</h3>
+          <p>Error suggestion goes a step further, and states that you need to tell the user what’s wrong with it.</p>
+          <p>For example:<br>
+            <i>The date your passport was issued must be in the past</i>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 49</p>
+              <p id="page-number-49" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>49</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="50" data-marpit-pagination-total="57" aria-label="Slide 50: Error prevention">
+          <h3 aria-describedby="page-number-50" id="slide-50">Error prevention</h3>
+          <p>Error prevention means that the user needs to be able to go review and change any inputs they’ve used.</p>
+          <p>Just having a working back button with good session management is acceptable, but a better option is to use the <a href="https://design-system.service.gov.uk/patterns/check-answers/">GOV.UK check answers pattern</a>.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 50</p>
+              <p id="page-number-50" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>50</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="51" data-marpit-pagination-total="57" aria-label="Slide 51: One of the biggest issues with errors is that people don’t know they’ve happened">
+          <h3 aria-describedby="page-number-51" id="slide-51">One of the biggest issues with errors is that people don’t know they’ve happened</h3>
+          <p>So here are some other things you can do…</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 51</p>
+              <p id="page-number-51" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>51</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="52" data-marpit-pagination-total="57" aria-label="Slide 52: Append ‘error’ to the page title">
+          <h3 aria-describedby="page-number-52" id="slide-52">Append ‘error’ to the page title</h3>
+          <p>This helps screen reader users quickly realise they’re still on the same page and there’s a problem.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>
+  Error: When was your passport issued? - Renew your passport - GOV.UK
+<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 52</p>
+              <p id="page-number-52" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>52</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="53" data-marpit-pagination-total="57" aria-label="Slide 53: Use an error summary">
+          <h3 aria-describedby="page-number-53" id="slide-53">Use an error summary</h3>
+          <p>Putting an error summary at the top of the page means if somebody has made a mistake then can easily see that there is an error. It also helps people using a screen reader to quickly realise the page has changed.</p>
+          <div>
+            <img src="./images/error-summary.png" alt="GOVUK Error Summary component" width="500">
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 53</p>
+              <p id="page-number-53" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>53</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="54" data-marpit-pagination-total="57" aria-label="Slide 54: Linking to the fields from the error summary">
+          <h3 aria-describedby="page-number-54" id="slide-54">Linking to the fields from the error summary</h3>
+          <p>This makes it easy for users to navigate to the fields to fix them.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#first-name"</span>&gt;</span>Enter your first name<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+...
+<span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"first-name"</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 54</p>
+              <p id="page-number-54" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>54</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="55" data-marpit-pagination-total="57" aria-label="Slide 55: Demo of errors">
+          <h3 aria-describedby="page-number-55" id="slide-55">Demo of errors</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/errors.html</code>
+          </p>
+          <footer><a href="./demos/errors.html">Demo of errors (opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 55</p>
+              <p id="page-number-55" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>55</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="56" data-marpit-pagination-total="57" aria-label="Slide 56: Feedback">
+          <h2 aria-describedby="page-number-56" id="slide-56">Feedback</h2>
+          <p>I know this was a lot to cram into an hour session and I didn’t cover other form elements like radios or checkboxes.</p>
+          <p>Please fill out the <a href="https://forms.office.com/pages/responsepage.aspx?id=6fbxllcQF0GsKIDN_ob4w3_GoCbBJ0ZFo6Pp3ygGDvZUMkpJV1YwSVJPSE1LQVZZWUZQVkhLS0RBQS4u&amp;wdLOR=c190B5DBC-3581-E246-9246-C53F1AABE0FD">feedback form</a>, and if there’s anything you would like to see in the future let us know and we can structure some more sessions around those topics.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 56</p>
+              <p id="page-number-56" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>56</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="57" data-marpit-pagination-total="57" aria-label="Slide 57: Thank you!">
+          <h2 aria-describedby="page-number-57" id="slide-57">Thank you!</h2>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 57</p>
+              <p id="page-number-57" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>57</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+
+  </body>
+
+</html>

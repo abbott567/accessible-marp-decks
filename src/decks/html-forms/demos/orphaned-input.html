@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Orphaned input demo - HTML: forms</title>
+    <style>
+      html { font-family:sans-serif; font-size:1.5rem; padding:5%; }
+      label { display:block; }
+      input { font-size: 1rem; border: 1px solid black; padding:10px; margin-bottom:1rem; }
+      input:focus { border: 5px solid black; outline: 3px solid gold; }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>Orphaned input</h1>
+
+      <p>In this example, the input for last name is orphaned.</p>
+
+      <form>
+        <label for="first-name">First name</label>
+        <input type="text" id="first-name">
+
+        <label>Last name</label>
+        <input type="text">
+      </form>
+
+    </main>
+
+    <script>
+      const form = document.querySelector('form')
+      form.addEventListener('submit', e => e.preventDefault())
+    </script>
+  </body>
+</html>

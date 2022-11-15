@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Automated Accessibility Testing</title>
+    <meta name="description" content="Session on automated accessibility testing for National Coding Week.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+      div.marpit>section {
+        width: 1280px;
+        height: 720px;
+
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+
+        scroll-snap-align: center center;
+      }
+
+      div.marpit>section::after {
+        bottom: 0;
+        content: attr(data-marpit-pagination);
+        padding: inherit;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+      }
+
+      div.marpit>section:not([data-marpit-pagination])::after {
+        display: none;
+      }
+
+      /* Normalization */
+      div.marpit>section h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+
+      div.marpit>section video::-webkit-media-controls {
+        will-change: transform;
+      }
+
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+
+      @media print {
+
+        html,
+        body {
+          background-color: #fff;
+          margin: 0;
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+        div.marpit>section {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        div.marpit>section,
+        div.marpit>section * {
+          -webkit-print-color-adjust: exact !important;
+          animation-delay: 0s !important;
+          animation-duration: 0s !important;
+          print-color-adjust: exact !important;
+          transition: none !important;
+        }
+
+        div.marpit>svg[data-marpit-svg] {
+          display: block;
+          height: 100vh;
+          width: 100vw;
+        }
+      }
+
+      /* @theme dwp-theme */
+      /*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+      div.marpit>section .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        margin: calc(var(--marpit-root-font-size, 1rem) * 1) 0;
+      }
+
+      div.marpit>section .col {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        margin-right: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section .pagination {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        top: 0;
+      }
+
+      div.marpit>section section.pagination {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important;
+        border: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      div.marpit>section a,
+      div.marpit>section a:visited,
+      div.marpit>section h6,
+      div.marpit>section h5,
+      div.marpit>section h4,
+      div.marpit>section h3,
+      div.marpit>section h2,
+      div.marpit>section h1 {
+        color: hsl(259deg, 54%, 37%);
+      }
+
+      div.marpit>section {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      div.marpit>section code,
+      div.marpit>section pre code {
+        font-family: monospace, monospace;
+      }
+
+      div.marpit>section p,
+      div.marpit>section h2,
+      div.marpit>section h1 {
+        max-width: 66%;
+      }
+
+      div.marpit>section {
+        line-height: 1.2;
+        font-size: 29px;
+        color: #111111;
+        background: white;
+        align-items: stretch;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 720px;
+        justify-content: center;
+        padding: 78.5px;
+        width: 1280px;
+        background-size: cover;
+      }
+
+      div.marpit>section {
+        --marpit-root-font-size: 29px;
+      }
+
+      div.marpit>section:after {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        bottom: 21px;
+      }
+
+      div.marpit>section:after {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section>*:last-child,
+      div.marpit>section section[data-footer]> :nth-last-child(2) {
+        margin-bottom: 0;
+      }
+
+      div.marpit>section>*:first-child,
+      div.marpit>section header:first-child+* {
+        margin-top: 0;
+      }
+
+      div.marpit>section pre {
+        margin: 0;
+        overflow: visible;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section pre code {
+        display: block;
+        overflow-y: visible;
+        overflow-x: auto;
+        padding: calc(var(--marpit-root-font-size, 1rem) * 0.75);
+        border: 1px dashed;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 0.9);
+      }
+
+      div.marpit>section pre code:focus {
+        outline: 4px solid #111111;
+        outline-offset: 4px;
+        box-shadow: 0px 0px 0px 5px gold;
+      }
+
+      div.marpit>section code {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        background-color: #F5F5FF;
+        padding: 0 calc(var(--marpit-root-font-size, 1rem) * 0.2);
+        border-radius: 5px;
+      }
+
+      div.marpit>section h1 {
+        border-bottom: none;
+        font-size: 1.75em;
+      }
+
+      div.marpit>section h2 {
+        border-bottom: none;
+        font-size: 1.6em;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section h3 {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+
+      div.marpit>section h4 {
+        font-size: 1.05em;
+      }
+
+      div.marpit>section h5 {
+        font-size: 1em;
+      }
+
+      div.marpit>section h6 {
+        font-size: 0.9em;
+      }
+
+      div.marpit>section a:focus {
+        outline: none;
+        padding: 3px;
+        text-decoration: none;
+        background-color: gold;
+        color: #111111;
+        border-bottom: 5px solid #111111;
+      }
+
+      div.marpit>section hr {
+        height: 0;
+        padding-top: 0.25em;
+      }
+
+      div.marpit>section header {
+        top: 21px;
+      }
+
+      div.marpit>section footer {
+        bottom: 21px;
+      }
+
+      div.marpit>section header,
+      div.marpit>section footer {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 0.75);
+        margin: 0;
+        position: absolute;
+        left: 30px;
+        width: 1240px;
+        min-height: 30px;
+      }
+
+      div.marpit>section kbd {
+        color: #111111;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 0.9);
+        border: 1px solid grey;
+      }
+
+      div.marpit>section img,
+      div.marpit>section figure {
+        margin-top: 0;
+        width: 100%;
+        border: 1px solid #b1b4b6;
+      }
+
+      div.marpit>section p {
+        margin-top: 0;
+      }
+
+      div.marpit>section input {
+        padding: calc(var(--marpit-root-font-size, 1rem) * 0.25);
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border: 2px solid black;
+        display: block;
+      }
+
+      div.marpit>section figure {
+        margin: 0;
+        border: 0;
+      }
+
+      div.marpit>section ul,
+      div.marpit>section ol {
+        margin-top: 0;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1.5);
+      }
+
+      div.marpit>section ul li,
+      div.marpit>section ol li {
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        line-height: 1.5;
+      }
+
+      div.marpit>section blockquote {
+        margin: 0;
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border-left: 10px solid #b1b4b6;
+      }
+
+      div.marpit>section blockquote p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-style: italic;
+      }
+
+      div.marpit>section pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 1em;
+      }
+
+      div.marpit>section code.hljs {
+        padding: 3px 5px;
+      }
+
+      /*!
+  Theme: a11y-light
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+      div.marpit>section .hljs {
+        background: #fefefe;
+        color: #545454;
+      }
+
+      div.marpit>section .hljs-comment,
+      div.marpit>section .hljs-quote {
+        color: #696969;
+      }
+
+      div.marpit>section .hljs-deletion,
+      div.marpit>section .hljs-name,
+      div.marpit>section .hljs-regexp,
+      div.marpit>section .hljs-selector-class,
+      div.marpit>section .hljs-selector-id,
+      div.marpit>section .hljs-tag,
+      div.marpit>section .hljs-template-variable,
+      div.marpit>section .hljs-variable {
+        color: #d91e18;
+      }
+
+      div.marpit>section .hljs-attribute,
+      div.marpit>section .hljs-built_in,
+      div.marpit>section .hljs-link,
+      div.marpit>section .hljs-literal,
+      div.marpit>section .hljs-meta,
+      div.marpit>section .hljs-number,
+      div.marpit>section .hljs-params,
+      div.marpit>section .hljs-type {
+        color: #aa5d00;
+      }
+
+      div.marpit>section .hljs-addition,
+      div.marpit>section .hljs-bullet,
+      div.marpit>section .hljs-string,
+      div.marpit>section .hljs-symbol {
+        color: green;
+      }
+
+      div.marpit>section .hljs-section,
+      div.marpit>section .hljs-title {
+        color: #007faa;
+      }
+
+      div.marpit>section .hljs-keyword,
+      div.marpit>section .hljs-selector-tag {
+        color: #7928a1;
+      }
+
+      div.marpit>section .hljs-emphasis {
+        font-style: italic;
+      }
+
+      div.marpit>section .hljs-strong {
+        font-weight: 700;
+      }
+
+      @media screen and (-ms-high-contrast: active) {
+
+        div.marpit>section .hljs-addition,
+        div.marpit>section .hljs-attribute,
+        div.marpit>section .hljs-built_in,
+        div.marpit>section .hljs-bullet,
+        div.marpit>section .hljs-comment,
+        div.marpit>section .hljs-link,
+        div.marpit>section .hljs-literal,
+        div.marpit>section .hljs-meta,
+        div.marpit>section .hljs-number,
+        div.marpit>section .hljs-params,
+        div.marpit>section .hljs-quote,
+        div.marpit>section .hljs-string,
+        div.marpit>section .hljs-symbol,
+        div.marpit>section .hljs-type {
+          color: highlight;
+        }
+
+        div.marpit>section .hljs-keyword,
+        div.marpit>section .hljs-selector-tag {
+          font-weight: 700;
+        }
+      }
+
+      body {
+        background: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      div.marpit>section {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="marpit">
+        <section id="1" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h1>Automated Accessibility Testing</h1>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 1</p>
+              <p id="page-number-1" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>1</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="2" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-2">Caveat</h2>
+          <p>The term ‘automated’ means different things to different people.</p>
+          <p>The majority of this talk is around automated browser tools, which are not technically ‘fully automated’.</p>
+          <p>I will <em>try</em> and live code a couple of fully automated acceptance tests at the end.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 2</p>
+              <p id="page-number-2" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>2</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="3" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-3">Why is automated testing is important?</h2>
+          <p>There are around 50 criteria we need to meet in the <a href="https://www.w3.org/TR/WCAG21/">Web Content Accessibility Guidelines (WCAG) 2.1</a>, and testing against them all is time consuming.</p>
+          <p>Using automated tools can find a lot of the common errors in a matter of seconds.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 3</p>
+              <p id="page-number-3" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>3</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="4" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-4">Automated tools will not find everything</h2>
+          <p>In an audit done by Government Digital Service (GDS), they identified that, when used in isolation:</p>
+          <ul>
+            <li>paid tools perform better than free ones</li>
+            <li>the best tools only find around 40% of 142 known issues.</li>
+          </ul>
+          <footer><a href="https://alphagov.github.io/accessibility-tool-audit/">How do automated accessibility checkers compare?</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 4</p>
+              <p id="page-number-4" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>4</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="5" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-5">But the free tools can also find around 40% of issues when combined</h2>
+          <p>We use the <a href="https://chrome.google.com/webstore/detail/arc-toolkit/chdkkkccnlfncngelccgbgfmjebmkmce?utm_source=chrome-ntp-icon">ARC Toolkit</a>, <a href="https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?utm_source=chrome-ntp-icon">Axe DevTools</a> and <a href="https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh?utm_source=chrome-ntp-icon">Wave</a>.</p>
+          <p>They will find a lot of the same errors, but each tool has its own unique areas of expertise.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 5</p>
+              <p id="page-number-5" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>5</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="6" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-6">Using the worlds least-accessible webpage as a benchmark</h2>
+          <p>The page GDS created with 142 known issues is nicknamed ‘<a href="https://alphagov.github.io/accessibility-tool-audit/test-cases.html">the worlds least-accessible webpage</a>’.</p>
+          <p>When I come across new automated tools, I use this page as a benchmark to see what they can find.</p>
+          <footer><a href="https://accessibility.blog.gov.uk/2017/02/24/what-we-found-when-we-tested-tools-on-the-worlds-least-accessible-webpage/">Blog post: What we found when we tested tools on the world’s least-accessible webpage</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 6</p>
+              <p id="page-number-6" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>6</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="7" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-7">In this talk</h2>
+          <p>I will try to cover:</p>
+          <ul>
+            <li>HTML Validation using W3C and HTML-Validator-CLI</li>
+            <li>Browser tools: Axe, ARC and Wave</li>
+            <li>Interpreting results against WCAG 2.1</li>
+            <li>Fully automated testing using html-validator, axe-core and pa11y</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 7</p>
+              <p id="page-number-7" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>7</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="8" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-8">Validating your HTML</h2>
+          <p>Making sure your HTML is valid should always be the first step in your accessibility testing process.</p>
+          <p>If the HTML is not valid, you are far more likely to find accessibility issues.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 8</p>
+              <p id="page-number-8" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>8</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="9" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-9">W3C Markup Validation Service</h2>
+          <p>An online digital service which can validate your HTML against the HTML5 spec by:</p>
+          <ul>
+            <li>providing URL</li>
+            <li>uploading a file</li>
+            <li>direct input</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 9</p>
+              <p id="page-number-9" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>9</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="10" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-10">Demo of W3C Markup Validation Service</h2>
+          <p>The demo file can be found at the following path:<br>
+            <code>/demos/invalid.html</code>
+          </p>
+          <p>The W3C Markup Validation Service can be found at the following URL:<br>
+            <code>https://validator.w3.org/</code>
+          </p>
+          <footer><a href="https://validator.w3.org/">W3C Markup Validation Service</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 10</p>
+              <p id="page-number-10" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>10</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="11" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-11">False positives</h2>
+          <p>No automated tool is perfect. If you get a fail, there’s a small posibility your code is not the problem. Look at the specifications and raise it as a bug if you think it’s wrong.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 11</p>
+              <p id="page-number-11" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>11</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="12" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-12">Demo of false positive</h2>
+          <p>Use the following URL with W3C:<br>
+            <code>https://www.craigabbott.co.uk</code>
+          </p>
+          <p>You can also view:</p>
+          <ul>
+            <li><a href="https://html.spec.whatwg.org/multipage/semantics.html#the-meta-element">The HTML5 Spec for the meta tag</a></li>
+            <li><a href="https://github.com/validator/validator/issues/1424">My GitHub issue raising the bug</a></li>
+          </ul>
+          <p><em>Note: If they fix the bug there is a chance that this demo will stop working at some point.</em></p>
+          <footer><a href="https://validator.w3.org/">W3C Markup Validation Service</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 12</p>
+              <p id="page-number-12" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>12</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="13" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-13">HTML Validator CLI</h2>
+          <p><a href="https://www.npmjs.com/package/html-validator">HTML Validator</a> is an NPM module. It is mainly used for acceptance tests in a fully automated test environment.</p>
+          <p>But you can install the <a href="https://npmjs.com/html-validator-cli">html-validator-cli</a> (Command Line Interface) and run it from your terminal.</p>
+          <p>It uses the same validating engine as the W3C Markup Service, but it saves having to keep navigating to the website using a browser.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 13</p>
+              <p id="page-number-13" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>13</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="14" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-14">Demo of HTML Validator CLI Tool</h2>
+          <p>The demo file can be found at the following path:<br>
+            <code>/demos/invalid.html</code>
+          </p>
+          <p>The commands to test are:</p>
+          <figure>
+            <figcaption class="visually-hidden">Code example</figcaption><pre class="hljs"><code tabindex="0"><span class="hljs-meta prompt_">$ </span><span class="language-bash">html-validator --file=&lt;path-to-file&gt;</span>
+<span class="hljs-meta prompt_">$ </span><span class="language-bash">html-validator &lt;url&gt;</span>
+</code></pre>
+          </figure>
+          <p>You can also use:</p>
+          <ul>
+            <li><code>--verbose</code> to get a full readout</li>
+            <li><code>--islocal</code> for locally hosted websites</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 14</p>
+              <p id="page-number-14" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>14</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="15" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-15">Browser tools</h2>
+          <p>Browser tools are plugins or extensions you can install to give you more functionality.</p>
+          <p>In these demos I will be using the Chrome browser with <a href="https://chrome.google.com/webstore/detail/arc-toolkit/chdkkkccnlfncngelccgbgfmjebmkmce?utm_source=chrome-ntp-icon">ARC Toolkit</a>, <a href="https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd?utm_source=chrome-ntp-icon">Axe DevTools</a> and <a href="https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh?utm_source=chrome-ntp-icon">Wave</a> which can be installed from the <a href="https://chrome.google.com/webstore/category/extensions">Chrome Web Store</a>.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 15</p>
+              <p id="page-number-15" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>15</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="16" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-16">Permissions</h2>
+          <p>Chrome extensions can only run against URLs by default. You have to turn on an option for each one to explicitly give it access to files.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 16</p>
+              <p id="page-number-16" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>16</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="17" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-17">Interpreting results</h2>
+          <p>Each tool has its own ideas of what is an error, what is an alert, and what is best practice.</p>
+          <p>For example, ARC Toolkit says skipping a heading level is a WCAG failure, and Axe DevTools just says it’s bad practice.</p>
+          <p><em>Spoiler: it is a failure. Headings need to be the correct level to pass <a href="https://www.w3.org/WAI/WCAG21/Understanding/info-and-relationships.html">1.3.1 Info and Relationships</a>.</em></p>
+          <footer><a href="https://www.w3.org/WAI/WCAG21/Techniques/html/H42">Using h1-h6 to identify headings </a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 17</p>
+              <p id="page-number-17" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>17</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="18" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-18">ARC Toolkit Results</h2>
+          <p><strong>ARC Toolkit has 3 categories:</strong></p>
+          <ul>
+            <li>Errors - things it thinks is a fail</li>
+            <li>Alerts - it’s suspicious but not 100% sure if it’s a fail</li>
+            <li>Best practices - things it thinks are not a fail but could be better</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 18</p>
+              <p id="page-number-18" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>18</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="19" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-19">ARC Toolkit Results</h2>
+          <p>Axe DevTools reports everything as an issue.</p>
+          <p><strong>It breaks fails down into 5 categories:</strong></p>
+          <ul>
+            <li>Critical</li>
+            <li>Serious</li>
+            <li>Moderate</li>
+            <li>Minor</li>
+          </ul>
+          <p>Like Axe DevTools, it also reports on best practices. Which are things it thinks are not a fail but could be better.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 19</p>
+              <p id="page-number-19" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>19</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="20" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-20">Wave</h2>
+          <p><strong>Wave reports on:</strong></p>
+          <ul>
+            <li>Errors - things it thinks are fail</li>
+            <li>Contrast errors - things it thinks has failed specifically on colour contrast</li>
+            <li>Alerts - it’s suspicious but not 100% sure if it’s a fail</li>
+          </ul>
+          <p><strong>It also reports on positive things:</strong></p>
+          <ul>
+            <li>Features - things it thinks are good and improve user experience</li>
+            <li>Structural elements - help you assess headers etc</li>
+            <li>ARIA - flags aria attributes</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 20</p>
+              <p id="page-number-20" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>20</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="21" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-21">Demo of browser tools</h2>
+          <p>The demo file can be found at the following path:<br>
+            <code>/demos/accessiblity-issues.html</code>
+          </p>
+          <footer><a href="./demos/accessibility-issues.html" target="_blank">Demo for browser tools (Opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 21</p>
+              <p id="page-number-21" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>21</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="22" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-22">Bonus browser tools</h2>
+          <p>Some more useful tools are:</p>
+          <ul>
+            <li><a href="https://chrome.google.com/webstore/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni">Accessibility Insights</a></li>
+            <li><a href="https://chrome.google.com/webstore/detail/broken-link-checker/nibppfobembgfmejpjaaeocbogeonhch">Broken links checker</a></li>
+            <li><a href="https://chrome.google.com/webstore/detail/web-developer/bfbameneiokkgbdmiekhjnmfkcnldhhm">Web Developer</a></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 22</p>
+              <p id="page-number-22" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>22</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="23" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-23">Fully automated testing</h2>
+          <p>Because browser tools can only run on one page at a time, some people don’t consider them to be automated.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 23</p>
+              <p id="page-number-23" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>23</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="24" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-24">What can you fully automate?</h2>
+          <p>The engine which runs Axe DevTools is called axe-core, and you can use this to fully automate accessibility testing.</p>
+          <p>I’m not aware of a way you can automate ARC Toolkit or Wave at this point. So, if you don’t use those browser extensions you won’t get access to some of those unique things they find.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 24</p>
+              <p id="page-number-24" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>24</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="25" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-25">Recommended testing process</h2>
+          <ol>
+            <li>Test the HTML is valid for the page as you build it.</li>
+            <li>Use the browser tools against the page as you build it.</li>
+            <li>Run your acceptance tests against the page before you do the manual accessibility checks.</li>
+            <li>Manually test the page against WCAG 2.1</li>
+            <li>Manually test the page using assistive technologies</li>
+            <li>Run your acceptance tests against the whole product before merging your code.</li>
+          </ol>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 25</p>
+              <p id="page-number-25" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>25</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="26" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-26">Live coding examples</h2>
+          <p>This might go wrong in spectacular fashion. But I will try to live code two acceptance tests to show you how to:</p>
+          <ul>
+            <li>validate your HTML using HTML Validator</li>
+            <li>run axe-core in a headless browser using PA11Y</li>
+          </ul>
+          <p>If there’s time, I’ll also show you a more complex example using Selenium.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 26</p>
+              <p id="page-number-26" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>26</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="27" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-27">Example test for HTML Validator</h2>
+          <p>A basic HTML Validator test using Mocha and Chai.</p>
+          <figure>
+            <figcaption class="visually-hidden">Code example</figcaption><pre class="hljs"><code tabindex="0"><span class="hljs-keyword">const</span> { expect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chai'</span>)
+<span class="hljs-keyword">const</span> validator = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-validator'</span>)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Validate HTML'</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">'should have valid HTML'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> options = {
+      <span class="hljs-attr">url</span>: <span class="hljs-string">'http://localhost:3000'</span>,
+      <span class="hljs-attr">isLocal</span>: <span class="hljs-literal">true</span>
+    }
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> <span class="hljs-title function_">validator</span>(options)
+    <span class="hljs-title function_">expect</span>(result.<span class="hljs-property">messages</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">eql</span>([])
+  })
+})
+</code></pre>
+          </figure>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 27</p>
+              <p id="page-number-27" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>27</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="28" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-28">Example test for PA11Y</h2>
+          <p>A basic PA11Y test using Mocha and Chai.</p>
+          <figure>
+            <figcaption class="visually-hidden">Code example</figcaption><pre class="hljs"><code tabindex="0"><span class="hljs-keyword">const</span> { expect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chai'</span>)
+<span class="hljs-keyword">const</span> pa11y = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pa11y'</span>)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'PA11Y'</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">'should have no accessibility issues'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> results = <span class="hljs-keyword">await</span> <span class="hljs-title function_">pa11y</span>(<span class="hljs-string">'http://localhost:3000'</span>, { <span class="hljs-attr">runners</span>: [<span class="hljs-string">'htmlcs'</span>, <span class="hljs-string">'axe'</span>] })
+    <span class="hljs-title function_">expect</span>(results.<span class="hljs-property">issues</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">eql</span>([])
+  })
+})
+</code></pre>
+          </figure>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 28</p>
+              <p id="page-number-28" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>28</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="29" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-29">Example test for Selenium</h2>
+          <p>A basic axe-core test using Mocha, Chai and Selenium.</p>
+          <figure>
+            <figcaption class="visually-hidden">Code example</figcaption><pre class="hljs"><code tabindex="0"><span class="hljs-keyword">const</span> <span class="hljs-title class_">AxeBuilder</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@axe-core/webdriverjs'</span>)
+<span class="hljs-keyword">const</span> webdriver = <span class="hljs-built_in">require</span>(<span class="hljs-string">'selenium-webdriver'</span>)
+<span class="hljs-keyword">const</span> { expect } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'chai'</span>)
+
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Selenium axe-core'</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">'should have no violations'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+    <span class="hljs-keyword">const</span> driver = <span class="hljs-keyword">new</span> webdriver.<span class="hljs-title class_">Builder</span>()
+      .<span class="hljs-title function_">forBrowser</span>(<span class="hljs-string">'chrome'</span>)
+      .<span class="hljs-title function_">build</span>()
+    <span class="hljs-keyword">await</span> driver.<span class="hljs-title function_">get</span>(<span class="hljs-string">'http://localhost:3000'</span>)
+    <span class="hljs-keyword">const</span> axe = <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AxeBuilder</span>(driver)
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> axe.<span class="hljs-title function_">analyze</span>()
+    <span class="hljs-keyword">await</span> driver.<span class="hljs-title function_">quit</span>()
+    <span class="hljs-title function_">expect</span>(results.<span class="hljs-property">violations</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">eql</span>([])
+  })
+})
+</code></pre>
+          </figure>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 29</p>
+              <p id="page-number-29" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>29</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="30" data-marpit-pagination="" data-marpit-pagination-total="30" class="change">
+          <h2 aria-describedby="page-number-30">Thank you!</h2>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 30</p>
+              <p id="page-number-30" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>30</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+
+  </body>
+
+</html>

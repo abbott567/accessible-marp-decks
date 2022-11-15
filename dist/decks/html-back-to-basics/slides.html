@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>HTML - Back to Basics - National Coding Week</title>
+    <meta name="description" content="Session on HTML elements for National Coding Week.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+      div.marpit>section {
+        width: 1280px;
+        height: 720px;
+
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+
+        scroll-snap-align: center center;
+      }
+
+      div.marpit>section::after {
+        bottom: 0;
+        content: attr(data-marpit-pagination);
+        padding: inherit;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+      }
+
+      div.marpit>section:not([data-marpit-pagination])::after {
+        display: none;
+      }
+
+      /* Normalization */
+      div.marpit>section h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+
+      div.marpit>section video::-webkit-media-controls {
+        will-change: transform;
+      }
+
+      @page {
+        size: 1280px 720px;
+        margin: 0;
+      }
+
+      @media print {
+
+        html,
+        body {
+          background-color: #fff;
+          margin: 0;
+          page-break-inside: avoid;
+          break-inside: avoid-page;
+        }
+
+        div.marpit>section {
+          page-break-before: always;
+          break-before: page;
+        }
+
+        div.marpit>section,
+        div.marpit>section * {
+          -webkit-print-color-adjust: exact !important;
+          animation-delay: 0s !important;
+          animation-duration: 0s !important;
+          color-adjust: exact !important;
+          transition: none !important;
+        }
+
+        div.marpit>svg[data-marpit-svg] {
+          display: block;
+          height: 100vh;
+          width: 100vw;
+        }
+      }
+
+      /* @theme dwp-theme */
+      /*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+      div.marpit>section .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        margin: calc(var(--marpit-root-font-size, 1rem) * 1) 0;
+      }
+
+      div.marpit>section .col {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+        flex: 1;
+        margin-right: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section .pagination {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        top: 0;
+      }
+
+      div.marpit>section section.pagination {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section .visually-hidden {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        clip: rect(0 0 0 0) !important;
+        -webkit-clip-path: inset(50%) !important;
+        clip-path: inset(50%) !important;
+        border: 0 !important;
+        white-space: nowrap !important;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section h3,
+      div.marpit>section h4,
+      div.marpit>section h5,
+      div.marpit>section h6,
+      div.marpit>section a,
+      div.marpit>section a:visited {
+        color: #4c2b91;
+      }
+
+      div.marpit>section {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      div.marpit>section pre code,
+      div.marpit>section code {
+        font-family: monospace, monospace;
+      }
+
+      div.marpit>section h1,
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2,
+      div.marpit>section p {
+        max-width: 66%;
+      }
+
+      div.marpit>section {
+        line-height: 1.2;
+        font-size: 29px;
+        color: #111111;
+        background: white;
+        align-items: stretch;
+        display: flex;
+        flex-flow: column nowrap;
+        height: 720px;
+        justify-content: center;
+        padding: 78.5px;
+        width: 1280px;
+        background-size: cover;
+      }
+
+      div.marpit>section {
+        --marpit-root-font-size: 29px;
+      }
+
+      div.marpit>section:after {
+        color: #505a5f;
+        font-size: 24px;
+        position: absolute;
+        padding: 0;
+        right: 30px;
+        bottom: 21px;
+      }
+
+      div.marpit>section:after {
+        --marpit-root-font-size: 24px;
+      }
+
+      div.marpit>section>*:last-child,
+      div.marpit>section section[data-footer]> :nth-last-child(2) {
+        margin-bottom: 0;
+      }
+
+      div.marpit>section>*:first-child,
+      div.marpit>section header:first-child+* {
+        margin-top: 0;
+      }
+
+      div.marpit>section pre {
+        margin: 0;
+        overflow: visible;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section pre code {
+        display: block;
+        overflow-y: visible;
+        overflow-x: auto;
+        padding: calc(var(--marpit-root-font-size, 1rem) * .75);
+        border: 1px dashed;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+      }
+
+      div.marpit>section pre code:focus {
+        outline: 4px solid #111111;
+        outline-offset: 4px;
+        box-shadow: 0px 0px 0px 5px gold;
+      }
+
+      div.marpit>section code {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        background-color: #F5F5FF;
+        padding: 0 calc(var(--marpit-root-font-size, 1rem) * .2);
+        border-radius: 5px;
+      }
+
+      div.marpit>section h1 {
+        border-bottom: none;
+        font-size: 1.75em;
+      }
+
+      div.marpit>section h2:first-of-type,
+      div.marpit>section h3:first-of-type,
+      div.marpit>section h4:first-of-type,
+      div.marpit>section h5:first-of-type,
+      div.marpit>section h6:first-of-type,
+      div.marpit>section h2 {
+        border-bottom: none;
+        font-size: 1.6em;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1);
+      }
+
+      div.marpit>section h3 {
+        font-size: 1.1em;
+        margin-top: 0;
+      }
+
+      div.marpit>section h4 {
+        font-size: 1.05em;
+      }
+
+      div.marpit>section h5 {
+        font-size: 1em;
+      }
+
+      div.marpit>section h6 {
+        font-size: 0.9em;
+      }
+
+      div.marpit>section a:focus {
+        outline: none;
+        padding: 3px;
+        text-decoration: none;
+        background-color: gold;
+        color: #111111;
+        border-bottom: 5px solid #111111;
+      }
+
+      div.marpit>section hr {
+        height: 0;
+        padding-top: 0.25em;
+      }
+
+      div.marpit>section header {
+        top: 21px;
+      }
+
+      div.marpit>section footer {
+        bottom: 21px;
+      }
+
+      div.marpit>section header,
+      div.marpit>section footer {
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .75);
+        margin: 0;
+        position: absolute;
+        left: 30px;
+        width: 1240px;
+        min-height: 30px;
+      }
+
+      div.marpit>section kbd {
+        color: #111111;
+        font-size: calc(var(--marpit-root-font-size, 1rem) * .9);
+        border: 1px solid grey;
+      }
+
+      div.marpit>section img,
+      div.marpit>section figure {
+        margin-top: 0;
+        width: 100%;
+        border: 1px solid #b1b4b6;
+      }
+
+      div.marpit>section p {
+        margin-top: 0;
+      }
+
+      div.marpit>section input {
+        padding: calc(var(--marpit-root-font-size, 1rem) * .25);
+        font-size: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border: 2px solid black;
+        display: block;
+      }
+
+      div.marpit>section figure {
+        margin: 0;
+        border: 0;
+      }
+
+      div.marpit>section ul,
+      div.marpit>section ol {
+        margin-top: 0;
+        margin-bottom: calc(var(--marpit-root-font-size, 1rem) * 1.5);
+      }
+
+      div.marpit>section ul li,
+      div.marpit>section ol li {
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        line-height: 1.5;
+      }
+
+      div.marpit>section blockquote {
+        margin: 0;
+        padding-left: calc(var(--marpit-root-font-size, 1rem) * 1);
+        border-left: 10px solid #b1b4b6;
+      }
+
+      div.marpit>section blockquote p {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        font-style: italic;
+      }
+
+      div.marpit>section pre code.hljs {
+        display: block;
+        overflow-x: auto;
+        padding: 1em;
+      }
+
+      div.marpit>section code.hljs {
+        padding: 3px 5px;
+      }
+
+      /*!
+  Theme: a11y-light
+  Author: @ericwbailey
+  Maintainer: @ericwbailey
+
+  Based on the Tomorrow Night Eighties theme: https://github.com/isagalaev/highlight.js/blob/master/src/styles/tomorrow-night-eighties.css
+*/
+      div.marpit>section .hljs {
+        background: #fefefe;
+        color: #545454;
+      }
+
+      div.marpit>section .hljs-comment,
+      div.marpit>section .hljs-quote {
+        color: #696969;
+      }
+
+      div.marpit>section .hljs-deletion,
+      div.marpit>section .hljs-name,
+      div.marpit>section .hljs-regexp,
+      div.marpit>section .hljs-selector-class,
+      div.marpit>section .hljs-selector-id,
+      div.marpit>section .hljs-tag,
+      div.marpit>section .hljs-template-variable,
+      div.marpit>section .hljs-variable {
+        color: #d91e18;
+      }
+
+      div.marpit>section .hljs-attribute,
+      div.marpit>section .hljs-built_in,
+      div.marpit>section .hljs-link,
+      div.marpit>section .hljs-literal,
+      div.marpit>section .hljs-meta,
+      div.marpit>section .hljs-number,
+      div.marpit>section .hljs-params,
+      div.marpit>section .hljs-type {
+        color: #aa5d00;
+      }
+
+      div.marpit>section .hljs-addition,
+      div.marpit>section .hljs-bullet,
+      div.marpit>section .hljs-string,
+      div.marpit>section .hljs-symbol {
+        color: green;
+      }
+
+      div.marpit>section .hljs-section,
+      div.marpit>section .hljs-title {
+        color: #007faa;
+      }
+
+      div.marpit>section .hljs-keyword,
+      div.marpit>section .hljs-selector-tag {
+        color: #7928a1;
+      }
+
+      div.marpit>section .hljs-emphasis {
+        font-style: italic;
+      }
+
+      div.marpit>section .hljs-strong {
+        font-weight: 700;
+      }
+
+      @media screen and (-ms-high-contrast: active) {
+
+        div.marpit>section .hljs-addition,
+        div.marpit>section .hljs-attribute,
+        div.marpit>section .hljs-built_in,
+        div.marpit>section .hljs-bullet,
+        div.marpit>section .hljs-comment,
+        div.marpit>section .hljs-link,
+        div.marpit>section .hljs-literal,
+        div.marpit>section .hljs-meta,
+        div.marpit>section .hljs-number,
+        div.marpit>section .hljs-params,
+        div.marpit>section .hljs-quote,
+        div.marpit>section .hljs-string,
+        div.marpit>section .hljs-symbol,
+        div.marpit>section .hljs-type {
+          color: highlight;
+        }
+
+        div.marpit>section .hljs-keyword,
+        div.marpit>section .hljs-selector-tag {
+          font-weight: 700;
+        }
+      }
+
+      body {
+        background: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      div.marpit>section {
+        margin: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <div class="marpit">
+        <section id="1" data-marpit-pagination-total="55" aria-label="Slide 1: HTML - Back to basics">
+          <h1 aria-describedby="page-number-1" id="slide-1">HTML - Back to basics</h1>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 1</p>
+              <p id="page-number-1" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>1</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="2" data-marpit-pagination-total="55" aria-label="Slide 2: Did you know?">
+          <h2 aria-describedby="page-number-2" id="slide-2">Did you know?</h2>
+          <p>Under the Public Sector Bodies Accessibility Regulations 2018, it is illegal to push invalid HTML into a live public sector website or digital service.</p>
+          <footer><a href="https://www.gov.uk/guidance/accessibility-requirements-for-public-sector-websites-and-apps">GOV.UK Accessibility Requirements for Public Sector websites</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 2</p>
+              <p id="page-number-2" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>2</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="3" data-marpit-pagination-total="55" aria-label="Slide 3: The Web Content Accessibility Guidelines (WCAG) 2.1">
+          <h2 aria-describedby="page-number-3" id="slide-3">The Web Content Accessibility Guidelines (WCAG) 2.1</h2>
+          <p>To meet <a href="https://www.w3.org/WAI/WCAG21/Understanding/parsing.html">WCAG 4.1.1 Parsing</a>, your HTML code must be valid. This means it must follow the rules laid out in the specification.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 3</p>
+              <p id="page-number-3" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>3</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="4" data-marpit-pagination-total="55" aria-label="Slide 4: There’s a fundamental lack of respect for HTML as a language">
+          <h2 aria-describedby="page-number-4" id="slide-4">There’s a fundamental lack of respect for HTML as a language</h2>
+          <p>Because most developers can make a page <em>‘look’</em> like the design, HTML and CSS are generally considered ‘easy’.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 4</p>
+              <p id="page-number-4" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>4</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="5" data-marpit-pagination-total="55" aria-label="Slide 5: HTML is not studied as a specialism">
+          <h2 aria-describedby="page-number-5" id="slide-5">HTML is not studied as a specialism</h2>
+          <p>In most computer science degrees, HTML is only covered in “full stack development”. The entire module is usually around 100 hours and covers things like:</p>
+          <ul>
+            <li>design principles</li>
+            <li>information architecture</li>
+            <li>authentication and authorisation</li>
+            <li>security</li>
+            <li>standards and compliance</li>
+            <li><em>client and server-side coding</em></li>
+            <li><em>usability and accessibility</em></li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 5</p>
+              <p id="page-number-5" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>5</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="6" data-marpit-pagination-total="55" aria-label="Slide 6: HTML is flexible… Too flexible!">
+          <h2 aria-describedby="page-number-6" id="slide-6">HTML is flexible… Too flexible!</h2>
+          <p>The following 3 examples are all <em>valid</em>.<br>
+            But only one of them is <em>correct</em>.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"button"</span>&gt;</span>Continue<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"button"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>Continue<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"button"</span>&gt;</span>Continue<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 6</p>
+              <p id="page-number-6" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>6</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="7" data-marpit-pagination-total="55" aria-label="Slide 7: Although HTML is flexible, there are still rules!">
+          <h3 aria-describedby="page-number-7" id="slide-7">Although HTML is flexible, there are still rules!</h3>
+          <p>The spec, or specification, are the rules of the language. It defines what you can and can’t do.</p>
+          <p>For example, you can’t just make up attributes to get your JavaScript to work, although many people do.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">moo</span>=<span class="hljs-string">"cow"</span>&gt;</span>…<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+  div.<span class="hljs-title function_">getAttribute</span>(<span class="hljs-string">'moo'</span>) === <span class="hljs-string">'cow'</span>
+</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://html.spec.whatwg.org/multipage/">HTML5 Spec</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 7</p>
+              <p id="page-number-7" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>7</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="8" data-marpit-pagination-total="55" aria-label="Slide 8: Boiler plate templates are basic">
+          <h2 aria-describedby="page-number-8" id="slide-8">Boiler plate templates are basic</h2>
+          <p>Boilerplate ‘bare minimum’ templates often don’t even include a <code>&lt;main&gt;</code> element.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Boilerplate HTML<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"style.css"</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-comment">&lt;!-- Page content --&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"index.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://html5boilerplate.com/">HTML5 Boilerplate Example</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 8</p>
+              <p id="page-number-8" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>8</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="9" data-marpit-pagination-total="55" aria-label="Slide 9: Boilerplate templates still expect you to know HTML">
+          <h3 aria-describedby="page-number-9" id="slide-9">Boilerplate templates still expect you to know HTML</h3>
+          <p>Unfortunately, a lot of people who use them, do so because they’re not 100% sure what then need to include.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 9</p>
+              <p id="page-number-9" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>9</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="10" data-marpit-pagination-total="55" aria-label="Slide 10: Mozilla Developer Network (MDN)">
+          <h2 aria-describedby="page-number-10" id="slide-10">Mozilla Developer Network (MDN)</h2>
+          <p>MDN combines sources such as WCAG 2.1 and the HTML5 Spec into a more user-friendly document.</p>
+          <p>If you’re ever unsure on how an element or attribute works, MDN is a really good place to look it up!</p>
+          <footer><a href="https://developer.mozilla.org/en-US/">Mozilla Developer Network (MDN)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 10</p>
+              <p id="page-number-10" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>10</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="11" data-marpit-pagination-total="55" aria-label="Slide 11: Before we start">
+          <h2 aria-describedby="page-number-11" id="slide-11">Before we start</h2>
+          <p>If you’re building digital services, you should use <a href="https://design-system.service.gov.uk/">GOV.UK Design System</a> and <a href="https://frontend.design-system.service.gov.uk/">GOV.UK Frontend</a>.</p>
+          <p>The components are tried and tested and are more likely to be accessible than building your own from scratch.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 11</p>
+              <p id="page-number-11" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>11</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="12" data-marpit-pagination-total="55" aria-label="Slide 12: Let’s look at">
+          <h2 aria-describedby="page-number-12" id="slide-12">Let’s look at</h2>
+          <ul>
+            <li>Common elements</li>
+            <li>Headings</li>
+            <li>Language</li>
+            <li>Page titles</li>
+            <li>Landmarks</li>
+            <li>Skip links</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 12</p>
+              <p id="page-number-12" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>12</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="13" data-marpit-pagination-total="55" aria-label="Slide 13: Common elements">
+          <h2 aria-describedby="page-number-13" id="slide-13">Common elements</h2>
+          <p>Each HTML element has a purpose. Choosing the correct elements is the easiest way to make anything accessible.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 13</p>
+              <p id="page-number-13" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>13</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="14" data-marpit-pagination-total="55" aria-label="Slide 14: Paragraph element">
+          <h3 aria-describedby="page-number-14" id="slide-14">Paragraph element</h3>
+          <p>A paragraph element (<code>&lt;p&gt;</code>) is the simplest form of structured text. It is used for anything which is basic content and should be used when the content does not fit better into another category.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  A paragraph is the simplest form of meaningful content.
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/p</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 14</p>
+              <p id="page-number-14" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>14</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="15" data-marpit-pagination-total="55" aria-label="Slide 15: Division element">
+          <h3 aria-describedby="page-number-15" id="slide-15">Division element</h3>
+          <p>The division element (<code>&lt;div&gt;</code>) is a decorative element. It is used to wrap blocks of content to give you control over the design.</p>
+          <p>You should <em>never</em> use them for anything which is meaningful or interactive unless you modify their aria-role.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"half-width"</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Featured artists<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  …
+
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div">The Division element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 15</p>
+              <p id="page-number-15" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>15</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="16" data-marpit-pagination-total="55" aria-label="Slide 16: Span element">
+          <h3 aria-describedby="page-number-16" id="slide-16">Span element</h3>
+          <p>The span (<code>&lt;span&gt;</code>) element is also a decorative element, but they are used inline so you can wrap parts of a sentence to add stylistic choices.</p>
+          <p>Spans should <em>never</em> be used for anything interactive or meaningful and should only be used when styles do not add context.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  Only 8% of the global population has <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"blue"</span>&gt;</span>blue<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> eyes.
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/span">The Span element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 16</p>
+              <p id="page-number-16" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>16</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="17" data-marpit-pagination-total="55" aria-label="Slide 17: Emphasis element">
+          <h3 aria-describedby="page-number-17" id="slide-17">Emphasis element</h3>
+          <p>The emphasis (<code>&lt;em&gt;</code>) element should be used to emphasise certain words like you would in natural language. It should not be used simply to add italic styling.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  You should <span class="hljs-tag">&lt;<span class="hljs-name">em</span>&gt;</span>not<span class="hljs-tag">&lt;/<span class="hljs-name">em</span>&gt;</span> use the emphasis element
+  just because you like the look of italics.
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/em">The Emphasis element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 17</p>
+              <p id="page-number-17" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>17</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="18" data-marpit-pagination-total="55" aria-label="Slide 18: Strong importance element">
+          <h3 aria-describedby="page-number-18" id="slide-18">Strong importance element</h3>
+          <p>The strong importance element (<code>&lt;strong&gt;</code>) should only be used for urgent or important information, such as a warning.</p>
+          <p>It should <em>not</em> be used just to make something bold.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>
+  Warning! You can be fined up to £5,000 if you do not register.
+<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/strong">The Strong Importance element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 18</p>
+              <p id="page-number-18" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>18</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="19" data-marpit-pagination-total="55" aria-label="Slide 19: Idiomatic text element">
+          <h3 aria-describedby="page-number-19" id="slide-19">Idiomatic text element</h3>
+          <p>It idiomatic text element (<code>&lt;i&gt;</code>) should be used for text with a different semantic meaning to the surrounding text.</p>
+          <p>For example:</p>
+          <ul>
+            <li>an alternative voice or mood</li>
+            <li>alternative languages or translations</li>
+            <li>technical terms</li>
+            <li>written thoughts</li>
+          </ul>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/i">The Idiomatic Text element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 19</p>
+              <p id="page-number-19" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>19</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="20" data-marpit-pagination-total="55" aria-label="Slide 20: Image element">
+          <h3 aria-describedby="page-number-20" id="slide-20">Image element</h3>
+          <p>Images (<code>&lt;img&gt;</code>) are for visual content. You <em>must</em> give them an alt text attribute. The alt text should describe the image or be left blank if the image is decorative.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"cat.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"A tabby cat wearing sunglasses."</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"background.jpg"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">""</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img">The Image element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 20</p>
+              <p id="page-number-20" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>20</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="21" data-marpit-pagination-total="55" aria-label="Slide 21: Unordered list element">
+          <h3 aria-describedby="page-number-21" id="slide-21">Unordered list element</h3>
+          <p>Use an unordered list when the reading order doesn’t matter.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  To open a bank account, you need:
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>proof of address<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>a valid ID document<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>a minimum deposit of £1<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ul">The Unordered List element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 21</p>
+              <p id="page-number-21" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>21</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="22" data-marpit-pagination-total="55" aria-label="Slide 22: Ordered list element">
+          <h3 aria-describedby="page-number-22" id="slide-22">Ordered list element</h3>
+          <p>Use ordered lists where the order matters for context.</p>
+          <p>For example, a step-by-step process.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Complete the following steps:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">ol</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Step 1: Go online<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Step 2: Book your tickets<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Step 3: Pick up your tickets when you arrive<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ol</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol">The Ordered List element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 22</p>
+              <p id="page-number-22" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>22</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="23" data-marpit-pagination-total="55" aria-label="Slide 23: Anchor element">
+          <h3 aria-describedby="page-number-23" id="slide-23">Anchor element</h3>
+          <p>An anchor element (<code>&lt;a&gt;</code>), more commonly known as a hyperlink, is used to link the user to other parts of the page, other parts of the site, or other parts of the internet.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#main-content"</span>&gt;</span>Skip to main content<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/contact-us"</span>&gt;</span>Contact us<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://gov.uk"</span>&gt;</span>GOV.UK<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a">The Anchor element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 23</p>
+              <p id="page-number-23" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>23</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="24" data-marpit-pagination-total="55" aria-label="Slide 24: Line break elements">
+          <h3 aria-describedby="page-number-24" id="slide-24">Line break elements</h3>
+          <p>Line breaks are used to force text onto a new line. They should <em>not</em> be used to create whitespace on a page.</p>
+          <div class="row">
+            <div class="col">
+              <p>Good example:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+  Mr Sherlock Holmes<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+  221B Baker Street,<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+  London<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+  NW1 6XE
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+            </div>
+            <div class="col">
+              <p>Bad example:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"section-1"</span>&gt;</span>…<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">br</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">section</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"section-2"</span>&gt;</span>…<span class="hljs-tag">&lt;/<span class="hljs-name">section</span>&gt;</span>
+</code></pre>
+            </div>
+          </div>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/br">The Linebreak element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 24</p>
+              <p id="page-number-24" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>24</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="25" data-marpit-pagination-total="55" aria-label="Slide 25: Thematic break element">
+          <h3 aria-describedby="page-number-25" id="slide-25">Thematic break element</h3>
+          <p>A thematic break element was historically called a horizontal rule. Which is why it uses the tag <code>&lt;hr&gt;</code>.</p>
+          <p>You should avoid using these as they are not implemented consistently and if you structure your content properly, they are not needed.</p>
+          <p>If you need to create a visual horizontal rule, use CSS instead.</p>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr">The Thematic break element on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 25</p>
+              <p id="page-number-25" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>25</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="26" data-marpit-pagination-total="55" aria-label="Slide 26: Heading element">
+          <h2 aria-describedby="page-number-26" id="slide-26">Heading element</h2>
+          <p>Heading elements (<code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>) need to be the marked up correctly, be the right level, and be easy to understand.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 26</p>
+              <p id="page-number-26" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>26</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="27" data-marpit-pagination-total="55" aria-label="Slide 27: Marking up headings">
+          <h3 aria-describedby="page-number-27" id="slide-27">Marking up headings</h3>
+          <p>You can’t just make the font look big and bold.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>
+  This will behave like a heading
+<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"large bold"</span>&gt;</span>
+  This may look like a heading, but it will not behave like one.
+<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 27</p>
+              <p id="page-number-27" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>27</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="28" data-marpit-pagination-total="55" aria-label="Slide 28: Heading levels">
+          <h3 aria-describedby="page-number-28" id="slide-28">Heading levels</h3>
+          <p>There are 6 levels. Realistically, if you need more than 3 or 4, your page is probably too complex!</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Heading Level 1<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Heading Level 2<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Heading Level 3<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h4</span>&gt;</span>Heading Level 4<span class="hljs-tag">&lt;/<span class="hljs-name">h4</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>Heading Level 5<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h6</span>&gt;</span>Heading Level 6<span class="hljs-tag">&lt;/<span class="hljs-name">h6</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 28</p>
+              <p id="page-number-28" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>28</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="29" data-marpit-pagination-total="55" aria-label="Slide 29: Headings should be related">
+          <h4 aria-describedby="page-number-29" id="slide-29">Headings should be related</h4>
+          <p>If you have a <code>&lt;h3&gt;</code> and it does not relate to the <code>&lt;h2&gt;</code> or <code>&lt;h1&gt;</code> above it, then you’ve usually done something wrong.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>COVID-19<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>How to stay safe<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Wearing a mask<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Washing your hands<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Social distancing<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>How to get tested<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Getting tested if you're a key worker<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>Getting a test for somebody in a care home<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 29</p>
+              <p id="page-number-29" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>29</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="30" data-marpit-pagination-total="55" aria-label="Slide 30: Don’t use the wrong heading level for stylistic purposes">
+          <h4 aria-describedby="page-number-30" id="slide-30">Don’t use the wrong heading level for stylistic purposes</h4>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>
+  I want this text to be large
+<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h5</span>&gt;</span>
+  I want this text to be small
+<span class="hljs-tag">&lt;/<span class="hljs-name">h5</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 30</p>
+              <p id="page-number-30" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>30</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="31" data-marpit-pagination-total="55" aria-label="Slide 31: If you need to make headings smaller, use CSS">
+          <h4 aria-describedby="page-number-31" id="slide-31">If you need to make headings smaller, use CSS</h4>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"heading-large"</span>&gt;</span>
+  I want this text to be large
+<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"heading-small"</span>&gt;</span>
+  I want this text to be small
+<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+</code></pre>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-selector-class">.heading-large</span> { <span class="hljs-attribute">font-size</span>: <span class="hljs-number">2rem</span>; }
+<span class="hljs-selector-class">.heading-small</span> { <span class="hljs-attribute">font-size</span>: .<span class="hljs-number">5rem</span>; }
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 31</p>
+              <p id="page-number-31" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>31</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="32" data-marpit-pagination-total="55" aria-label="Slide 32: Demo of heading-levels">
+          <h4 aria-describedby="page-number-32" id="slide-32">Demo of heading-levels</h4>
+          <p>Can be found at the following path:<br>
+            <code>/demos/heading-levels.html</code>
+          </p>
+          <footer><a href="./demos/heading-levels.html" target="_blank">Demo of heading levels (Opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 32</p>
+              <p id="page-number-32" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>32</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="33" data-marpit-pagination-total="55" aria-label="Slide 33: Language attribute">
+          <h2 aria-describedby="page-number-33" id="slide-33">Language attribute</h2>
+          <p>The language attribute (<code>lang</code>) must be set on each page so that assistive technologies such as screen readers pronounce the words correctly.</p>
+          <p>It must also be set on any blocks which use a different language to the rest of the page.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 33</p>
+              <p id="page-number-33" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>33</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="34" data-marpit-pagination-total="55" aria-label="Slide 34: Setting the language of the page">
+          <h3 aria-describedby="page-number-34" id="slide-34">Setting the language of the page</h3>
+          <p>Using the <code>lang</code> attribute on the <code>HTML</code> element lets assistive technologies know the content on this page is written in English.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang">The Lang attribute on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 34</p>
+              <p id="page-number-34" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>34</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="35" data-marpit-pagination-total="55" aria-label="Slide 35: Language inheritance">
+          <h3 aria-describedby="page-number-35" id="slide-35">Language inheritance</h3>
+          <p>Nested children inherit the same language as their parents. So, you don’t need to specify it on every element, just on the outer most container.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span> 
+  …
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This paragraph inherits English from the body element,
+      and the body element inherits English from the HTML element.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 35</p>
+              <p id="page-number-35" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>35</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="36" data-marpit-pagination-total="55" aria-label="Slide 36: Setting the language for a block">
+          <h3 aria-describedby="page-number-36" id="slide-36">Setting the language for a block</h3>
+          <p>For anything that should <em>not</em> inherit from the page language, you need to add the lang attribute separately.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  …
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>This heading is in English<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      This paragraph is also in English.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"fr"</span>&gt;</span>
+      Ce paragraphe est en Français
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 36</p>
+              <p id="page-number-36" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>36</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="37" data-marpit-pagination-total="55" aria-label="Slide 37: Two languages in the same block">
+          <h3 aria-describedby="page-number-37" id="slide-37">Two languages in the same block</h3>
+          <p>You can mix multiple languages in a block by using an idiomatic text element (<code>&lt;i&gt;</code>).</p>
+          <p>Don’t use a <code>&lt;span&gt;</code> or it might not work. Remember, they are purely decorative.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+      Sometimes people mix languages in a paragraph, 
+      but they don't apply the correct language attributes. 
+      <span class="hljs-tag">&lt;<span class="hljs-name">i</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"fr"</span>&gt;</span>Ç'est la vie!<span class="hljs-tag">&lt;/<span class="hljs-name">i</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 37</p>
+              <p id="page-number-37" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>37</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="38" data-marpit-pagination-total="55" aria-label="Slide 38: Example of linking to Welsh">
+          <h3 aria-describedby="page-number-38" id="slide-38">Example of linking to Welsh</h3>
+          <p>You may have a link on a service to translate it to Welsh.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Apply for a passport<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/welsh"</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"cy"</span>&gt;</span>
+      Mae'r dudalen hon ar gael yn Gymraeg
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+    …
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 38</p>
+              <p id="page-number-38" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>38</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="39" data-marpit-pagination-total="55" aria-label="Slide 39: Example of linking to English">
+          <h3 aria-describedby="page-number-39" id="slide-39">Example of linking to English</h3>
+          <p>On the Welsh language version, you would need to tag the English in the same way.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"cy"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Gwneud cais am basbort<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+
+    <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/english"</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+      This page is available in English.
+    <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+    …
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 39</p>
+              <p id="page-number-39" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>39</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="40" data-marpit-pagination-total="55" aria-label="Slide 40: Demo of language attribute">
+          <h3 aria-describedby="page-number-40" id="slide-40">Demo of language attribute</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/language-attributes.html</code>
+          </p>
+          <footer><a href="./demos/language-attributes.html" target="_blank">Demo of language attributes (Opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 40</p>
+              <p id="page-number-40" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>40</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="41" data-marpit-pagination-total="55" aria-label="Slide 41: Page title element">
+          <h2 aria-describedby="page-number-41" id="slide-41">Page title element</h2>
+          <p>Each page needs to have a unique and descriptive title so users can orientate themselves quickly and find content. It should tell them what page they’re on, and what website or service they’re on.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>
+  What is your name? - Apply for Universal Credit - GOV.UK
+<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+</code></pre>
+          <p>or</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>
+  Tools and resources - DWP Accessibility Manual
+<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 41</p>
+              <p id="page-number-41" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>41</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="42" data-marpit-pagination-total="55" aria-label="Slide 42: Setting the page title">
+          <h3 aria-describedby="page-number-42" id="slide-42">Setting the page title</h3>
+          <p>The title element is used inside the <code>&lt;head&gt;</code> element on your page.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    …
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Report a sighting of an excellent cow - GOV.UK<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  …
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 42</p>
+              <p id="page-number-42" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>42</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="43" data-marpit-pagination-total="55" aria-label="Slide 43: Landmarks">
+          <h2 aria-describedby="page-number-43" id="slide-43">Landmarks</h2>
+          <p>Landmarks break the page down into defined areas, which helps people using assistive technology find content easier.</p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 43</p>
+              <p id="page-number-43" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>43</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="44" data-marpit-pagination-total="55" aria-label="Slide 44: Landmark types">
+          <h3 aria-describedby="page-number-44" id="slide-44">Landmark types</h3>
+          <ul>
+            <li>Main</li>
+            <li>Header</li>
+            <li>Footer</li>
+            <li>Navigation</li>
+            <li>Form</li>
+            <li>Aside</li>
+            <li>Region</li>
+            <li>Section</li>
+            <li>Search</li>
+          </ul>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/landmark_role">The Landmark Role on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 44</p>
+              <p id="page-number-44" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>44</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="45" data-marpit-pagination-total="55" aria-label="Slide 45: Basic page structure">
+          <h3 aria-describedby="page-number-45" id="slide-45">Basic page structure</h3>
+          <p>Most basic pages are made up of:</p>
+          <ul>
+            <li>Header</li>
+            <li>Page content</li>
+            <li>Footer</li>
+          </ul>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 45</p>
+              <p id="page-number-45" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>45</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="46" data-marpit-pagination-total="55" aria-label="Slide 46: Header">
+          <h3 aria-describedby="page-number-46" id="slide-46">Header</h3>
+          <p>The header is usually consistent at the top of each page. It will usually contain a logo and maybe a navigation menu.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">header</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"logo.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"Craig Abbott Logo"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/"</span>&gt;</span>Home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/about-us"</span>&gt;</span>About us<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/contact"</span>&gt;</span>Contact<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">header</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/header">The Header Role on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 46</p>
+              <p id="page-number-46" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>46</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="47" data-marpit-pagination-total="55" aria-label="Slide 47: Footer">
+          <h3 aria-describedby="page-number-47" id="slide-47">Footer</h3>
+          <p>Like the header, the footer is usually consistent at the bottom of each page. It usually contains useful links and copyright information.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Support links<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/accessibility"</span>&gt;</span>Accessibility<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/cookies"</span>&gt;</span>Cookies<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"/privacy"</span>&gt;</span>Privacy<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>
+    © Craig Abbott. All rights reserved.
+  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/footer">The Footer Role on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 47</p>
+              <p id="page-number-47" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>47</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="48" data-marpit-pagination-total="55" aria-label="Slide 48: The main landmark">
+          <h3 aria-describedby="page-number-48" id="slide-48">The main landmark</h3>
+          <p>The <code>&lt;main&gt;</code> element is where you put the important stuff. There should only be 1 on each page.</p>
+          <p>A <code>&lt;h1&gt;</code> should describe the content in it, and it should always have an ID to use a skip-link for bypass blocks.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">main</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"main-content"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>
+    A heading to describe the content
+  <span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>  
+  <span class="hljs-comment">&lt;!-- The content --&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">main</span>&gt;</span>
+</code></pre>
+          <footer><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/main">The Main Landmark on MDN</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 48</p>
+              <p id="page-number-48" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>48</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="49" data-marpit-pagination-total="55" aria-label="Slide 49: Demo of landmarks">
+          <h3 aria-describedby="page-number-49" id="slide-49">Demo of landmarks</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/landmarks.html</code>
+          </p>
+          <footer><a href="./demos/landmarks.html" target="_blank">Demo of landmarks (Opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 49</p>
+              <p id="page-number-49" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>49</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="50" data-marpit-pagination-total="55" aria-label="Slide 50: Main skip-link">
+          <h2 aria-describedby="page-number-50" id="slide-50">Main skip-link</h2>
+          <p>A skip-link should always be provided at the top of each page so that keyboard users can quickly get to the content they need.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#main-content"</span>&gt;</span>Skip to main content<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+  …
+  <span class="hljs-tag">&lt;<span class="hljs-name">main</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"main-content"</span>&gt;</span>
+  …
+<span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 50</p>
+              <p id="page-number-50" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>50</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="51" data-marpit-pagination-total="55" aria-label="Slide 51: Additional skip links">
+          <h3 aria-describedby="page-number-51" id="slide-51">Additional skip links</h3>
+          <p>You might need additional skip links if you have other blocks of repeated content. Such as a social media feed in a sidebar.</p>
+          <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#contact-details"</span>&gt;</span>Skip Twitter feed<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"twitter-feed"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"twitter-timeline"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://twitter.com/abbott567"</span>&gt;</span>
+    Tweets by @abbott567
+  <span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> 
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">async</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://platform.twitter.com/widgets.js"</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"utf-8"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"contact-details"</span>&gt;</span>Contact details<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+</code></pre>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 51</p>
+              <p id="page-number-51" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>51</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="52" data-marpit-pagination-total="55" aria-label="Slide 52: But skip links look ugly!">
+          <h3 aria-describedby="page-number-52" id="slide-52">But skip links look ugly!</h3>
+          <p>They don’t need to be visible all the time. They can be hidden and only visible when they receive keyboard focus.</p>
+          <div class="row">
+            <div class="col">
+              <p>Not focused:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-selector-class">.skip-link</span> {
+  <span class="hljs-attribute">position</span>: absolute;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">1px</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">1px</span>;
+  <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">overflow</span>: hidden;
+  <span class="hljs-attribute">clip</span>: <span class="hljs-built_in">rect</span>(<span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span>);
+}
+</code></pre>
+            </div>
+            <div class="col">
+              <p>Focused:</p>
+              <pre class="hljs"><code role="figure" aria-label="Code example" tabindex="0"><span class="hljs-selector-class">.skip-link</span><span class="hljs-selector-pseudo">:focus</span> {
+  <span class="hljs-attribute">position</span>: static;
+  <span class="hljs-attribute">width</span>: auto;
+  <span class="hljs-attribute">height</span>: auto;
+  <span class="hljs-attribute">margin</span>: inherit;
+  <span class="hljs-attribute">overflow</span>: visible;
+  <span class="hljs-attribute">clip</span>: auto;
+}
+</code></pre>
+            </div>
+          </div>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 52</p>
+              <p id="page-number-52" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>52</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="53" data-marpit-pagination-total="55" aria-label="Slide 53: Demo of skip-link">
+          <h3 aria-describedby="page-number-53" id="slide-53">Demo of skip-link</h3>
+          <p>Can be found at the following path:<br>
+            <code>/demos/skip-link.html</code>
+          </p>
+          <footer><a href="./demos/skip-link.html" target="_blank">Demo of skip link (Opens in a new tab)</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 53</p>
+              <p id="page-number-53" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>53</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="54" data-marpit-pagination-total="55" aria-label="Slide 54: Form elements">
+          <h2 aria-describedby="page-number-54" id="slide-54">Form elements</h2>
+          <p>There are important elements such as <code>&lt;form&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code> and <code>&lt;label&gt;</code> which are being covered in a separate session tomorrow.</p>
+          <footer><a href="https://www.eventbrite.com/e/national-coding-week-forms-tickets-396944821647">Sign up for session on forms</a>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 54</p>
+              <p id="page-number-54" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>54</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+        <section id="55" data-marpit-pagination-total="55" aria-label="Slide 55: Thank you!">
+          <h2 aria-describedby="page-number-55" id="slide-55">Thank you!</h2>
+          <p>Craig Abbott<br>
+            Head of Accessibility, Digital<br>
+            <a href="https://twitter.com/abbott567">@abbott567</a>
+          </p>
+          <footer>
+            <div class="pagination">
+              <p class="visually-hidden">End of slide 55</p>
+              <p id="page-number-55" aria-hidden="true">
+                <span class="visually-hidden">slide </span>
+                <span>55</span>
+              </p>
+            </div>
+          </footer>
+        </section>
+      </div>
+    </main>
+
+
+  </body>
+
+</html>
