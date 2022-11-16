@@ -4,7 +4,7 @@ title: HTML - WAI-ARIA
 description: Session on WAI-ARIA for National Coding Week.
 paginate: true
 marp: true
-theme: dwp-theme
+theme: purple-theme
 
 ---
 

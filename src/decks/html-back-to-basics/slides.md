@@ -4,7 +4,7 @@ title: HTML - Back to Basics - National Coding Week
 description: Session on HTML elements for National Coding Week.
 paginate: true
 marp: true
-theme: dwp-theme
+theme: purple-theme
 
 ---
 

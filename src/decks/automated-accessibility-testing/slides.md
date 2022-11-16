@@ -4,7 +4,7 @@ title: Automated Accessibility Testing
 description: Session on automated accessibility testing for National Coding Week.
 paginate: true
 marp: true
-theme: dwp-theme
+theme: purple-theme
 
 ---
 

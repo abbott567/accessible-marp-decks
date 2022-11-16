@@ -4,7 +4,7 @@ title: Common WCAG Failures
 description: Session on common WCAG failures delivered for Global Accessibility Awareness day.
 paginate: true
 marp: true
-theme: dwp-theme
+theme: purple-theme
 
 ---
 
