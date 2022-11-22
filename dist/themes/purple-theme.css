@@ -63,7 +63,7 @@ section h3:first-of-type,
 section h4:first-of-type,
 section h5:first-of-type,
 section h6:first-of-type,
-h2, p {
+h2, p, ul li, ol li {
   max-width: 66%; }
 
 section {
@@ -194,7 +194,8 @@ ul, ol {
   margin-bottom: 1.5rem; }
   ul li, ol li {
     padding-left: 1rem;
-    line-height: 1.5; }
+    line-height: 1.2;
+    margin-bottom: .5rem; }
 
 blockquote {
   margin: 0;

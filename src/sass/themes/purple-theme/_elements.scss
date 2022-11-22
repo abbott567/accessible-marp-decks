@@ -1,7 +1,7 @@
 %purpleText { color: $brand-colour; }
 %defaultFont { font-family: Arial, Helvetica, sans-serif; }
 %codeFont { font-family: monospace, monospace; }
-%twoThids { max-width: 66%; }
+%twoThirds { max-width: 66%; }
 
 section {
   @extend %defaultFont;
@@ -64,7 +64,7 @@ code {
 
 h1 {
   @extend %purpleText;
-  @extend %twoThids;
+  @extend %twoThirds;
   border-bottom: none;
   font-size: 1.75em;
 }
@@ -75,7 +75,7 @@ section h5:first-of-type,
 section h6:first-of-type,
 h2 {
   @extend %purpleText;
-  @extend %twoThids;
+  @extend %twoThirds;
   border-bottom: none;
   font-size: 1.6em;
   margin-bottom: 1rem;
@@ -148,7 +148,7 @@ img, figure {
 }
 
 p {
-  @extend %twoThids;
+  @extend %twoThirds;
   margin-top: 0;
 }
 
@@ -168,8 +168,10 @@ ul, ol {
   margin-top: 0;
   margin-bottom: 1.5rem;
   li {
+    @extend %twoThirds;
     padding-left: 1rem;
-    line-height: 1.5;
+    line-height: 1.2;
+    margin-bottom: .5rem
   }
 }
 
