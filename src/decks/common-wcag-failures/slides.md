@@ -41,7 +41,7 @@ We need to check against 50 criteria for WCAG 2.1 level AA, but most of the fail
 
 ## A years worth of audit data
 
-Central Digital and Data Office (CDD) have released a years worth of audit data, and found most failures are on a handful of criteria. This echos our experience too.
+Central Digital and Data Office (CDD) have released a years worth of audit data, and found most failures are on a handful of criteria. This echoes our experience too.
 
 <!-- _footer: '[Accessibility monitoring of public sector websites and mobile apps 2020-2021](https://www.gov.uk/government/publications/accessibility-monitoring-of-public-sector-websites-and-mobile-apps-2020-2021/accessibility-monitoring-of-public-sector-websites-and-mobile-apps-2020-2021)' -->
 
@@ -160,7 +160,7 @@ The intent of this Success Criterion is to help users find content and orient th
 
 The user should be able to tell what page they’re on and which service or website they’re on from the title alone. 
 
-You may add additional content if the website is under an umbrellar, such as GOV.UK.
+You may add additional content if the website is under an umbrella, such as GOV.UK.
 
 ```html
 <title>
@@ -481,7 +481,7 @@ By adding a border which meets the minimum standard, the fact the light blue fai
 
 Pass example:
 <P>
-  <img src="./images/non-text-contrast-pass.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. There is a border surrounting the button in the same dark blue. There is a label which shows the contrast ratio between the button background and the page background is 4.51 to 1.">
+  <img src="./images/non-text-contrast-pass.png" style="border:0;width:300px" alt="A blue button with dark blue text reading 'Sign up'. There is a border surrounding the button in the same dark blue. There is a label which shows the contrast ratio between the button background and the page background is 4.51 to 1.">
 </P>
 
 ---
@@ -539,7 +539,7 @@ If you can *see* a visual relationship on the page, that relationship must also 
 
 ---
 
-### Oprpaned Labels
+### Orphaned Labels
 
 Orphaned labels are where they are visually related, but they're not linked together in the code.
 
