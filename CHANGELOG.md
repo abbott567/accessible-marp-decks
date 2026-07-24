@@ -9,8 +9,9 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 ### Added
 
 - **Single-file output** — local images are base64-inlined into the page, so a built deck is one self-contained HTML file (`inlineAssets`, `basePath` render options).
-- **Responsive 16:9 scaling** — each slide is wrapped in a `.slide-frame` and scales down proportionally with the window using pure CSS (container-query units), never reflowing. No JavaScript.
+- **Responsive 16:9 scaling** — slides scale down proportionally with the window using pure CSS (Marpit's container plus container-query units), never reflowing. No JavaScript.
 - **Layout helpers** — slide-native `box`, `stack`, `cluster`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, and `overlay-centre` classes.
+- **Smarter code-block focus** — code blocks are keyboard-scrollable by default (no-JS safe), and a tiny inlined script removes the tab stop from blocks that don't actually overflow, re-checking on resize.
 - **`build-all <dir>`** CLI command — builds every deck in a folder and writes an accessible landing page linking them.
 - **GitHub Action** — a reusable composite `action.yml` plus an example Pages-deploy workflow, so decks can be published without a command line.
 - **Theme template** — `themes/_template.css`, a documented, self-contained starter to copy and recolour.

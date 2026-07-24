@@ -14,7 +14,8 @@ The whole point of this project is that the shared slides are accessible. For ev
 
 ## Code blocks
 
-- `pre code` blocks are exposed as `role="figure"` with an `aria-label`, and are `tabindex="0"` so keyboard users can focus and scroll a long, highlighted snippet. A visible focus outline is applied.
+- `pre code` blocks are marked `role="region"` with an `aria-label` and put in the tab order (`tabindex="0"`) so keyboard users can focus and scroll a long, highlighted snippet. A visible focus outline is applied.
+- That is the no-JavaScript default (every block focusable). A tiny inlined script then *removes* `tabindex`/`role`/`aria-label` from any block that does not actually overflow — re-checked on resize — so only genuinely scrollable code stays in the tab order. With JavaScript off, the safe default remains.
 
 ## Reading order and scaling
 

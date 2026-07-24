@@ -1,3 +1,5 @@
+import { codeScrollScript } from './runtime-script.js'
+
 /**
  * Escape a string for safe insertion into an HTML attribute value.
  *
@@ -39,6 +41,7 @@ export function buildDocument ({ html, css, deckInfo = {}, lang = 'en' }) {
     <main>
       ${html}
     </main>
+    ${codeScrollScript}
   </body>
 </html>`
 }

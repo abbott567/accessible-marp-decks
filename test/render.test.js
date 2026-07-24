@@ -43,13 +43,19 @@ test('each slide becomes a labelled landmark with paginated footer', async () =>
   assert.equal(slide1.attr('data-paginate'), undefined)
 })
 
-test('code blocks are exposed as focusable figures', async () => {
+test('code blocks are exposed as focusable scrollable regions by default', async () => {
   const html = await renderDeck(sample)
   const $ = cheerio.load(html)
   const code = $('pre code').first()
-  assert.equal(code.attr('role'), 'figure')
-  assert.equal(code.attr('aria-label'), 'Code example')
+  assert.equal(code.attr('role'), 'region')
+  assert.equal(code.attr('aria-label'), 'Code block, scrollable')
   assert.equal(code.attr('tabindex'), '0')
+})
+
+test('the code-block scrolling enhancement script is inlined', async () => {
+  const html = await renderDeck(sample)
+  assert.match(html, /querySelectorAll\("pre > code"\)/)
+  assert.match(html, /removeAttribute\("tabindex"\)/)
 })
 
 test('slides stay direct children of div.marpit so theme scoping applies', async () => {

@@ -47,9 +47,10 @@ test('modifySection numbers slides by position when pagination is off', () => {
   assert.deepEqual(labels, ['Slide 1: One', 'Slide 2: Two'])
 })
 
-test('modifyCodeBlocks makes code a focusable figure', () => {
+test('modifyCodeBlocks makes code a focusable scrollable region by default', () => {
   const $ = cheerio.load('<pre><code>x</code></pre>')
   modifyCodeBlocks($)
-  assert.equal($('code').attr('role'), 'figure')
+  assert.equal($('code').attr('role'), 'region')
+  assert.equal($('code').attr('aria-label'), 'Code block, scrollable')
   assert.equal($('code').attr('tabindex'), '0')
 })
