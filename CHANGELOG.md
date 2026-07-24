@@ -30,6 +30,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 
 - Code fences without a language (or with an unrecognised one) now escape their content instead of injecting it into the page as raw HTML.
 - Slides with several headings no longer emit duplicate `slide-N` ids or concatenate every heading into the slide's `aria-label` — only the first heading is used. Heading-less slides are labelled `"Slide N"` with no dangling colon.
+- Slide background images (`![bg](…)`) are now base64-inlined like every other image, so decks with backgrounds stay a single self-contained file. The consumed `data-background-image` and `data-marpit-pagination-total` attributes are stripped from the output.
 - Slides in decks without `paginate: true` are now numbered by position instead of being labelled "Slide undefined".
 
 ### Removed

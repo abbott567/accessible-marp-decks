@@ -5,7 +5,7 @@ import { modifySection, modifyImg, modifyCodeBlocks } from '../src/core/transfor
 
 test('modifySection honours an existing footer and a background image', () => {
   const $ = cheerio.load(
-    '<section data-background-image="pic.png" data-marpit-pagination="1">' +
+    '<section data-background-image="pic.png" data-marpit-pagination="1" data-marpit-pagination-total="3">' +
     '<h2>Title</h2><footer>mine</footer></section>'
   )
   modifySection($)
@@ -13,10 +13,30 @@ test('modifySection honours an existing footer and a background image', () => {
   const $section = $('section')
   // Background image directive is turned into a CSS background-image.
   assert.match($section.attr('style') || '', /background-image/)
+  // The consumed Marpit attributes are stripped.
+  assert.equal($section.attr('data-background-image'), undefined)
+  assert.equal($section.attr('data-marpit-pagination-total'), undefined)
   // The existing footer is reused, not duplicated.
   assert.equal($section.find('footer').length, 1)
   // Pagination markup is still injected into that footer.
   assert.equal($section.find('footer .pagination').length, 1)
+})
+
+test('modifyImg leaves section styles without a url() token alone', async () => {
+  const $ = cheerio.load('<section style="color: red"><p>x</p></section>')
+  await modifyImg($, { basePath: process.cwd() })
+  assert.equal($('section').attr('style'), 'color: red')
+})
+
+test('modifyImg leaves remote and unreadable section backgrounds as references', async () => {
+  const $ = cheerio.load(
+    '<section style="background-image: url(https://example.com/bg.png)"></section>' +
+    '<section style="background-image: url(./missing.png)"></section>'
+  )
+  await modifyImg($, { basePath: '/definitely/not/here' })
+  const styles = $('section').map((_, el) => $(el).attr('style')).toArray()
+  assert.match(styles[0], /example\.com\/bg\.png/)
+  assert.match(styles[1], /\.\/missing\.png/)
 })
 
 test('modifyImg inlines nothing when there is no basePath', async () => {

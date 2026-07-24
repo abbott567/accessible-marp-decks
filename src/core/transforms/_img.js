@@ -13,17 +13,43 @@ const MIME_BY_EXT = {
   '.ico': 'image/x-icon'
 }
 
+/** Matches the first url(...) token in a CSS value, quoted or bare. */
+const CSS_URL_RE = /url\(\s*(['"]?)([^'")]+)\1\s*\)/
+
 /** A src that already points somewhere self-contained or remote — leave it. */
 function isExternal (src) {
   return /^(https?:)?\/\//.test(src) || src.startsWith('data:')
 }
 
 /**
- * Portability pass over `<img>` elements: base64-inlines local images into
+ * Read a local asset and return it as a `data:` URI, or `null` when it can't
+ * be inlined (unknown type, missing or unreadable file).
+ *
+ * @param {string} src - Relative source path from the markup.
+ * @param {string} basePath - Directory to resolve `src` against.
+ * @returns {Promise<string | null>}
+ */
+async function toDataURI (src, basePath) {
+  const mime = MIME_BY_EXT[extname(src).toLowerCase()]
+  if (!mime) return null
+
+  try {
+    const filePath = join(basePath, src.replace(/^\.?\//, ''))
+    const data = await readFile(filePath)
+    return `data:${mime};base64,${data.toString('base64')}`
+  } catch {
+    // Missing/unreadable asset — caller leaves the original reference intact.
+    return null
+  }
+}
+
+/**
+ * Portability pass over the deck's images: base64-inlines local assets into
  * `data:` URIs (when `basePath` is known and `inlineAssets` is on) so the
- * rendered deck is a single, self-contained file. Remote and already-inlined
- * sources are left untouched. Image sizing is left to the theme CSS
- * (`max-inline-size: 100%`) so images scale with the slide.
+ * rendered deck is a single, self-contained file. Covers both `<img>` elements
+ * and slide background images (Marp's `![bg](…)` becomes a `background-image`
+ * style on the section). Remote and already-inlined sources are left untouched.
+ * Image sizing is left to the theme CSS so images scale with the slide.
  *
  * @param {import('cheerio').CheerioAPI} $
  * @param {object} [options]
@@ -33,22 +59,27 @@ function isExternal (src) {
 export async function modifyImg ($, { basePath, inlineAssets = true } = {}) {
   if (!inlineAssets || !basePath) return
 
-  const images = $('img').toArray()
-
-  for (const el of images) {
+  for (const el of $('img').toArray()) {
     const $img = $(el)
     const src = $img.attr('src')
     if (!src || isExternal(src)) continue
 
-    const mime = MIME_BY_EXT[extname(src).toLowerCase()]
-    if (!mime) continue
+    const dataURI = await toDataURI(src, basePath)
+    if (dataURI) $img.attr('src', dataURI)
+  }
 
-    try {
-      const filePath = join(basePath, src.replace(/^\.?\//, ''))
-      const data = await readFile(filePath)
-      $img.attr('src', `data:${mime};base64,${data.toString('base64')}`)
-    } catch {
-      // Missing/unreadable asset — leave the original src so the link still resolves.
-    }
+  // Slide backgrounds: ![bg](…) ends up as url(...) inside the section's
+  // style attribute, which <img>-only inlining would miss.
+  for (const el of $('section[style]').toArray()) {
+    const $section = $(el)
+    const style = $section.attr('style')
+    const match = CSS_URL_RE.exec(style)
+    if (!match) continue
+
+    const src = match[2]
+    if (isExternal(src)) continue
+
+    const dataURI = await toDataURI(src, basePath)
+    if (dataURI) $section.attr('style', style.replace(match[0], `url("${dataURI}")`))
   }
 }

@@ -39,3 +39,17 @@ test('renderDeckFile inlines images relative to the file by default', async () =
   const html = await renderDeckFile(join(fixtures, 'with-image.md'), { theme: 'basic' })
   assert.match(html, /data:image\/png;base64,/)
 })
+
+test('slide background images (![bg]) are inlined too', async () => {
+  const bgDeck = '---\nmarp: true\ntheme: basic\n---\n\n# Slide with a background\n\n![bg](./images/dot.png)\n'
+  const html = await renderDeck(bgDeck, { basePath: fixtures, prettify: false })
+  const $ = cheerio.load(html)
+
+  const style = $('section').first().attr('style') || ''
+  assert.match(style, /background-image:\s*url\("data:image\/png;base64,/, 'background became a data URI')
+  assert.ok(!style.includes('./images/'), 'no relative URL left in the style')
+
+  // The consumed Marpit attributes are stripped from the output.
+  assert.equal($('[data-background-image]').length, 0)
+  assert.equal($('[data-marpit-pagination-total]').length, 0)
+})

@@ -14,10 +14,14 @@ export function modifySection ($) {
     $section.removeAttr('data-theme')
     $section.removeAttr('data-footer')
     $section.removeAttr('data-paginate')
+    $section.removeAttr('data-marpit-pagination-total')
     $section.removeAttr('style')
 
     const backgroundImage = $section.attr('data-background-image')
-    if (backgroundImage !== undefined) $section.css('background-image', backgroundImage)
+    if (backgroundImage !== undefined) {
+      $section.css('background-image', backgroundImage)
+      $section.removeAttr('data-background-image')
+    }
 
     const hasFooter = $section.find('footer').length > 0
     if (!hasFooter) $section.append('<footer></footer>')
