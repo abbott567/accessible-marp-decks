@@ -254,15 +254,15 @@ const html = await renderDeck(markdown, { theme: 'basic' })
 
 ---
 
-## Scrolling code block
+## Long code lines wrap
 
-When a line is too wide to fit, the block scrolls horizontally — so it becomes a focusable region you can reach with <kbd>Tab</kbd> and scroll with the arrow keys:
+A line too wide for the slide wraps onto the next line instead of scrolling — nothing hides offscreen, whether the deck is projected or read:
 
 ```js
 const html = await renderDeck(markdown, { theme: 'basic', basePath: './decks/my-talk', inlineAssets: true, lang: 'en-GB', prettify: true })
 ```
 
-Resize the window: a block that starts fitting drops out of the tab order, and one that starts overflowing joins it.
+Slides render at a fixed size, so what fits when presenting fits when sharing. A wrapped line is your cue to shorten it.
 
 ---
 

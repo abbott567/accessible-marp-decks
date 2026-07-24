@@ -303,8 +303,8 @@ pre {
   overflow: visible; }
   pre code {
     display: block;
-    overflow-y: visible;
-    overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
     padding: .75em;
     border: 1px dashed var(--border);
     font-size: .9em; }

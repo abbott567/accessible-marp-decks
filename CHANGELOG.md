@@ -10,6 +10,10 @@ All notable changes to this project are documented here. The format is based on 
 - **Pre-built layouts** — pick a whole-slide look with the new `layout:` directive (`title`, `quote`, `full-image`, or any slide-level class). `layout:` is renderer-provided sugar for the class directive; `_layout:` is the one-slide form.
 - **PowerPoint-parity layouts** — the standard PowerPoint set as `layout:` values: `section`, `title-only`, `two-content`, `comparison`, `content-caption`, and `picture-caption` (Title Slide is `title`; Title and Content and Blank are the default slide). The two-column ones are CSS grid with one block per content region.
 
+### Changed
+
+- Code blocks in the bundled themes **wrap** long lines instead of scrolling. Slides render at a fixed size, so an overflowing block hid the same content from every viewer — and a projected slide can't be scrolled. The keyboard-focus machinery remains as a safety net: it only activates for blocks that genuinely overflow (e.g. under a custom theme that restores `nowrap`).
+
 ### Fixed
 
 - The updated `.frame` helper (no forced centring) is carried to every bundled theme, not just `basic` — the cross-theme drift guard now delimits the shared layout block with an explicit end marker.

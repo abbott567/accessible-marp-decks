@@ -14,8 +14,8 @@ The whole point of this project is that the shared slides are accessible. For ev
 
 ## Code blocks
 
-- `pre code` blocks are marked `role="region"` with an `aria-label` and put in the tab order (`tabindex="0"`) so keyboard users can focus and scroll a long, highlighted snippet. A visible focus outline is applied.
-- That is the no-JavaScript default (every block focusable). A tiny inlined script then *removes* `tabindex`/`role`/`aria-label` from any block that does not actually overflow — re-checked on resize — so only genuinely scrollable code stays in the tab order. With JavaScript off, the safe default remains.
+- Long code lines **wrap** in the bundled themes instead of scrolling — slides render at a fixed size, so an overflowing block would hide the same content from every viewer (and a projected slide can't be scrolled at all). Nothing needs interaction to be read.
+- A scrolling safety net remains for themes that restore `nowrap`: `pre code` blocks ship marked `role="region"` with an `aria-label` and `tabindex="0"` (the no-JavaScript default), and the inlined script *removes* those from any block that does not actually overflow — so with the bundled themes nothing is focusable, and a genuinely scrollable block in a custom theme is keyboard-operable rather than a trap. A visible focus outline is applied.
 
 ## Reading order and scaling
 
@@ -39,4 +39,4 @@ Marpit renders every slide at a fixed 1280×720 design size. The inlined runtime
 
 ## Testing
 
-The `test/` suite pins these guarantees (labelled sections, heading ids, footer pagination, keyboard-scrollable code blocks, the responsive scaling rules). If you change the rendering pipeline, keep these green and add cases for new behaviour.
+The `test/` suite pins these guarantees (labelled sections, heading ids, footer pagination, the code-block focus safety net, the responsive scaling rules). If you change the rendering pipeline, keep these green and add cases for new behaviour.

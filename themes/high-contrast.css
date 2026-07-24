@@ -275,8 +275,8 @@ blockquote p { font-style: italic; }
 pre { margin: 0 0 1em; overflow: visible; }
 pre code {
   display: block;
-  overflow-y: visible;
-  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
   padding: .75em;
   border: 1px solid var(--border);
   font-size: .9em; }
