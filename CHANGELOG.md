@@ -25,6 +25,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - Transforms are **element-scoped** files — `_section.js`, `_img.js`, `_code.js`.
 - The `basic` theme is re-authored in `em` units with automatic light/dark modes.
 - Dependencies trimmed to the five that are actually used.
+- js-beautify is loaded on demand — rendering with `prettify: false` never loads it.
 
 ### Fixed
 

@@ -1,11 +1,25 @@
 import matter from 'gray-matter'
-import jsBeautify from 'js-beautify'
 import { createMarpit } from './marpit.js'
 import { resolveThemeCSS, readDocumentCSS } from './themes.js'
 import { buildDocument } from './template.js'
 import { applyTransforms } from './transforms/index.js'
 
-const { html: beautifyHTML } = jsBeautify
+// js-beautify is heavyweight and only needed when prettifying, so it is
+// imported on demand (and cached) rather than at module load.
+let beautifyHTML = null
+
+async function prettifyHTML (html) {
+  if (!beautifyHTML) {
+    const { default: jsBeautify } = await import('js-beautify')
+    beautifyHTML = jsBeautify.html
+  }
+  return beautifyHTML(html, {
+    indent_size: 2,
+    wrap_line_length: 0,
+    preserve_newlines: false,
+    unformatted: ['code', 'pre']
+  }).trim() + '\n'
+}
 
 /**
  * @typedef {object} RenderOptions
@@ -58,12 +72,7 @@ export async function renderDeck (markdown, options = {}) {
   const modifiedHTML = await applyTransforms(documentHTML, { basePath, inlineAssets })
 
   if (!prettify) return modifiedHTML
-  return beautifyHTML(modifiedHTML, {
-    indent_size: 2,
-    wrap_line_length: 0,
-    preserve_newlines: false,
-    unformatted: ['code', 'pre']
-  }).trim() + '\n'
+  return prettifyHTML(modifiedHTML)
 }
 
 /**
