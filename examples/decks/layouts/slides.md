@@ -14,6 +14,99 @@ theme: basic
 
 A single deck that shows off the slide template, the pre-built layouts, and the layout **primitives** in **accessible-marp-decks**. This slide uses the `title` layout — applied with `_class:` throughout this deck so the VSCode preview shows every layout too (`layout:` works the same when building).
 
+<!-- _footer: 'The first nine slides follow the order of the standard PowerPoint layout picker.' -->
+
+---
+
+<!-- _class: title -->
+
+# Title slide
+
+A title slide, usually used as the very first slide in the talk.
+
+---
+
+## Title and content
+
+The default slide. A heading followed by content in a single column, with no Marp `_class` / directive needed.
+
+---
+
+<!-- _class: section -->
+
+## Section header
+
+The `section` layout divides your talk into distinct parts.
+
+---
+
+<!-- _class: two-content -->
+
+## Two content
+
+- The `two-content` layout
+- The heading spans the slide
+- Two blocks sit side by side
+- A block can be a list, a paragraph, an image etc
+
+![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+
+<!-- _footer: 'Here the two blocks are a list and an image. Use `columns` primative for more than two per side.' -->
+
+---
+
+<!-- _class: comparison -->
+
+## Comparison
+
+### Heading which is long and wraps onto two lines
+
+- Bullet point 1
+- Bullet point 2
+- Bullet point 3
+
+### Shorter heading
+
+- Bullet point 4
+- Bullet point 5
+- Bullet point 6
+
+<!-- _footer: 'The only difference from `two-content`: `###` headings push both columns down together.' -->
+
+---
+
+<!-- _class: title-only -->
+
+## Title only
+
+<!-- _footer: 'The `title-only` layout pins the heading to the top and leaves the canvas free.' -->
+
+---
+
+<!-- _footer: 'Blank — an empty slide needs no directive.' -->
+
+---
+
+<!-- _class: content-caption -->
+
+## Content with caption
+
+This muted paragraph is the caption — it comes first in the source and takes the narrow column.
+
+- The content block sits beside it
+- It gets two thirds of the width
+- Like PowerPoint's Content with Caption
+
+---
+
+<!-- _class: picture-caption -->
+
+## Picture with caption
+
+![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+
+The muted caption sits under the picture — like PowerPoint's Picture with Caption.
+
 ---
 
 ## The slide template
@@ -44,81 +137,6 @@ The `quote` layout, with this attribution line
 ![A placeholder graphic with a circle and a rounded rectangle, filling the whole slide.](./images/placeholder.svg)
 
 <!-- _footer: 'The `full-image` layout — the footer sits on a backing strip' -->
-
----
-
-<!-- _class: section -->
-
-## Section break
-
-The `section` layout divides the deck into parts — like PowerPoint's Section Header.
-
----
-
-<!-- _class: two-content -->
-
-## Two content — side by side
-
-- The `two-content` layout
-- The heading spans the slide
-- Two blocks sit side by side
-- A block can be a list, a paragraph, an image…
-
-![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
-
-<!-- _footer: 'Here the two blocks are a list and an image. Use `columns` for more blocks per side.' -->
-
----
-
-<!-- _class: comparison -->
-
-## Comparison — two content, plus captions
-
-### Slides-first
-
-- Start in a slides app
-- Fight the outline view
-- Export something inaccessible
-
-### Content-first
-
-- Write Markdown
-- Pick a theme
-- Ship accessible HTML
-
-<!-- _footer: 'The only difference from `two-content`: an `###` heading captions each side.' -->
-
----
-
-<!-- _class: content-caption -->
-
-## Content with caption
-
-This muted paragraph is the caption — it comes first in the source and takes the narrow column.
-
-- The content block sits beside it
-- It gets two thirds of the width
-- Like PowerPoint's Content with Caption
-
----
-
-<!-- _class: picture-caption -->
-
-## Picture with caption
-
-![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
-
-The muted caption sits under the picture — like PowerPoint's Picture with Caption.
-
----
-
-## Title and prose
-
-The simplest layout: a heading followed by paragraphs.
-
-Headings get a stable id and an `aria-label`, and the paragraph text flows in a single readable column.
-
-This is the default — write Markdown, get an accessible slide.
 
 ---
 
