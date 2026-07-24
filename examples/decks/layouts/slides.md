@@ -127,7 +127,7 @@ A `frame` crops an image or video to a fixed ratio (16:9 by default) so mixed me
 
 ## Code block
 
-Fenced code becomes a focusable `<figure>` with syntax highlighting:
+Fenced code is syntax-highlighted. A short block that fits needs no keyboard interaction, so it stays out of the tab order:
 
 ```js
 import { renderDeck } from 'accessible-marp-decks'
@@ -135,7 +135,17 @@ import { renderDeck } from 'accessible-marp-decks'
 const html = await renderDeck(markdown, { theme: 'basic' })
 ```
 
-The figure is reachable with the keyboard so the highlighted code can be scrolled.
+---
+
+## Scrolling code block
+
+When a line is too wide to fit, the block scrolls horizontally — so it becomes a focusable region you can reach with <kbd>Tab</kbd> and scroll with the arrow keys:
+
+```js
+const html = await renderDeck(markdown, { theme: 'basic', basePath: './decks/my-talk', inlineAssets: true, lang: 'en-GB', prettify: true })
+```
+
+Resize the window: a block that starts fitting drops out of the tab order, and one that starts overflowing joins it.
 
 ---
 
