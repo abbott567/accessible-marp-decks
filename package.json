@@ -18,9 +18,6 @@
     "NOTICE",
     "CHANGELOG.md"
   ],
-  "engines": {
-    "node": ">=20"
-  },
   "scripts": {
     "build": "node src/cli.js build",
     "build:site": "node src/cli.js build-all examples/decks --out _site",

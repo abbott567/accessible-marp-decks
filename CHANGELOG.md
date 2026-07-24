@@ -26,6 +26,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - The `basic` theme is re-authored in `em` units with automatic light/dark modes.
 - Dependencies trimmed to the five that are actually used.
 - js-beautify is loaded on demand — rendering with `prettify: false` never loads it.
+- Node 24 (LTS) is the development, CI, and Action runtime, pinned in `.nvmrc`; the npm `engines` field is no longer set.
 
 ### Fixed
 

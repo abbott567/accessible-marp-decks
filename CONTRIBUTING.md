@@ -11,14 +11,14 @@ npm install
 npm test
 ```
 
-Requires Node.js 20 or newer.
+Uses Node.js 24 (LTS), pinned in `.nvmrc` — `nvm use` (or fnm/asdf) picks it up automatically.
 
 ## Handy scripts
 
 | Command | What it does |
 | --- | --- |
 | `npm test` | Runs the `node:test` suite. |
-| `npm run coverage` | Runs the suite enforcing 100% line/branch/function coverage. Needs Node ≥ 22.8 (the threshold flags aren't in Node 20). |
+| `npm run coverage` | Runs the suite enforcing 100% line/branch/function coverage. |
 | `npm run lint` | Lints `src` and `test` with [standard](https://standardjs.com). |
 | `npm run build -- layouts` | Builds the example deck to `dist/decks/layouts`. |
 | `npm run build:site` | Builds all example decks to `_site` with a landing page. |

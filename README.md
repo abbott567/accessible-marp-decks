@@ -13,7 +13,7 @@ This project isn't a replacement for Marp or the VSCode preview extension — it
 
 ## Requirements
 
-- Node.js 20 or newer.
+- Node.js 24 (LTS) — the version pinned in [`.nvmrc`](.nvmrc). Older versions may work but aren't tested.
 
 ## Install
 

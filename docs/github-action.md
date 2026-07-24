@@ -74,7 +74,7 @@ Push to `main` (or run the workflow manually). Your decks are published at `http
 | `out` | `_site` | Output directory for the built site. |
 | `theme` | — | Force one theme for every deck. Omit to honour each deck's front matter. |
 | `version` | `latest` | npm version/dist-tag of `accessible-marp-decks` to run. |
-| `node-version` | `20` | Node.js version to set up. |
+| `node-version` | `24` | Node.js version to set up. |
 
 ## Without the action
 
