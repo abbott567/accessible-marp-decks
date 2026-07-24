@@ -112,6 +112,10 @@ section {
 /* sidebar — a self-sized side column beside a flexible main column */
 .sidebar { display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: start; }
 
+/* Text inside the column helpers gets the full column width — the global
+   reading-measure cap on p/li would squeeze it to a sliver. */
+.columns p, .columns li, .grid p, .grid li, .sidebar p, .sidebar li { max-width: 100%; }
+
 /* overlay-centre — centre an element over a positioned ancestor */
 .overlay-centre { position: absolute; inset: 0; display: grid; place-items: center; }
 

@@ -141,21 +141,38 @@ This is the default — write Markdown, get an accessible slide.
 
 ---
 
-## Columns — split a slide in two
+<!-- _class: section -->
 
-<div class="columns">
+## Primitives
+
+The slides before this one are whole-slide **layouts**, picked with a directive. From here on, each slide is composed by hand from the layout **helper classes** — small bits of CSS you put on raw HTML inside the slide.
+
+---
+
+## Columns — when a layout isn't enough
+
+The `two-content` layout places one block per side. The `columns` helper covers the rest — like this intro paragraph above three columns:
+
+<div class="columns columns-3">
 <div class="box">
 
-### Left
+### Any count
 
-Put `columns` around two blocks to place them side by side. A slide is a fixed canvas that scales as a whole, so columns stay columns — no reflow to reason about.
+Add `columns-3` for three across; plain `columns` gives two.
 
 </div>
 <div class="box">
 
-### Right
+### Any depth
 
-The columns share the width evenly.
+Each wrapping `<div>` can hold as many blocks as you like.
+
+</div>
+<div class="box">
+
+### Anywhere
+
+Columns can sit under other content, or inside another helper.
 
 </div>
 </div>
