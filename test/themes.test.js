@@ -20,3 +20,10 @@ test('raw css can be supplied instead of a bundled theme', async () => {
   const html = await renderDeck('# Hi', { css: '/* @theme custom */\nsection { color: red; }' })
   assert.match(html, /color: red/)
 })
+
+test('raw css without an @theme comment gets one automatically', async () => {
+  // Marpit throws "Marpit theme CSS requires @theme meta." for bare CSS —
+  // the renderer prepends the meta so plain CSS just works.
+  const html = await renderDeck('# Hi', { css: 'section { color: rebeccapurple; }' })
+  assert.match(html, /color: rebeccapurple/)
+})

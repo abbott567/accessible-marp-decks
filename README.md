@@ -97,7 +97,7 @@ await listThemes() // ['basic', 'high-contrast']
 | Option | Default | Description |
 | --- | --- | --- |
 | `theme` | front matter, else `basic` | A bundled theme name. |
-| `css` | — | Raw theme CSS, used instead of a bundled theme. |
+| `css` | — | Raw theme CSS, used instead of a bundled theme. An `/* @theme */` comment is added automatically if missing. |
 | `documentCss` | bundled `document.css` | Override the base accessible-layout CSS. |
 | `basePath` | — | Directory used to resolve and inline relative image paths. |
 | `inlineAssets` | `true` | Base64-inline local images for a single-file output. |

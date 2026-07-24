@@ -24,14 +24,18 @@ export async function listThemes () {
 
 /**
  * Resolve a theme to its CSS string. Accepts either the name of a bundled
- * theme (e.g. `"basic"`) or, if `css` is provided, returns that verbatim.
+ * theme (e.g. `"basic"`) or, if `css` is provided, uses that instead. Marpit
+ * refuses theme CSS without an `@theme` meta comment, so one is prepended
+ * automatically when the caller's CSS doesn't declare it.
  *
  * @param {string} [name] - Bundled theme name.
  * @param {string} [css] - Raw CSS to use instead of a bundled theme.
  * @returns {Promise<string>}
  */
 export async function resolveThemeCSS (name, css) {
-  if (typeof css === 'string') return css
+  if (typeof css === 'string') {
+    return /@theme\s+\S/.test(css) ? css : `/* @theme custom */\n${css}`
+  }
   const themeName = name || 'basic'
   const available = await listThemes()
   if (!available.includes(themeName)) {
