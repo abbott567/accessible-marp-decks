@@ -4,6 +4,7 @@ import { readFile, writeFile, mkdir, cp, stat, readdir } from 'node:fs/promises'
 import { dirname, join, basename, resolve } from 'node:path'
 import { renderDeck, readDeckInfo } from './core/render.js'
 import { listThemes } from './core/themes.js'
+import { escapeHtml } from './core/escape.js'
 
 const USAGE = `accessible-marp — build accessible HTML decks from Marp markdown
 
@@ -37,14 +38,6 @@ async function exists (p) {
   } catch {
     return false
   }
-}
-
-function escapeHTML (value) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
 }
 
 /** Accept legacy `key=value` tokens (e.g. `deck=x theme=y`) alongside flags. */
@@ -151,8 +144,8 @@ function renderIndex (decks) {
   const items = decks
     .sort((a, b) => a.title.localeCompare(b.title))
     .map(d => `      <li>
-        <a href="./${encodeURIComponent(d.deckName)}/">${escapeHTML(d.title)}</a>
-        ${d.description ? `<p>${escapeHTML(d.description)}</p>` : ''}
+        <a href="./${encodeURIComponent(d.deckName)}/">${escapeHtml(d.title)}</a>
+        ${d.description ? `<p>${escapeHtml(d.description)}</p>` : ''}
       </li>`)
     .join('\n')
 
