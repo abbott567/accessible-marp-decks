@@ -8,7 +8,6 @@ import { modifyCodeBlocks } from './_code.js'
  *
  * @param {string} documentHTML
  * @param {object} [options]
- * @param {number} [options.imageWidth] - Default image width (see modifyImg).
  * @param {string} [options.basePath] - Directory for resolving local image srcs.
  * @param {boolean} [options.inlineAssets] - Base64-inline local images.
  * @returns {Promise<string>}

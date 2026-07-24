@@ -1,14 +1,16 @@
 /**
  * Turn each Marpit `<section>` (a slide) into an accessible landmark:
- * strips presentational Marpit attributes, adds an `aria-label`, gives the
- * slide heading a stable id + `aria-describedby`, and appends a footer with
- * screen-reader pagination.
+ * wraps it in a `.slide-frame` (the responsive 16:9 scaling box — see
+ * `themes/document.css`), strips presentational Marpit attributes, adds an
+ * `aria-label`, gives the slide heading a stable id + `aria-describedby`, and
+ * appends a footer with screen-reader pagination.
  *
  * @param {import('cheerio').CheerioAPI} $
  */
 export function modifySection ($) {
   $('section').each(function () {
     const $section = $(this)
+    $section.wrap('<div class="slide-frame"></div>')
     $section.removeAttr('data-theme')
     $section.removeAttr('data-footer')
     $section.removeAttr('data-paginate')

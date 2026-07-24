@@ -19,27 +19,24 @@ function isExternal (src) {
 }
 
 /**
- * Accessibility + portability pass over `<img>` elements:
- *  - Sets a default `width` when the author gave none, so intent wins.
- *  - Base64-inlines local images into `data:` URIs (when `basePath` is known
- *    and `inlineAssets` is on) so the rendered deck is a single, self-contained
- *    file. Remote and already-inlined sources are left untouched.
+ * Portability pass over `<img>` elements: base64-inlines local images into
+ * `data:` URIs (when `basePath` is known and `inlineAssets` is on) so the
+ * rendered deck is a single, self-contained file. Remote and already-inlined
+ * sources are left untouched. Image sizing is left to the theme CSS
+ * (`max-inline-size: 100%`) so images scale with the slide.
  *
  * @param {import('cheerio').CheerioAPI} $
  * @param {object} [options]
- * @param {number} [options.imageWidth=500] - Default width in pixels.
  * @param {string} [options.basePath] - Directory to resolve relative srcs against.
  * @param {boolean} [options.inlineAssets=true] - Base64-inline local images.
  */
-export async function modifyImg ($, { imageWidth = 500, basePath, inlineAssets = true } = {}) {
+export async function modifyImg ($, { basePath, inlineAssets = true } = {}) {
+  if (!inlineAssets || !basePath) return
+
   const images = $('img').toArray()
 
   for (const el of images) {
     const $img = $(el)
-    if ($img.attr('width') === undefined) $img.attr('width', String(imageWidth))
-
-    if (!inlineAssets || !basePath) continue
-
     const src = $img.attr('src')
     if (!src || isExternal(src)) continue
 

@@ -1,15 +1,67 @@
+/*
+ * Base layer injected into every rendered deck, regardless of theme. It owns
+ * the two things that must work no matter which theme is used: the responsive
+ * 16:9 scaling frame, and the functional accessibility utilities the transforms
+ * depend on. All *visual* styling lives in the theme.
+ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
-  background: #e6e6e6;
   margin: 0;
   padding: 0;
+  background: #e6e6e6;
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
-    background: #000000;
-  }
+  body { background: #000000; }
 }
 
-div.marpit > section {
-  margin: 1rem;
+img { max-inline-size: 100%; block-size: auto; }
+
+/*
+ * Responsive 16:9 scaling — pure CSS, no JavaScript.
+ *
+ * Each slide <section> is wrapped in a .slide-frame: a responsive box locked to
+ * a 16:9 aspect ratio, capped at the 1280px design width so it only ever scales
+ * DOWN. The slide's font-size is derived from the frame's width via a container
+ * query unit (cqw), so a deck authored in `em`/`%` scales proportionally with
+ * the window and never reflows.
+ */
+.slide-frame {
+  container-type: inline-size;
+  inline-size: 100%;
+  max-inline-size: 1280px;
+  margin: 1rem auto;
+  aspect-ratio: 16 / 9;
+}
+
+.slide-frame > section {
+  inline-size: 100%;
+  block-size: 100%;
+  /* 1em ≈ 29px at the 1280px design width, and shrinks with the container. */
+  font-size: calc(100cqw / 44);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Functional a11y utility — used by the injected screen-reader pagination. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  border: 0 !important;
+  white-space: nowrap !important;
+}
+
+/* Baseline focus ring so keyboard focus is visible even under a bare theme. */
+:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 2px;
 }

@@ -11,7 +11,6 @@ import { renderDeck, readDeckInfo } from './core/render.js'
  *   markdown rendering).
  * @property {string} [theme] - Force a theme for all decks. When omitted, each
  *   deck's own front-matter `theme` (falling back to the default) is used.
- * @property {number} [imageWidth] - Default image width (see renderDeck).
  * @property {string} [lang] - Document language attribute.
  */
 
@@ -28,7 +27,6 @@ export default function accessibleMarpPlugin (eleventyConfig, options = {}) {
   const {
     extension = 'deck',
     theme,
-    imageWidth,
     lang
   } = options
 
@@ -45,7 +43,6 @@ export default function accessibleMarpPlugin (eleventyConfig, options = {}) {
       const markdown = await readFile(inputPath, 'utf8')
       return renderDeck(markdown, {
         theme: theme ?? data?.theme,
-        imageWidth,
         basePath: dirname(inputPath),
         lang: lang ?? data?.lang
       })

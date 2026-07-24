@@ -52,10 +52,20 @@ test('code blocks are exposed as focusable figures', async () => {
   assert.equal(code.attr('tabindex'), '0')
 })
 
-test('images get a default width', async () => {
-  const html = await renderDeck(sample, { imageWidth: 400 })
+test('each slide is wrapped in a responsive scaling frame', async () => {
+  const html = await renderDeck(sample)
   const $ = cheerio.load(html)
-  assert.equal($('img').first().attr('width'), '400')
+  const frames = $('.slide-frame')
+  assert.equal(frames.length, 2, 'one .slide-frame per slide')
+  // The section is the direct child of its frame.
+  assert.equal(frames.first().children('section').length, 1)
+})
+
+test('document CSS provides the pure-CSS 16:9 scaling rules', async () => {
+  const html = await renderDeck(sample)
+  assert.match(html, /container-type:\s*inline-size/, 'container query context')
+  assert.match(html, /aspect-ratio:\s*16\s*\/\s*9/, '16:9 frame')
+  assert.match(html, /font-size:\s*calc\(100cqw/, 'font-size tracks container width')
 })
 
 test('readDeckInfo extracts front matter without rendering', () => {
