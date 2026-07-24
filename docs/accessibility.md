@@ -32,7 +32,7 @@ The whole point of this project is that the shared slides are accessible. For ev
 
 ## <a id="responsive-scaling"></a>Responsive scaling
 
-Each slide is wrapped in a `.slide-frame` — a 16:9 box capped at the 1280px design width — and the slide's font-size is derived from the frame width with a container-query unit. Everything inside is sized in `em`/`%`, so the slide scales as a single unit and never reflows. This is why theme and helper CSS must be authored in relative units.
+Marpit's own container (`div.marpit`) is capped at the 1280px design width and made a query container; each slide (`div.marpit > section`) fills it at a 16:9 ratio, and its font-size is derived from the container width with a container-query unit. Everything inside is sized in `em`/`%`, so the slide scales as a single unit and never reflows. This is why theme and helper CSS must be authored in relative units.
 
 ## Testing
 

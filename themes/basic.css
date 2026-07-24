@@ -12,8 +12,8 @@
  *
  * Everything inside a slide is sized in `em`, relative to the slide font-size.
  * In an exported deck that font-size tracks the window width (see the
- * `.slide-frame` rules in document.css), so the whole slide scales down
- * proportionally without reflowing. Keep new rules in `em`/`%` to preserve that.
+ * `div.marpit > section` scaling rules in document.css), so the whole slide
+ * scales down proportionally without reflowing. Keep new rules in `em`/`%`.
  */
 :root {
   /* Light mode (default) */

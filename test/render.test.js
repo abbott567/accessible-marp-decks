@@ -52,19 +52,19 @@ test('code blocks are exposed as focusable figures', async () => {
   assert.equal(code.attr('tabindex'), '0')
 })
 
-test('each slide is wrapped in a responsive scaling frame', async () => {
+test('slides stay direct children of div.marpit so theme scoping applies', async () => {
   const html = await renderDeck(sample)
   const $ = cheerio.load(html)
-  const frames = $('.slide-frame')
-  assert.equal(frames.length, 2, 'one .slide-frame per slide')
-  // The section is the direct child of its frame.
-  assert.equal(frames.first().children('section').length, 1)
+  // No wrapper: sections must remain direct children of div.marpit, otherwise
+  // Marpit's `div.marpit > section` scoped theme rules would not match.
+  assert.equal($('.slide-frame').length, 0, 'no scaling wrapper is inserted')
+  assert.equal($('div.marpit > section').length, 2, 'sections are direct children')
 })
 
-test('document CSS provides the pure-CSS 16:9 scaling rules', async () => {
+test('document CSS provides the pure-CSS 16:9 scaling rules on div.marpit', async () => {
   const html = await renderDeck(sample)
-  assert.match(html, /container-type:\s*inline-size/, 'container query context')
-  assert.match(html, /aspect-ratio:\s*16\s*\/\s*9/, '16:9 frame')
+  assert.match(html, /div\.marpit\s*\{[^}]*container-type:\s*inline-size/, 'container query context')
+  assert.match(html, /div\.marpit\s*>\s*section\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/, '16:9 slide')
   assert.match(html, /font-size:\s*calc\(100cqw/, 'font-size tracks container width')
 })
 
@@ -83,7 +83,7 @@ test('prettify:false still produces valid markup', async () => {
 test('falls back to the default theme with no theme and no front matter', async () => {
   const html = await renderDeck('# Hi')
   assert.match(html, /<section/)
-  assert.match(html, /class="slide-frame"/)
+  assert.match(html, /div\.marpit\s*>\s*section\s*\{/)
 })
 
 test('code blocks without a known language still render', async () => {
