@@ -77,7 +77,7 @@ Options:
 | `--out`, `-o` | Output directory. Defaults to `dist/decks/<deck>` (or `dist/site` for `build-all`). |
 | `--decks-dir` | Where named decks live. Defaults to `examples/decks`. |
 
-`build` writes a single `slides.html` (plus any `demos/` folder). `build-all` writes each deck to `<out>/<name>/index.html` and an accessible landing page at `<out>/index.html`. The legacy `npm run build deck=<name> theme=<name>` form still works.
+`build` writes a single `slides.html` (plus any `demos/` folder). `build-all` writes each deck to `<out>/<name>/index.html` and an accessible landing page at `<out>/index.html`; if a deck fails, the rest are still built and the command exits non-zero with a summary. The legacy `npm run build deck=<name> theme=<name>` form still works.
 
 ## Library usage
 

@@ -128,6 +128,45 @@ test('legacy deck=/theme=/out= tokens still work', async () => {
   }
 })
 
+test('build-all keeps building when one deck fails', async () => {
+  const work = await mkdtemp(join(tmpdir(), 'amd-'))
+  try {
+    const decks = join(work, 'decks')
+    await mkdir(join(decks, 'good'), { recursive: true })
+    await mkdir(join(decks, 'broken'), { recursive: true })
+    await writeFile(join(decks, 'good', 'slides.md'), '---\ntitle: Good\nmarp: true\ntheme: basic\n---\n\n# Good\n')
+    await writeFile(join(decks, 'broken', 'slides.md'), '---\ntitle: Broken\nmarp: true\ntheme: no-such-theme\n---\n\n# Broken\n')
+
+    const stderr = await expectFailure(['build-all', 'decks'], { cwd: work })
+    assert.match(stderr, /Failed "broken"/)
+    assert.match(stderr, /1 of 2 decks failed to build/)
+
+    // The healthy deck is still built and the index lists only it.
+    const good = await readFile(join(work, 'dist', 'site', 'good', 'index.html'), 'utf8')
+    assert.match(good, /aria-label="Slide 1: Good/)
+    const index = await readFile(join(work, 'dist', 'site', 'index.html'), 'utf8')
+    assert.match(index, /href="\.\/good\/"/)
+    assert.ok(!index.includes('broken'), 'failed deck is not listed')
+  } finally {
+    await rm(work, { recursive: true, force: true })
+  }
+})
+
+test('build-all with only broken decks exits non-zero without an index', async () => {
+  const work = await mkdtemp(join(tmpdir(), 'amd-'))
+  try {
+    const decks = join(work, 'decks')
+    await mkdir(join(decks, 'broken'), { recursive: true })
+    await writeFile(join(decks, 'broken', 'slides.md'), '---\nmarp: true\ntheme: no-such-theme\n---\n\n# B\n')
+
+    const stderr = await expectFailure(['build-all', 'decks'], { cwd: work })
+    assert.match(stderr, /1 of 1 decks failed to build/)
+    await assert.rejects(() => readFile(join(work, 'dist', 'site', 'index.html'), 'utf8'), 'no index written')
+  } finally {
+    await rm(work, { recursive: true, force: true })
+  }
+})
+
 test('backslash-separated arguments are treated as paths, not deck names', async () => {
   const stderr = await expectFailure(['build', 'no-such-dir\\talk'])
   assert.match(stderr, /Deck not found/)

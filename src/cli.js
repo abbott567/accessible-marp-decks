@@ -112,6 +112,7 @@ async function buildAllCommand (dir, opts) {
   const outRoot = resolve(opts.out || join('dist', 'site'))
 
   const built = []
+  const failures = []
   for (const entry of entries) {
     if (!entry.isDirectory()) continue
     const sourceDir = join(root, entry.name)
@@ -119,24 +120,36 @@ async function buildAllCommand (dir, opts) {
     if (!(await exists(mdPath))) continue
 
     // Each deck becomes /<name>/index.html for clean URLs on a static host.
-    const meta = await buildOne({
-      mdPath,
-      sourceDir,
-      deckName: entry.name,
-      outDir: join(outRoot, entry.name),
-      theme: opts.theme,
-      htmlName: 'index.html'
-    })
-    built.push(meta)
-    console.log(`Built "${entry.name}" → ${join(outRoot, entry.name, 'index.html')}`)
+    // One broken deck must not abort the site — collect failures and keep going.
+    try {
+      const meta = await buildOne({
+        mdPath,
+        sourceDir,
+        deckName: entry.name,
+        outDir: join(outRoot, entry.name),
+        theme: opts.theme,
+        htmlName: 'index.html'
+      })
+      built.push(meta)
+      console.log(`Built "${entry.name}" → ${join(outRoot, entry.name, 'index.html')}`)
+    } catch (err) {
+      failures.push(entry.name)
+      console.error(`Failed "${entry.name}": ${err.message}`)
+    }
   }
 
-  if (built.length === 0) {
+  if (built.length === 0 && failures.length === 0) {
     throw new Error(`No decks (folders containing slides.md) found in ${root}`)
   }
 
-  await writeFile(join(outRoot, 'index.html'), renderIndex(built))
-  console.log(`Wrote index → ${join(outRoot, 'index.html')} (${built.length} decks)`)
+  if (built.length > 0) {
+    await writeFile(join(outRoot, 'index.html'), renderIndex(built))
+    console.log(`Wrote index → ${join(outRoot, 'index.html')} (${built.length} decks)`)
+  }
+
+  if (failures.length > 0) {
+    throw new Error(`${failures.length} of ${built.length + failures.length} decks failed to build`)
+  }
 }
 
 /** A minimal, accessible landing page linking to each built deck. */

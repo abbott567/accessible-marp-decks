@@ -12,7 +12,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - **Responsive 16:9 scaling** — each fixed-size slide is scaled to the window as one rigid unit via CSS `zoom` (a small inlined script sets the scale factor), so text, spacing, and layout shrink together and nothing reflows. Browser page zoom still enlarges the deck (the script compensates via `devicePixelRatio`), per WCAG 1.4.4.
 - **Layout helpers** — slide-native `box`, `stack`, `cluster`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, and `overlay-centre` classes.
 - **Smarter code-block focus** — code blocks are keyboard-scrollable by default (no-JS safe), and a tiny inlined script removes the tab stop from blocks that don't actually overflow, re-checking on resize.
-- **`build-all <dir>`** CLI command — builds every deck in a folder and writes an accessible landing page linking them.
+- **`build-all <dir>`** CLI command — builds every deck in a folder and writes an accessible landing page linking them. A failing deck doesn't abort the site: the rest are built, the failure is reported, and the command exits non-zero with a summary.
 - **GitHub Action** — a reusable composite `action.yml` plus an example Pages-deploy workflow, so decks can be published without a command line.
 - **Theme template** — `themes/_template.css`, a documented, self-contained starter to copy and recolour.
 - **`high-contrast` theme** — a second bundled theme (pure black/white, auto light/dark).
