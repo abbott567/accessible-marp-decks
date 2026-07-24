@@ -8,7 +8,7 @@
     "./eleventy": "./src/eleventy.js"
   },
   "bin": {
-    "accessible-marp": "./src/cli.js"
+    "accessible-marp": "src/cli.js"
   },
   "files": [
     "src",
