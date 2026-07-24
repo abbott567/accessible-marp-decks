@@ -8,6 +8,7 @@ All notable changes to this project are documented here. The format is based on 
 
 - **Slide template zones** — every slide is built on the cover shape: Marp's `header:` and `footer:` directives fill real top and bottom zones in the slide's flow (not absolute overlays), with the body centred between them so content can never collide with a zone.
 - **Pre-built layouts** — pick a whole-slide look with the new `layout:` directive (`title`, `quote`, `full-image`, or any slide-level class). `layout:` is renderer-provided sugar for the class directive; `_layout:` is the one-slide form.
+- **PowerPoint-parity layouts** — the standard PowerPoint set as `layout:` values: `section`, `title-only`, `two-content`, `comparison`, `content-caption`, and `picture-caption` (Title Slide is `title`; Title and Content and Blank are the default slide). The two-column ones are CSS grid with one block per content region.
 
 ### Fixed
 

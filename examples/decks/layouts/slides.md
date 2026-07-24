@@ -8,11 +8,11 @@ theme: basic
 
 ---
 
-<!-- _layout: title -->
+<!-- _class: title -->
 
 # Layout gallery
 
-A single deck that shows off the slide template, the pre-built layouts, and the layout **primitives** in **accessible-marp-decks**. This slide uses `layout: title`.
+A single deck that shows off the slide template, the pre-built layouts, and the layout **primitives** in **accessible-marp-decks**. This slide uses the `title` layout — applied with `_class:` throughout this deck so the VSCode preview shows every layout too (`layout:` works the same when building).
 
 ---
 
@@ -31,19 +31,79 @@ accessible-marp build layouts --theme basic
 
 ---
 
-<!-- _layout: quote -->
+<!-- _class: quote -->
 
 > Accessibility is not a feature you bolt on at the end. It is a property of building things the right way.
 
-A `layout: quote` slide, with this attribution line
+The `quote` layout, with this attribution line
 
 ---
 
-<!-- _layout: full-image -->
+<!-- _class: full-image -->
 
 ![A placeholder graphic with a circle and a rounded rectangle, filling the whole slide.](./images/placeholder.svg)
 
-<!-- _footer: 'A `layout: full-image` slide — the footer sits on a backing strip' -->
+<!-- _footer: 'The `full-image` layout — the footer sits on a backing strip' -->
+
+---
+
+<!-- _class: section -->
+
+## Section break
+
+The `section` layout divides the deck into parts — like PowerPoint's Section Header.
+
+---
+
+<!-- _class: two-content -->
+
+## Two content — side by side
+
+- The `two-content` layout
+- The heading spans the slide
+- Each side is one block
+
+* This list is the second block
+* Blocks flow left to right
+* Use `columns` for more per side
+
+---
+
+<!-- _class: comparison -->
+
+## Comparison — captioned sides
+
+### Slides-first
+
+- Start in a slides app
+- Export something inaccessible
+
+### Content-first
+
+- Write Markdown
+- Ship accessible HTML
+
+---
+
+<!-- _class: content-caption -->
+
+## Content with caption
+
+This muted paragraph is the caption — it comes first in the source and takes the narrow column.
+
+- The content block sits beside it
+- It gets two thirds of the width
+- Like PowerPoint's Content with Caption
+
+---
+
+<!-- _class: picture-caption -->
+
+## Picture with caption
+
+![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+
+The muted caption sits under the picture — like PowerPoint's Picture with Caption.
 
 ---
 

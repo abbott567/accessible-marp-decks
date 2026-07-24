@@ -36,9 +36,15 @@ Someone wise
 
 | Layout | What you get |
 | --- | --- |
-| `title` | A hero slide: everything centred, oversized heading — for the opening slide or section breaks. |
+| `title` | A hero slide: everything centred, oversized heading — for the opening slide. |
+| `section` | A section-break divider: oversized left-aligned heading with a muted lead-in. |
+| `title-only` | A heading pinned to the top; the rest of the slide is free space. |
 | `quote` | One big centred quotation. A paragraph after the blockquote is styled as the attribution. |
 | `full-image` | One image fills the whole slide edge to edge. Header and footer sit on top with a solid backing strip. The image still needs real alt text. |
+| `two-content` | A heading over two equal side-by-side content blocks. |
+| `comparison` | Like `two-content`, with an `###` caption heading over each side. |
+| `content-caption` | A narrow muted caption column beside the content. Write the caption paragraph first, then the content. |
+| `picture-caption` | A picture with a muted caption paragraph underneath. |
 
 ```markdown
 <!-- _layout: full-image -->
@@ -46,12 +52,50 @@ Someone wise
 ![A descriptive alt text.](./images/photo.jpg)
 ```
 
+The two-column layouts (`two-content`, `comparison`, `content-caption`) are CSS grid: the heading and the header/footer zones span the full width, and each content region is **one block** — a list, a paragraph, an image, or a wrapped `<div>`. Blocks flow left to right in source order:
+
+```markdown
+<!-- _layout: comparison -->
+
+## Two ways to build a deck
+
+### Slides-first
+
+- Start in PowerPoint
+- Fight the outline view
+- Export something inaccessible
+
+### Content-first
+
+- Write Markdown
+- Pick a theme
+- Ship one accessible HTML file
+```
+
+For more than one block per side, use the `columns` helper (below) instead.
+
+### Coming from PowerPoint
+
+The standard PowerPoint layouts map directly:
+
+| PowerPoint layout | Equivalent |
+| --- | --- |
+| Title Slide | `layout: title` |
+| Title and Content | The default — a heading followed by content, no directive needed. |
+| Section Header | `layout: section` |
+| Two Content | `layout: two-content` |
+| Comparison | `layout: comparison` |
+| Title Only | `layout: title-only` |
+| Blank | An empty slide — no directive needed. |
+| Content with Caption | `layout: content-caption` |
+| Picture with Caption | `layout: picture-caption` |
+
 Notes on how the directive behaves:
 
 - `_layout:` applies to that slide only; plain `layout:` applies from that slide onward, like every Marp directive.
 - The slide-level helper classes (`cover`, `center`, `stack` — see below) are also valid values, e.g. `<!-- layout: center -->`.
 - `layout:` is sugar for Marp's class directive, so a layout is just a class on the slide. If a slide sets both `layout:` and `_class:`, the class directive wins.
-- The `layout:` directive is provided by this project's renderer, so the Marp VSCode preview ignores it. For preview parity write the equivalent `<!-- _class: quote -->` — the layouts are plain classes in the theme, and both forms produce identical slides.
+- The `layout:` directive is provided by this project's renderer, so the Marp VSCode preview ignores it — a `layout:` slide previews as a plain slide. The layouts are plain classes in the theme, so the equivalent `<!-- _class: quote -->` produces an identical slide **and** works in the preview. If you write with the preview open, prefer `_class:` (the [gallery deck](../examples/decks/layouts/slides.md) does).
 
 ## Layout helpers
 

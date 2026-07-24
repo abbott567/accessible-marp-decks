@@ -160,6 +160,61 @@ section.full-image { position: relative; overflow: hidden; padding: 0; }
 section.full-image p, section.full-image figure { margin: 0; max-width: 100%; }
 section.full-image img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; border: none; margin: 0; }
 section.full-image > header, section.full-image > footer { z-index: 1; padding: 0.5em 1em; background-color: var(--bg); }
+/* PowerPoint-parity layouts. The two-column ones are CSS grid: the heading
+   and the template zones span the full width, and each content region is ONE
+   block (a list, a paragraph, an image, or a wrapped <div>) — blocks flow
+   left to right in source order. */
+
+/* section — a section-break divider: oversized heading, muted lead-in text */
+section.section h1, section.section h2 { font-size: 2em; margin-block: 0 0.2em; }
+section.section p { color: var(--muted); }
+
+/* title-only — a heading pinned to the top; the rest of the slide is free */
+section.title-only { justify-content: flex-start; }
+section.title-only > header { margin-block-end: 0; }
+section.title-only > :first-child { margin-block-start: 0; }
+
+/* Shared plumbing for the grid layouts. Content blocks are locked to their
+   row (the :not() rules per layout) — auto-placement would otherwise drift
+   them into the empty header row when no `header:` directive is set. */
+section.two-content, section.comparison, section.content-caption { display: grid; column-gap: var(--space-l); align-items: start; }
+section.two-content > header, section.comparison > header, section.content-caption > header,
+section.two-content > h1, section.comparison > h1, section.content-caption > h1,
+section.two-content > h2, section.comparison > h2, section.content-caption > h2,
+section.two-content > footer, section.comparison > footer, section.content-caption > footer { grid-column: 1 / -1; }
+section.two-content p, section.two-content ul li, section.two-content ol li,
+section.comparison p, section.comparison ul li, section.comparison ol li,
+section.content-caption p, section.content-caption ul li, section.content-caption ol li { max-width: 100%; }
+
+/* two-content — a heading over two equal content blocks */
+section.two-content { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto 1fr auto; }
+section.two-content > header { grid-row: 1; }
+section.two-content > h1, section.two-content > h2 { grid-row: 2; }
+section.two-content > footer { grid-row: 4; }
+section.two-content > :not(header):not(h1):not(h2):not(footer) { grid-row: 3; }
+
+/* comparison — two-content with an `###` caption heading over each side */
+section.comparison { grid-template-columns: 1fr 1fr; grid-template-rows: auto auto auto 1fr auto; grid-auto-flow: column; }
+section.comparison > header { grid-row: 1; }
+section.comparison > h1, section.comparison > h2 { grid-row: 2; }
+section.comparison > h3 { grid-row: 3; }
+section.comparison > footer { grid-row: 5; }
+section.comparison > :not(header):not(h1):not(h2):not(h3):not(footer) { grid-row: 4; }
+
+/* content-caption — a narrow caption column beside the content block.
+   Write the caption paragraph first, then the content block. */
+section.content-caption { grid-template-columns: 1fr 2fr; grid-template-rows: auto auto 1fr auto; }
+section.content-caption > header { grid-row: 1; }
+section.content-caption > h1, section.content-caption > h2 { grid-row: 2; }
+section.content-caption > footer { grid-row: 4; }
+section.content-caption > :not(header):not(h1):not(h2):not(footer) { grid-row: 3; }
+section.content-caption > p:first-of-type { font-size: .85em; color: var(--muted); }
+
+/* picture-caption — a picture with a muted caption underneath */
+section.picture-caption p { max-width: 100%; }
+section.picture-caption img { display: block; max-block-size: 12em; inline-size: auto; }
+section.picture-caption p:has(> img) + p { font-size: .85em; color: var(--muted); }
+
 /* --- end shared layout block — keep identical across themes (drift guard in
    test/layouts.test.js) --- */
 

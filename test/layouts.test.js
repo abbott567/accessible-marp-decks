@@ -67,7 +67,12 @@ test('every bundled theme (and the template) defines the pre-built layouts', asy
   const themes = await listThemes()
   for (const name of [...themes, '_template']) {
     const css = await readFile(join(themesDir, `${name}.css`), 'utf8')
-    for (const cls of ['section.title', 'section.quote', 'section.full-image']) {
+    const layouts = [
+      'section.title', 'section.quote', 'section.full-image',
+      'section.section', 'section.title-only', 'section.two-content',
+      'section.comparison', 'section.content-caption', 'section.picture-caption'
+    ]
+    for (const cls of layouts) {
       assert.ok(css.includes(cls), `${name}.css defines ${cls}`)
     }
   }
