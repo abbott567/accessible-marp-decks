@@ -1,7 +1,7 @@
 ---
 
 title: Layout gallery
-description: A single deck showing the slide layouts accessible-marp-decks can render.
+description: A single deck showing the layout primitives accessible-marp-decks can render.
 paginate: true
 marp: true
 theme: basic
@@ -10,7 +10,7 @@ theme: basic
 
 # Layout gallery
 
-A single deck that shows off the layouts **accessible-marp-decks** can render.
+A single deck that shows off the layout **primitives** in **accessible-marp-decks**.
 
 Each slide that follows is one layout. Build it with:
 
@@ -49,27 +49,78 @@ This is the default — write Markdown, get an accessible slide.
 
 ---
 
-## Two columns
+## Columns — split a slide in two
 
-<div class="row">
-  <div class="col">
+Put `columns` around two blocks to place them side by side. A slide is a fixed canvas that scales as a whole, so columns stay columns — no reflow to reason about.
 
-### Left column
+<div class="columns">
+  <div class="box">
 
-Wrap content in a `.row` with two `.col` children to split a slide into columns.
+### Left
 
-Use it for a point on one side and supporting detail on the other.
-
-  </div>
-  <div class="col">
-
-### Right column
-
-The columns are flexbox, so they share the width evenly and stack predictably.
-
-Keep each column to a single idea so the reading order stays clear.
+One idea per column keeps the reading order clear.
 
   </div>
+  <div class="box">
+
+### Right
+
+The columns share the width evenly.
+
+  </div>
+</div>
+
+---
+
+## Grid — responsive cards
+
+A `grid` auto-fits as many equal cards as will fit, each at least `14em` wide.
+
+<div class="grid">
+  <div class="box">Discoverable</div>
+  <div class="box">Operable</div>
+  <div class="box">Understandable</div>
+  <div class="box">Robust</div>
+</div>
+
+---
+
+## Cluster — tags and chips
+
+A `cluster` lays out a wrapping row of items with even gaps.
+
+<ul class="cluster" role="list">
+  <li><code>box</code></li>
+  <li><code>stack</code></li>
+  <li><code>cluster</code></li>
+  <li><code>columns</code></li>
+  <li><code>grid</code></li>
+  <li><code>cover</code></li>
+  <li><code>frame</code></li>
+</ul>
+
+---
+
+## Stack — even vertical rhythm
+
+A `stack` puts a consistent space between each child, whatever they are.
+
+<div class="stack">
+  <h3>First</h3>
+  <p>The gap between items is the same all the way down.</p>
+  <p>Change the rhythm with <code>stack--s</code> or <code>stack--l</code>.</p>
+</div>
+
+---
+
+## Frame — crop media to an aspect ratio
+
+A `frame` crops an image or video to a fixed ratio (16:9 by default) so mixed media lines up.
+
+<div class="frame">
+
+![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+
 </div>
 
 ---
@@ -98,20 +149,12 @@ Press <kbd>Tab</kbd> to move forward and <kbd>Shift</kbd> + <kbd>Tab</kbd> to mo
 
 ## Table
 
-| Layout      | Use it for                          |
-| ----------- | ----------------------------------- |
-| Prose       | A single idea per slide             |
-| Lists       | Sequential or unordered points      |
-| Two columns | Comparing or pairing two things     |
-| Code        | Showing a focusable, highlighted snippet |
-
----
-
-## Image
-
-![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
-
-Images keep their alt text and are constrained to a sensible width, so they stay accessible and don't overflow the slide.
+| Helper     | Use it for                               |
+| ---------- | ---------------------------------------- |
+| `columns`  | Splitting a slide into equal columns     |
+| `grid`     | A set of equal cards                     |
+| `cluster`  | Tags, chips, button rows                 |
+| `frame`    | Cropping media to a fixed aspect ratio   |
 
 ---
 

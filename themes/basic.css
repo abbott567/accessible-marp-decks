@@ -65,21 +65,57 @@
   }
 }
 
-/* Layout helpers */
-.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  width: 100%;
-  max-width: 100%;
-  margin: 1em 0; }
+/*
+ * Layout helpers.  Plain, slide-native CSS: because a slide is a fixed canvas
+ * that scales as a whole (it never reflows), simple grid/flex layouts are all
+ * we need. Compose slides by putting these classes on raw HTML inside a slide,
+ * e.g. <div class="columns"> … </div>. See docs/layouts.md.
+ *
+ * Sizes use a small em-based spacing scale so gaps scale with the slide.
+ */
+:root {
+  --space-xs: 0.5em;
+  --space-s: 1em;
+  --space-m: 1.5em;
+  --space-l: 2.25em;
+}
 
-.col {
-  display: flex;
-  flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
-  margin-right: 1em; }
+/* box — a padded container */
+.box { padding: var(--space-m); }
+.box-s { padding: var(--space-s); }
+.box-l { padding: var(--space-l); }
+
+/* stack — even vertical spacing between children */
+.stack { display: flex; flex-direction: column; gap: var(--space-s); }
+.stack-s { gap: var(--space-xs); }
+.stack-l { gap: var(--space-l); }
+
+/* cluster — a wrapping row of items with even gaps (tags, chips, buttons) */
+.cluster { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }
+
+/* columns — equal-width columns side by side */
+.columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-m); align-items: start; }
+.columns-3 { grid-template-columns: repeat(3, 1fr); }
+
+/* grid — as many equal cards as fit, each at least 14em wide */
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14em, 1fr)); gap: var(--space-m); }
+
+/* center — a centred column at a comfortable reading measure */
+.center { max-inline-size: 40ch; margin-inline: auto; }
+
+/* frame — crop media to a fixed aspect ratio (16:9 by default) */
+.frame { display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden; }
+.frame-square { aspect-ratio: 1; }
+.frame > img, .frame > video { inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+/* cover — pin content to top and bottom, fill the slide height */
+.cover { display: flex; flex-direction: column; justify-content: space-between; block-size: 100%; }
+
+/* sidebar — a self-sized side column beside a flexible main column */
+.sidebar { display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: start; }
+
+/* overlay-centre — centre an element over a positioned ancestor */
+.overlay-centre { position: absolute; inset: 0; display: grid; place-items: center; }
 
 /* Slide.  In an export, font-size is overridden by document.css to track the
    window width; the value here is the base used by the Marp VSCode preview. */

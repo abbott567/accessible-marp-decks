@@ -1,0 +1,243 @@
+/* @theme template */
+/*!
+ * @auto-scaling true
+ * @size 16:9 1280px 720px
+ * @size 4:3 960px 720px
+ */
+
+/* ===========================================================================
+ * THEME TEMPLATE — copy this file to themes/<your-theme>.css to make your own.
+ *
+ *   1. Rename the theme in the `@theme` line above (line 1) to match the file.
+ *   2. Recolour: edit the two colour blocks in EDIT ZONE 1 below. That's the
+ *      only part most themes need to touch.
+ *   3. Optionally tweak type in EDIT ZONE 2.
+ *   4. Style elements as you like further down — headings, code, tables, etc.
+ *
+ * The layout helpers (box, stack, columns, grid, frame, …) are included below so
+ * they show up in the Marp VSCode preview too. They are plain grid/flex CSS —
+ * leave them as-is unless you want to restyle a layout.
+ *
+ * The responsive 16:9 scaling comes from the always-injected document.css, so
+ * there is nothing to set up for that. Everything inside a slide is sized in
+ * `em` so it scales with the window — keep new rules in `em`/`%` to preserve it.
+ * ======================================================================== */
+
+/* --- EDIT ZONE 1: COLOURS ------------------------------------------------- */
+:root {
+  /* Light mode (default) */
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #565656;
+  --accent: #0b5cad;
+  --border: #b1b4b6;
+  --code-bg: #f3f4f6;
+  --chip-bg: #eaeaea;
+  --focus-bg: #ffdd00;
+  --focus-fg: #1a1a1a;
+
+  /* Syntax highlighting (a11y-light) */
+  --hl-bg: #fefefe;
+  --hl-fg: #545454;
+  --hl-comment: #696969;
+  --hl-red: #d91e18;
+  --hl-orange: #aa5d00;
+  --hl-green: #008000;
+  --hl-cyan: #007faa;
+  --hl-purple: #7928a1;
+  --hl-attr: #aa5d00;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode */
+    --bg: #14141a;
+    --fg: #f2f2f2;
+    --muted: #b9b9b9;
+    --accent: #8ab4f8;
+    --border: #555555;
+    --code-bg: #24242c;
+    --chip-bg: #33333c;
+    --focus-bg: #ffdd00;
+    --focus-fg: #1a1a1a;
+
+    /* Syntax highlighting (a11y-dark) */
+    --hl-bg: #2b2b2b;
+    --hl-fg: #f8f8f2;
+    --hl-comment: #d4d0ab;
+    --hl-red: #ffa07a;
+    --hl-orange: #f5ab35;
+    --hl-green: #abe338;
+    --hl-cyan: #00e0e0;
+    --hl-purple: #dcc6e0;
+    --hl-attr: #ffd700;
+  }
+}
+
+/* --- EDIT ZONE 2: TYPE ---------------------------------------------------- */
+section {
+  --font-body: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/* ===========================================================================
+ * Layout helpers — plain grid/flex, tailored to slides. Usually leave as-is.
+ * ======================================================================== */
+:root {
+  --space-xs: 0.5em;
+  --space-s: 1em;
+  --space-m: 1.5em;
+  --space-l: 2.25em;
+}
+
+.box { padding: var(--space-m); }
+.box-s { padding: var(--space-s); }
+.box-l { padding: var(--space-l); }
+
+.stack { display: flex; flex-direction: column; gap: var(--space-s); }
+.stack-s { gap: var(--space-xs); }
+.stack-l { gap: var(--space-l); }
+
+.cluster { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }
+
+.columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-m); align-items: start; }
+.columns-3 { grid-template-columns: repeat(3, 1fr); }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14em, 1fr)); gap: var(--space-m); }
+
+.center { max-inline-size: 40ch; margin-inline: auto; }
+
+.frame { display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden; }
+.frame-square { aspect-ratio: 1; }
+.frame > img, .frame > video { inline-size: 100%; block-size: 100%; object-fit: cover; }
+
+.cover { display: flex; flex-direction: column; justify-content: space-between; block-size: 100%; }
+
+.sidebar { display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: start; }
+
+.overlay-centre { position: absolute; inset: 0; display: grid; place-items: center; }
+
+/* ===========================================================================
+ * Element styles — tweak to taste.
+ * ======================================================================== */
+
+/* Slide */
+section {
+  font-family: var(--font-body);
+  line-height: 1.3;
+  font-size: 29px;
+  color: var(--fg);
+  background: var(--bg);
+  align-items: stretch;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  padding: 2.7em;
+  background-size: cover; }
+  section > *:last-child { margin-bottom: 0; }
+  section > *:first-child, section header:first-child + * { margin-top: 0; }
+
+/* Headings and links */
+h1, h2, h3, h4, h5, h6 { color: var(--accent); }
+h1, h2, p, ul li, ol li { max-width: 66%; }
+h1 { font-size: 1.75em; }
+h2 { font-size: 1.6em; margin-bottom: 1em; }
+h3 { font-size: 1.1em; margin-top: 0; }
+h4 { font-size: 1.05em; }
+h5 { font-size: 1em; }
+h6 { font-size: 0.9em; }
+p { margin-top: 0; }
+
+a, a:visited { color: var(--accent); }
+a:focus {
+  outline: none;
+  padding: 0.1em;
+  text-decoration: none;
+  background-color: var(--focus-bg);
+  color: var(--focus-fg);
+  border-bottom: 0.17em solid var(--focus-fg); }
+
+hr { height: 0; padding-top: 0.25em; }
+
+/* Lists */
+ul, ol { margin-top: 0; margin-bottom: 1.5em; }
+ul li, ol li { padding-left: 1em; line-height: 1.3; margin-bottom: .5em; }
+
+/* Quotes */
+blockquote { margin: 0; padding-left: 1em; border-left: 0.35em solid var(--border); }
+blockquote p { font-style: italic; }
+
+/* Code */
+pre { margin: 0 0 1em; overflow: visible; }
+pre code {
+  display: block;
+  overflow-y: visible;
+  overflow-x: auto;
+  padding: .75em;
+  border: 1px dashed var(--border);
+  font-size: .9em; }
+pre code:focus {
+  outline: 0.14em solid var(--fg);
+  outline-offset: 0.14em;
+  box-shadow: 0 0 0 0.17em var(--focus-bg); }
+code {
+  font-family: var(--font-mono);
+  font-size: 1em;
+  background-color: var(--code-bg);
+  padding: 0 .2em;
+  border-radius: 0.17em; }
+kbd {
+  color: var(--fg);
+  font-size: .9em;
+  border: 1px solid var(--border);
+  border-radius: 0.14em;
+  padding: 0 .3em; }
+
+/* Media */
+img, figure { margin-top: 0; max-width: 100%; }
+figure { margin: 0; }
+img { border: 1px solid var(--border); }
+
+/* Table */
+table { border-collapse: collapse; }
+th, td { border: 1px solid var(--border); padding: .4em .6em; text-align: left; }
+
+/* Header and footer */
+header, footer {
+  font-size: .75em;
+  color: var(--muted);
+  margin: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding-inline: 1em;
+  min-height: 1em; }
+header { top: 0.7em; }
+footer { bottom: 0.7em; }
+footer a, footer a:visited { color: var(--muted); }
+
+.pagination {
+  color: var(--muted);
+  font-size: 1.1em;
+  position: absolute;
+  padding: 0;
+  right: 1em;
+  top: 0; }
+.pagination span:last-of-type {
+  border-radius: 50%;
+  padding: 0.2em 0.4em;
+  background-color: var(--chip-bg); }
+
+/* Syntax highlighting — a11y-light / a11y-dark by @ericwbailey */
+pre code.hljs { display: block; overflow-x: auto; padding: 1em; }
+code.hljs { padding: 3px 5px; }
+.hljs { background: var(--hl-bg); color: var(--hl-fg); }
+.hljs-comment, .hljs-quote { color: var(--hl-comment); }
+.hljs-deletion, .hljs-name, .hljs-regexp, .hljs-selector-class, .hljs-selector-id, .hljs-tag, .hljs-template-variable, .hljs-variable { color: var(--hl-red); }
+.hljs-built_in, .hljs-link, .hljs-literal, .hljs-meta, .hljs-number, .hljs-params, .hljs-type { color: var(--hl-orange); }
+.hljs-attribute { color: var(--hl-attr); }
+.hljs-addition, .hljs-bullet, .hljs-string, .hljs-symbol { color: var(--hl-green); }
+.hljs-section, .hljs-title { color: var(--hl-cyan); }
+.hljs-keyword, .hljs-selector-tag { color: var(--hl-purple); }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }

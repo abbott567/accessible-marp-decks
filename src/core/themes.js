@@ -9,13 +9,15 @@ export const themesDir = resolve(here, '..', '..', 'themes')
 
 /**
  * List the names of the bundled themes (without the `.css` extension).
+ * `document.css` (the injected base) and underscore-prefixed partials such as
+ * `_template.css` are not selectable themes and are excluded.
  *
  * @returns {Promise<string[]>}
  */
 export async function listThemes () {
   const entries = await readdir(themesDir)
   return entries
-    .filter(name => name.endsWith('.css') && name !== 'document.css')
+    .filter(name => name.endsWith('.css') && name !== 'document.css' && !name.startsWith('_'))
     .map(name => name.replace(/\.css$/, ''))
     .sort()
 }
