@@ -1,6 +1,6 @@
 # Accessible Marp Decks
 
-Render [Marp](https://marp.app/) markdown slide decks into a **single, self-contained, accessible HTML page** — every slide is a labelled landmark, headings have stable ids, code blocks are keyboard-focusable figures, pagination is announced to screen readers, images are inlined, and the whole thing scales to any window in 16:9 without reflowing.
+Render [Marp](https://marp.app/) markdown slide decks into a **single, self-contained, accessible HTML page** — every slide is a labelled landmark, headings have stable ids, code blocks that scroll are keyboard-focusable, pagination is announced to screen readers, images are inlined, and the whole thing scales to any window in 16:9 without reflowing.
 
 Use it four ways:
 
@@ -151,7 +151,7 @@ Publish decks to GitHub Pages on every push — no command line. Add one workflo
 
 ## Accessibility
 
-Every rendered deck is a labelled-landmark structure with screen-reader pagination, focusable code figures, and reflow-free 16:9 scaling. The full list of guarantees is in [docs/accessibility.md](docs/accessibility.md).
+Every rendered deck is a labelled-landmark structure with screen-reader pagination, keyboard-scrollable code blocks, and reflow-free 16:9 scaling. The full list of guarantees is in [docs/accessibility.md](docs/accessibility.md).
 
 ## Development
 

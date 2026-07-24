@@ -37,4 +37,4 @@ Marpit's own container (`div.marpit`) is capped at the 1280px design width and m
 
 ## Testing
 
-The `test/` suite pins these guarantees (labelled sections, heading ids, footer pagination, focusable code figures, the scaling frame). If you change the rendering pipeline, keep these green and add cases for new behaviour.
+The `test/` suite pins these guarantees (labelled sections, heading ids, footer pagination, keyboard-scrollable code blocks, the responsive scaling rules). If you change the rendering pipeline, keep these green and add cases for new behaviour.
