@@ -8,7 +8,7 @@
  * @param {import('cheerio').CheerioAPI} $
  */
 export function modifySection ($) {
-  $('section').each(function () {
+  $('section').each(function (index) {
     const $section = $(this)
     $section.wrap('<div class="slide-frame"></div>')
     $section.removeAttr('data-theme')
@@ -23,7 +23,9 @@ export function modifySection ($) {
     if (!hasFooter) $section.append('<footer></footer>')
     const $footer = $section.find('footer')
 
-    const pageNo = $section.attr('data-marpit-pagination')
+    // Marpit only sets data-marpit-pagination when `paginate: true`; fall back
+    // to the slide's position so labels never read "Slide undefined".
+    const pageNo = $section.attr('data-marpit-pagination') ?? String(index + 1)
     $section.removeAttr('data-marpit-pagination')
 
     const $heading = $section.find(':header')

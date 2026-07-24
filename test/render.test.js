@@ -79,3 +79,17 @@ test('prettify:false still produces valid markup', async () => {
   assert.match(html, /<section/)
   assert.ok(!html.includes('\n  <section'), 'unprettified output is not indented')
 })
+
+test('falls back to the default theme with no theme and no front matter', async () => {
+  const html = await renderDeck('# Hi')
+  assert.match(html, /<section/)
+  assert.match(html, /class="slide-frame"/)
+})
+
+test('code blocks without a known language still render', async () => {
+  const html = await renderDeck('```\nplain text\n```\n\n```js\nconst a = 1\n```\n')
+  const $ = cheerio.load(html)
+  // Two highlighted code figures: the plain one (no language) and the js one.
+  assert.equal($('pre code').length, 2)
+  assert.match(html, /plain text/)
+})

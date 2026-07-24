@@ -40,7 +40,7 @@ async function exists (p) {
 }
 
 function escapeHTML (value) {
-  return String(value ?? '')
+  return String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -91,7 +91,9 @@ async function buildCommand (deckArg, opts) {
   if (deckArg.endsWith('.md') || deckArg.includes('/')) {
     mdPath = resolve(deckArg)
     sourceDir = dirname(mdPath)
-    deckName = basename(sourceDir) || basename(mdPath, '.md')
+    deckName = basename(mdPath, '.md')
+    // A conventional `<name>/slides.md` should be named after its folder.
+    if (deckName === 'slides') deckName = basename(sourceDir)
   } else {
     deckName = deckArg
     sourceDir = resolve(decksDir, deckName)

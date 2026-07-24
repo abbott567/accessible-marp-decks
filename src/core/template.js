@@ -23,8 +23,8 @@ function escapeAttr (value) {
  * @returns {string}
  */
 export function buildDocument ({ html, css, deckInfo = {}, lang = 'en' }) {
-  const title = escapeAttr(deckInfo.title ?? '')
-  const description = escapeAttr(deckInfo.description ?? '')
+  const title = escapeAttr(deckInfo.title)
+  const description = escapeAttr(deckInfo.description)
 
   return `<!DOCTYPE html>
 <html lang="${escapeAttr(lang)}">

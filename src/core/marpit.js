@@ -15,14 +15,13 @@ export function createMarpit () {
       breaks: true,
       typographer: true,
       highlight (str, lang) {
+        // `ignoreIllegals` means highlight() won't throw for a language we've
+        // already confirmed is registered, so no defensive catch is needed.
         if (lang && hljs.getLanguage(lang)) {
-          try {
-            return '<pre class="hljs"><code>' +
-              hljs.highlight(str, { language: lang, ignoreIllegals: true }).value +
-              '</code></pre>'
-          } catch {}
+          const highlighted = hljs.highlight(str, { language: lang, ignoreIllegals: true }).value
+          return `<pre class="hljs"><code>${highlighted}</code></pre>`
         }
-        return '<pre class="hljs"><code>' + str + '</code></pre>'
+        return `<pre class="hljs"><code>${str}</code></pre>`
       }
     }
   })

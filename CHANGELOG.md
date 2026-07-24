@@ -14,7 +14,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - **`build-all <dir>`** CLI command — builds every deck in a folder and writes an accessible landing page linking them.
 - **GitHub Action** — a reusable composite `action.yml` plus an example Pages-deploy workflow, so decks can be published without a command line.
 - **Theme template** — `themes/_template.css`, a documented, self-contained starter to copy and recolour.
-- **Tests** (`node:test`) and **CI** covering accessibility invariants, image inlining, scaling, layout helpers, theme resolution, the CLI, and the Eleventy plugin.
+- **Tests** (`node:test`) and **CI** covering accessibility invariants, image inlining, scaling, layout helpers, theme resolution, the CLI, and the Eleventy plugin — with 100% line, branch, and function coverage enforced in CI.
 
 ### Changed
 
@@ -22,6 +22,10 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - Transforms are **element-scoped** files — `_section.js`, `_img.js`, `_code.js`.
 - The `basic` theme is re-authored in `em` units with automatic light/dark modes.
 - Dependencies trimmed to the five that are actually used.
+
+### Fixed
+
+- Slides in decks without `paginate: true` are now numbered by position instead of being labelled "Slide undefined".
 
 ### Removed
 

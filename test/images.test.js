@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import * as cheerio from 'cheerio'
-import { renderDeck } from '../src/index.js'
+import { renderDeck, renderDeckFile } from '../src/index.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const fixtures = join(here, 'fixtures')
@@ -33,4 +33,9 @@ test('without a basePath, images are left as references', async () => {
 test('inlineAssets:false disables base64 inlining', async () => {
   const html = await renderDeck(markdown, { theme: 'basic', basePath: fixtures, inlineAssets: false })
   assert.ok(html.includes('./images/dot.png'), 'inlining can be turned off')
+})
+
+test('renderDeckFile inlines images relative to the file by default', async () => {
+  const html = await renderDeckFile(join(fixtures, 'with-image.md'), { theme: 'basic' })
+  assert.match(html, /data:image\/png;base64,/)
 })
