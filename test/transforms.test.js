@@ -47,6 +47,30 @@ test('modifySection numbers slides by position when pagination is off', () => {
   assert.deepEqual(labels, ['Slide 1: One', 'Slide 2: Two'])
 })
 
+test('modifySection ids and labels only the first heading of a slide', () => {
+  const $ = cheerio.load(
+    '<section data-marpit-pagination="1"><h2>Title</h2><h3>Left</h3><h3>Right</h3></section>'
+  )
+  modifySection($)
+  // Exactly one element carries the slide id, and it is the first heading.
+  assert.equal($('[id="slide-1"]').length, 1)
+  assert.equal($('#slide-1').prop('tagName'), 'H2')
+  // Later headings are untouched.
+  assert.equal($('h3[id]').length, 0)
+  assert.equal($('h3[aria-describedby]').length, 0)
+  // The label uses the first heading's text only — no concatenation.
+  assert.equal($('section').attr('aria-label'), 'Slide 1: Title')
+})
+
+test('modifySection labels heading-less slides without a dangling colon', () => {
+  const $ = cheerio.load('<section><p>Just a paragraph.</p></section>')
+  modifySection($)
+  assert.equal($('section').attr('aria-label'), 'Slide 1')
+  assert.equal($('[id^="slide-"]').length, 0, 'no orphaned slide id')
+  // Screen-reader pagination is still injected.
+  assert.equal($('section footer .pagination').length, 1)
+})
+
 test('modifyCodeBlocks makes code a focusable scrollable region by default', () => {
   const $ = cheerio.load('<pre><code>x</code></pre>')
   modifyCodeBlocks($)

@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
 import * as cheerio from 'cheerio'
-import { renderDeck, readDeckInfo } from '../src/index.js'
+import { renderDeck, renderDeckFile, readDeckInfo } from '../src/index.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const sample = await readFile(join(here, 'fixtures', 'sample.md'), 'utf8')
@@ -82,6 +82,20 @@ test('document CSS scales slides uniformly via zoom on div.marpit > section', as
   const html = await renderDeck(sample)
   assert.match(html, /div\.marpit\s*\{[^}]*max-width:\s*1280px/, 'container capped at the design width')
   assert.match(html, /div\.marpit\s*>\s*section\s*\{[^}]*zoom:\s*var\(--slide-scale/, 'whole-slide zoom')
+})
+
+test('the built demo deck contains no duplicate ids', async () => {
+  // Regression net for the multi-heading bug: render the real layouts deck
+  // (which has slides with h2 + h3s) and sweep the whole document for id reuse.
+  const html = await renderDeckFile(join(here, '..', 'examples', 'decks', 'layouts', 'slides.md'), {})
+  const $ = cheerio.load(html)
+  const counts = {}
+  $('[id]').each((_, el) => {
+    const id = $(el).attr('id')
+    counts[id] = (counts[id] || 0) + 1
+  })
+  const dupes = Object.entries(counts).filter(([, n]) => n > 1)
+  assert.deepEqual(dupes, [], `duplicate ids found: ${JSON.stringify(dupes)}`)
 })
 
 test('readDeckInfo extracts front matter without rendering', () => {

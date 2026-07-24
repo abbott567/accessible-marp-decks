@@ -28,11 +28,18 @@ export function modifySection ($) {
     const pageNo = $section.attr('data-marpit-pagination') ?? String(index + 1)
     $section.removeAttr('data-marpit-pagination')
 
-    const $heading = $section.find(':header')
-    $heading.attr('aria-describedby', `page-number-${pageNo}`)
-    $heading.attr('id', `slide-${pageNo}`)
-
-    $section.attr('aria-label', `Slide ${pageNo}: ${$heading.text()}`)
+    // Only the slide's FIRST heading gets the stable id and describedby —
+    // applying them to every heading would emit duplicate ids and concatenate
+    // all heading text into the label.
+    const $heading = $section.find(':header').first()
+    if ($heading.length > 0) {
+      $heading.attr('aria-describedby', `page-number-${pageNo}`)
+      $heading.attr('id', `slide-${pageNo}`)
+      $section.attr('aria-label', `Slide ${pageNo}: ${$heading.text()}`)
+    } else {
+      // No heading to point at: label the slide plainly, with no dangling colon.
+      $section.attr('aria-label', `Slide ${pageNo}`)
+    }
 
     $footer.append(`
       <div class="pagination">
