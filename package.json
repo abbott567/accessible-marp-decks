@@ -41,6 +41,14 @@
   ],
   "author": "Craig Abbott",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abbott567/accessible-marp-decks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/abbott567/accessible-marp-decks/issues"
+  },
+  "homepage": "https://github.com/abbott567/accessible-marp-decks#readme",
   "dependencies": {
     "@marp-team/marpit": "^3.1.3",
     "cheerio": "^1.0.0",

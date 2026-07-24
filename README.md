@@ -128,6 +128,12 @@ By default the plugin registers a **`.deck`** extension, so any `*.deck` file (c
 | `theme` | per-deck front matter | Force a theme for all decks. |
 | `lang` | `'en'` | Document language. |
 
+Images are inlined into each page automatically. Companion `demos/` folders (standalone HTML pages your slides link to) are **not** copied by the plugin — add a passthrough copy for them in your Eleventy config if you use them:
+
+```js
+eleventyConfig.addPassthroughCopy('content/**/demos/**')
+```
+
 A working demo lives in [`examples/eleventy-demo`](examples/eleventy-demo) — run it with `npm run demo`.
 
 ## GitHub Action
