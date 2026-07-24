@@ -62,3 +62,30 @@ test('every bundled theme (and the template) defines the slide-level variants', 
     }
   }
 })
+
+/**
+ * The helper block (spacing scale → slide-level variants) — comments stripped
+ * and whitespace collapsed, so comment styles may differ but the rules can't.
+ */
+async function helperBlock (name) {
+  const css = await readFile(join(themesDir, `${name}.css`), 'utf8')
+  const start = css.indexOf('--space-xs')
+  const endAnchor = css.indexOf('section.stack')
+  const end = css.indexOf('}', endAnchor) + 1
+  assert.ok(start > -1 && endAnchor > start, `${name}.css contains the helper block`)
+  return css.slice(start, end)
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+test('the helper block is identical across all themes (drift guard)', async () => {
+  // The helpers are deliberately duplicated per theme so the Marp VSCode
+  // preview works. This guard fails the moment someone edits one copy and
+  // forgets the others.
+  const reference = await helperBlock('basic')
+  const themes = await listThemes()
+  for (const name of [...themes.filter(n => n !== 'basic'), '_template']) {
+    assert.equal(await helperBlock(name), reference, `${name}.css helper block has drifted from basic.css`)
+  }
+})
