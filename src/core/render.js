@@ -13,6 +13,10 @@ const { html: beautifyHTML } = jsBeautify
  * @property {string} [css] - Raw theme CSS, used instead of a bundled theme.
  * @property {string} [documentCss] - Override the base accessible-layout CSS.
  * @property {number} [imageWidth=500] - Default `width` applied to images.
+ * @property {string} [basePath] - Directory to resolve relative image srcs against.
+ *   Required for `inlineAssets`; when omitted, images are left as references.
+ * @property {boolean} [inlineAssets=true] - Base64-inline local images so the
+ *   output is a single self-contained file.
  * @property {string} [lang='en'] - Document language attribute.
  * @property {boolean} [prettify=true] - Pretty-print the HTML output.
  */
@@ -30,6 +34,8 @@ export async function renderDeck (markdown, options = {}) {
     css,
     documentCss,
     imageWidth = 500,
+    basePath,
+    inlineAssets = true,
     lang = 'en',
     prettify = true
   } = options
@@ -46,7 +52,7 @@ export async function renderDeck (markdown, options = {}) {
   const combinedCSS = `${marpitCSS}${baseCSS}`
 
   const documentHTML = buildDocument({ html, css: combinedCSS, deckInfo, lang })
-  const modifiedHTML = applyTransforms(documentHTML, { imageWidth })
+  const modifiedHTML = await applyTransforms(documentHTML, { imageWidth, basePath, inlineAssets })
 
   if (!prettify) return modifiedHTML
   return beautifyHTML(modifiedHTML, {

@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio'
-import { modifySection } from './section.js'
-import { modifyImg } from './img.js'
-import { modifyCodeBlocks } from './code-blocks.js'
+import { modifySection } from './_section.js'
+import { modifyImg } from './_img.js'
+import { modifyCodeBlocks } from './_code.js'
 
 /**
  * Apply all accessibility transforms to a full HTML document string.
@@ -9,12 +9,14 @@ import { modifyCodeBlocks } from './code-blocks.js'
  * @param {string} documentHTML
  * @param {object} [options]
  * @param {number} [options.imageWidth] - Default image width (see modifyImg).
- * @returns {string}
+ * @param {string} [options.basePath] - Directory for resolving local image srcs.
+ * @param {boolean} [options.inlineAssets] - Base64-inline local images.
+ * @returns {Promise<string>}
  */
-export function applyTransforms (documentHTML, options = {}) {
+export async function applyTransforms (documentHTML, options = {}) {
   const $ = cheerio.load(documentHTML)
   modifySection($)
-  modifyImg($, options)
+  await modifyImg($, options)
   modifyCodeBlocks($)
   return $.html()
 }

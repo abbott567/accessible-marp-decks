@@ -70,17 +70,16 @@ async function buildCommand (deckArg, opts) {
 
   const outDir = resolve(opts.out || join('dist', 'decks', deckName))
   const markdown = await readFile(mdPath, 'utf8')
-  const html = await renderDeck(markdown, { theme: opts.theme })
+  const html = await renderDeck(markdown, { theme: opts.theme, basePath: sourceDir })
 
   await mkdir(outDir, { recursive: true })
   await writeFile(join(outDir, 'slides.html'), html)
 
-  // Copy companion assets next to the output so relative links resolve.
-  for (const folder of ['images', 'demos']) {
-    const src = join(sourceDir, folder)
-    if (await exists(src)) {
-      await cp(src, join(outDir, folder), { recursive: true })
-    }
+  // Images are base64-inlined into the page, so only companion `demos/`
+  // (standalone linked HTML pages) need copying next to the output.
+  const demosSrc = join(sourceDir, 'demos')
+  if (await exists(demosSrc)) {
+    await cp(demosSrc, join(outDir, 'demos'), { recursive: true })
   }
 
   console.log(`Built "${deckName}" → ${join(outDir, 'slides.html')}`)

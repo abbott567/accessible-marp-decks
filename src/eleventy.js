@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises'
+import { dirname } from 'node:path'
 import { renderDeck, readDeckInfo } from './core/render.js'
 
 /**
@@ -45,6 +46,7 @@ export default function accessibleMarpPlugin (eleventyConfig, options = {}) {
       return renderDeck(markdown, {
         theme: theme ?? data?.theme,
         imageWidth,
+        basePath: dirname(inputPath),
         lang: lang ?? data?.lang
       })
     }
