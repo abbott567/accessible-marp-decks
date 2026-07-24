@@ -1,0 +1,12 @@
+# Force LF line endings in every checkout — Windows runners default to
+# autocrlf, and CRLF working trees break text-matching tests.
+* text=auto eol=lf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary

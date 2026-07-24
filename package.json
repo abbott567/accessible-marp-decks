@@ -25,7 +25,7 @@
     "build": "node src/cli.js build",
     "build:site": "node src/cli.js build-all examples/decks --out _site",
     "test": "node --test",
-    "coverage": "node --test --experimental-test-coverage --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-exclude=\"test/**\" --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100",
     "lint": "standard src test",
     "demo": "cd examples/eleventy-demo && eleventy"
   },

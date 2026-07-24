@@ -7,7 +7,8 @@ import * as cheerio from 'cheerio'
 import { renderDeck } from '../src/index.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const docs = await readFile(join(here, '..', 'docs', 'layouts.md'), 'utf8')
+// Normalise line endings so the fence regexes work on CRLF checkouts too.
+const docs = (await readFile(join(here, '..', 'docs', 'layouts.md'), 'utf8')).replace(/\r\n/g, '\n')
 
 // Every fenced html example in the layout docs, exactly as a reader would copy it.
 const htmlExamples = [...docs.matchAll(/```html\n([\s\S]*?)```/g)].map(m => m[1])
