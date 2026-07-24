@@ -28,6 +28,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 
 ### Fixed
 
+- Code fences without a language (or with an unrecognised one) now escape their content instead of injecting it into the page as raw HTML.
 - Slides in decks without `paginate: true` are now numbered by position instead of being labelled "Slide undefined".
 
 ### Removed

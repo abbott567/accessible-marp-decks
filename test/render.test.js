@@ -109,3 +109,28 @@ test('code blocks without a known language still render', async () => {
   assert.equal($('pre code').length, 2)
   assert.match(html, /plain text/)
 })
+
+test('unhighlighted fences escape HTML instead of injecting it', async () => {
+  const md = '# T\n\n```\n<div>hi</div><img src=x onerror=alert(1)>\n```\n\n```nosuchlang\n<b>bold?</b> & "quotes"\n```\n'
+  const html = await renderDeck(md, { prettify: false })
+
+  // The fence content must appear as escaped text, never as live markup.
+  assert.ok(!html.includes('<div>hi</div>'), 'no raw <div> injected')
+  assert.ok(!html.includes('<img src=x'), 'no raw <img> injected')
+  assert.ok(!html.includes('<b>bold?</b>'), 'no raw <b> injected')
+  assert.match(html, /&lt;div&gt;hi&lt;\/div&gt;/)
+  // Cheerio serializes text nodes with the security-relevant entities escaped;
+  // bare quotes are valid in text content.
+  assert.match(html, /&lt;b&gt;bold\?&lt;\/b&gt; &amp; "quotes"/)
+
+  // The rendered code element contains the original text verbatim.
+  const $ = cheerio.load(html)
+  assert.equal($('pre code').first().text(), '<div>hi</div><img src=x onerror=alert(1)>\n')
+})
+
+test('highlighted fences containing HTML stay escaped too', async () => {
+  const html = await renderDeck('```html\n<script>alert(1)</script>\n```\n', { prettify: false })
+  assert.ok(!html.includes('<script>alert(1)'), 'no live script element')
+  const $ = cheerio.load(html)
+  assert.equal($('pre code').first().text().trim(), '<script>alert(1)</script>')
+})
