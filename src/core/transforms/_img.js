@@ -25,16 +25,29 @@ function isExternal (src) {
  * Read a local asset and return it as a `data:` URI, or `null` when it can't
  * be inlined (unknown type, missing or unreadable file).
  *
+ * Srcs are written as URLs, so before touching the filesystem the query string
+ * and fragment are dropped and percent-escapes decoded — `my%20image.png?v=2`
+ * resolves to `my image.png` on disk.
+ *
  * @param {string} src - Relative source path from the markup.
  * @param {string} basePath - Directory to resolve `src` against.
  * @returns {Promise<string | null>}
  */
 async function toDataURI (src, basePath) {
-  const mime = MIME_BY_EXT[extname(src).toLowerCase()]
+  const cleaned = src.split(/[?#]/)[0]
+  let decoded
+  try {
+    decoded = decodeURIComponent(cleaned)
+  } catch {
+    // Malformed percent-escapes — fall back to the raw path.
+    decoded = cleaned
+  }
+
+  const mime = MIME_BY_EXT[extname(decoded).toLowerCase()]
   if (!mime) return null
 
   try {
-    const filePath = join(basePath, src.replace(/^\.?\//, ''))
+    const filePath = join(basePath, decoded.replace(/^\.?\//, ''))
     const data = await readFile(filePath)
     return `data:${mime};base64,${data.toString('base64')}`
   } catch {

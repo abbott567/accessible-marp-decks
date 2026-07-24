@@ -1,5 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { join } from 'node:path'
 import * as cheerio from 'cheerio'
 import { modifySection, modifyImg, modifyCodeBlocks } from '../src/core/transforms/index.js'
 
@@ -49,6 +50,26 @@ test('modifyImg leaves a missing local file as a reference', async () => {
   const $ = cheerio.load('<img src="./missing.png">')
   await modifyImg($, { basePath: '/definitely/not/here' })
   assert.equal($('img').attr('src'), './missing.png')
+})
+
+test('modifyImg decodes URL-encoded srcs and ignores query/fragment', async () => {
+  const fixtures = join(process.cwd(), 'test', 'fixtures')
+  const $ = cheerio.load(
+    '<img id="a" src="./images/red%20dot.png">' +
+    '<img id="b" src="./images/dot.png?v=2">' +
+    '<img id="c" src="./images/dot.png#frag">'
+  )
+  await modifyImg($, { basePath: fixtures })
+  assert.match($('#a').attr('src'), /^data:image\/png;base64,/, '%20 decodes to a space on disk')
+  assert.match($('#b').attr('src'), /^data:image\/png;base64,/, 'query string ignored')
+  assert.match($('#c').attr('src'), /^data:image\/png;base64,/, 'fragment ignored')
+})
+
+test('modifyImg tolerates malformed percent-escapes', async () => {
+  // decodeURIComponent throws on "%E0%A4%A" — the src must survive untouched.
+  const $ = cheerio.load('<img src="./images/bad%E0%A4%A.png">')
+  await modifyImg($, { basePath: process.cwd() })
+  assert.equal($('img').attr('src'), './images/bad%E0%A4%A.png')
 })
 
 test('modifyImg skips images with no src or an unknown extension', async () => {
