@@ -1,0 +1,19 @@
+---
+title: My Talk
+description: A Marp deck rendered as an accessible page by Eleventy.
+paginate: true
+marp: true
+theme: basic
+---
+
+# My Talk
+
+Built with the **accessible-marp-decks** Eleventy plugin.
+
+---
+
+## Why accessibility?
+
+- Every slide is a labelled landmark
+- Headings get stable ids
+- Pagination is announced to screen readers

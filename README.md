@@ -1,75 +1,158 @@
 # Accessible Marp Decks
 
-This is a personal project which leverages other open source projects. You are free to use it.
+Render [Marp](https://marp.app/) markdown slide decks into a **standalone, accessible HTML format** — a single web page where every slide is a labelled landmark, headings have stable ids, code blocks are keyboard-focusable figures, and pagination is announced to screen readers.
 
-This project is not intended to replace Marp or the VSCode extension, but is instead to share your slides in an accessible format. 
+Use it three ways:
 
-The slides produced by this project will be converted into an accessible webpage.
+- **CLI** — build a deck folder into a shareable HTML page.
+- **Library** — `import { renderDeck }` and render Marp markdown to accessible HTML anywhere.
+- **Eleventy plugin** — drop deck files into an [Eleventy](https://www.11ty.dev/) site and get accessible pages.
 
-## Marp framework
+This project isn't a replacement for Marp or the VSCode preview extension — it's for **sharing** your slides in an accessible format.
 
-This project uses [Marp](https://marp.app/). You should read the [Marpit Markdown documentation](https://marpit.marp.app/markdown) to understand how to build slides.
+## Requirements
 
-## VSCode Extension
+- Node.js 20 or newer.
 
-To preview your slides as you build them, you should install the [Marp for VSCode extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
+## Install
 
-## Creating themes
-
-Themes must be stored in the `dist/themes` folder and referenced in the `.vscode/settings.json` file. For example:
-
-File path:
-```
-dist/themes/handwritten.css
+```sh
+npm install accessible-marp-decks
 ```
 
-.vscode/settings.json:
-```json
-{
-  "markdown.marp.themes": [
-    "dist/themes/handwritten.css"
-  ]
+## Writing slides
+
+Slides are [Marpit markdown](https://marpit.marp.app/markdown). A deck starts with front matter and separates slides with `---`:
+
+```markdown
+---
+title: My Talk
+description: A short description used for the page <title> and meta description.
+paginate: true
+marp: true
+theme: basic
+---
+
+# My Talk
+
+Intro text.
+
+---
+
+## Second slide
+
+More content.
+```
+
+To preview slides as you write them, install the [Marp for VSCode extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
+
+## CLI usage
+
+The package installs an `accessible-marp` binary.
+
+```sh
+# Build a named deck (looked up under examples/decks/<name>/slides.md by default)
+accessible-marp build layouts --theme basic
+
+# Build a specific markdown file to a chosen output directory
+accessible-marp build ./slides.md --out ./public
+
+# List the bundled themes
+accessible-marp themes
+```
+
+Options:
+
+| Flag | Description |
+| --- | --- |
+| `--theme`, `-t` | Theme to use. Defaults to the deck's front-matter `theme`. |
+| `--out`, `-o` | Output directory. Defaults to `dist/decks/<deck>`. |
+| `--decks-dir` | Where named decks live. Defaults to `examples/decks`. |
+
+The build writes `slides.html` plus copies the deck's `images/` and `demos/` folders and the theme `fonts/` next to the output so all relative links resolve.
+
+The legacy `npm run build deck=<name> theme=<name>` form still works.
+
+## Library usage
+
+```js
+import { renderDeck, renderDeckFile, listThemes } from 'accessible-marp-decks'
+
+const html = await renderDeck(markdownString, { theme: 'basic' })
+
+// or straight from a file
+const html2 = await renderDeckFile('./slides.md', { theme: 'basic' })
+
+await listThemes() // ['basic']
+```
+
+### `renderDeck(markdown, options)` → `Promise<string>`
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `theme` | front matter, else `basic` | A bundled theme name. |
+| `css` | — | Raw theme CSS, used instead of a bundled theme. |
+| `documentCss` | bundled `document.css` | Override the base accessible-layout CSS. |
+| `imageWidth` | `500` | Default `width` applied to images without one. |
+| `lang` | `'en'` | Document `lang` attribute. |
+| `prettify` | `true` | Pretty-print the HTML output. |
+
+## Eleventy plugin
+
+Render Marp decks as accessible pages inside an [Eleventy](https://www.11ty.dev/) (3.0+) site.
+
+```js
+// eleventy.config.js
+import accessibleMarp from 'accessible-marp-decks/eleventy'
+
+export default function (eleventyConfig) {
+  eleventyConfig.addPlugin(accessibleMarp, {
+    // theme: 'basic',   // force one theme for all decks (optional)
+  })
 }
 ```
 
-In order for the VSCode extension to recognise the theme, you must add the name as a comment at the top of the CSS file. For example:
+By default the plugin registers a **`.deck`** extension, so any `*.deck` file (containing Marp markdown) is built as an accessible deck page. Using a dedicated extension means your site's normal `.md` files are left untouched.
 
-dist/themes/handwritten.css
-```css
-/* @theme handwritten */
-/*!
- * @auto-scaling true
- * @size 16:9 1280px 720px
- * @size 4:3 960px 720px
- */
+| Option | Default | Description |
+| --- | --- | --- |
+| `extension` | `'deck'` | File extension that marks a deck. Set to `'md'` to treat **every** markdown file as a deck (fully overrides Eleventy's markdown rendering). |
+| `theme` | per-deck front matter | Force a theme for all decks. |
+| `imageWidth` | `500` | Default image width. |
+| `lang` | `'en'` | Document language. |
+
+A working demo lives in [`examples/eleventy-demo`](examples/eleventy-demo) — run it with `npm run demo`.
+
+## Accessibility features
+
+For each rendered deck the transform:
+
+- Wraps the slides in a `<main>` landmark.
+- Turns every slide `<section>` into a labelled region (`aria-label="Slide N: <heading>"`).
+- Gives each slide heading a stable `id` (`slide-N`) and links it to its page number via `aria-describedby`.
+- Appends a `<footer>` with screen-reader pagination ("End of slide N").
+- Marks code blocks as `role="figure"` with a label and `tabindex="0"` so keyboard users can scroll them.
+- Strips Marp's presentational `data-*` attributes from the output.
+
+## Themes
+
+Themes are plain CSS files in [`themes/`](themes). One theme is bundled: **`basic`** (the default).
+
+`basic` ships a single neutral design with **automatic light and dark modes** — its colours come from CSS custom properties, and a `@media (prefers-color-scheme: dark)` block swaps them when the reader's operating system prefers dark. No fonts are bundled; the theme uses the reader's `system-ui` font stack.
+
+To add your own theme, drop a `<name>.css` file in `themes/` with a `/* @theme <name> */` comment at the top (required by the Marp VSCode extension), then reference it via `--theme <name>` or front matter. The quickest way to make one is to copy [`themes/basic.css`](themes/basic.css) and re-colour the variables at the top.
+
+## Development
+
+```sh
+npm install
+npm test        # node:test — accessibility, theme resolution, Eleventy smoke
+npm run lint    # standard
+npm run demo    # build the Eleventy demo site
 ```
 
-### SASS
+The publishable package is the engine (`src/`) and `themes/`. The single `layouts` deck under `examples/decks` is a demo of the slide layouts the renderer supports and is excluded from the npm tarball.
 
-You can build themes using SASS, but you will need to compile them before they can be used by the extension or in the shareable output. 
+## License
 
-Command line example:
-```
-node-sass src/sass/themes/dwp-theme/all.scss dist/themes/dwp-theme.css
-```
-
-## Building a deck for sharing
-
-Once you have finished your deck, to create an accessible shareable version, use the following command and replace the values with the folder name of the deck and the theme you wish to use:
-
-```
-npm run build deck=deck-folder theme=theme-name
-```
-
-A working example would be:
-```
-npm run build deck=my-adhd-and-me theme=handwritten
-```
-
-## Fonts
-
-If you use custom fonts, you will need to install them on your device for them to work with the Marp extension and the previews it generates. It will not use web-fonts from within the project linked to with CSS.
-
-When you export your project, you will need to package up the fonts like you would any other web-fonts for them to work.
-
-See dist/handwritten for an example.
+ISC
