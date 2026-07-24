@@ -6,17 +6,9 @@ Because a slide is a fixed canvas that scales as a whole — it never reflows �
 
 All spacing uses an `em`-based scale (`--space-xs`/`-s`/`-m`/`-l`) so gaps scale with the slide.
 
-## Applying a helper to a whole slide
+## Using the helpers
 
-Use Marp's per-slide class directive:
-
-```markdown
-<!-- _class: cover -->
-
-# A cover slide
-```
-
-Or wrap part of a slide in a `<div>`:
+Wrap part of a slide in a `<div>` with the helper class:
 
 ```html
 <div class="columns">
@@ -26,6 +18,24 @@ Or wrap part of a slide in a `<div>`:
 ```
 
 > When you put Markdown *inside* a block-level HTML element, leave a blank line after the opening tag so Marp processes the Markdown within.
+
+## Styling a whole slide
+
+Three helpers also have **slide-level variants**, applied with Marp's class directive:
+
+```markdown
+<!-- _class: cover -->
+
+# A cover slide
+```
+
+| Slide class | Effect |
+| --- | --- |
+| `cover` | Pins the first block to the top and the last to the bottom. |
+| `center` | Centres content horizontally and centres the text — a title-slide look. |
+| `stack` | Flows content from the top with an even gap, instead of vertically centring. |
+
+The other helpers lay out elements *inside* a slide and have no slide-level variant — use the `<div>` form for those. (Slide-level rules are written as `section.cover` in the theme because Marpit scopes bare class selectors to descendants of the slide.)
 
 ## The helpers
 

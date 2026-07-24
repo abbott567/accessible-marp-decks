@@ -105,6 +105,12 @@ section {
 
 .overlay-centre { position: absolute; inset: 0; display: grid; place-items: center; }
 
+/* Slide-level variants — apply to a whole slide with `<!-- _class: … -->`.
+   Written as section.X because Marpit scopes bare classes as descendants. */
+section.cover { justify-content: space-between; }
+section.center { align-items: center; text-align: center; }
+section.stack { justify-content: flex-start; gap: var(--space-s); }
+
 /* ===========================================================================
  * Element styles.
  * ======================================================================== */

@@ -37,3 +37,28 @@ test('the theme carries its own layout helpers (so the VSCode preview works)', a
     }
   }
 })
+
+test('slide-level helper classes (_class:) style the whole slide', async () => {
+  const coverDeck = '---\nmarp: true\ntheme: basic\n---\n\n<!-- _class: cover -->\n\n# Cover slide\n\nBottom text.\n'
+  const html = await renderDeck(coverDeck, { prettify: false })
+  const $ = cheerio.load(html)
+
+  const $section = $('section').first()
+  assert.ok($section.hasClass('cover'), 'directive class survives to the section')
+  assert.equal($section.attr('data-class'), undefined, 'Marpit bookkeeping attr is stripped')
+
+  // The emitted CSS must contain a rule that can actually match the section —
+  // Marpit scopes a bare `.cover` to descendants, which never matches the
+  // slide itself. `section.cover` scopes to `div.marpit > section.cover`.
+  assert.match(html, /div\.marpit\s*>\s*section\.cover/)
+})
+
+test('every bundled theme (and the template) defines the slide-level variants', async () => {
+  const themes = await listThemes()
+  for (const name of [...themes, '_template']) {
+    const css = await readFile(join(themesDir, `${name}.css`), 'utf8')
+    for (const cls of ['section.cover', 'section.center', 'section.stack']) {
+      assert.ok(css.includes(cls), `${name}.css defines ${cls}`)
+    }
+  }
+})

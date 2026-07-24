@@ -113,6 +113,16 @@ A `stack` puts a consistent space between each child, whatever they are.
 
 ---
 
+<!-- _class: cover -->
+
+## Cover — style a whole slide
+
+This slide uses the class directive `<!-- _class: cover -->`, which pins the heading to the top of the slide…
+
+…and this closing line to the bottom. The `center` and `stack` slide classes work the same way.
+
+---
+
 ## Frame — crop media to an aspect ratio
 
 A `frame` crops an image or video to a fixed ratio (16:9 by default) so mixed media lines up.

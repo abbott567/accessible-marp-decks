@@ -15,6 +15,7 @@ export function modifySection ($) {
     $section.removeAttr('data-footer')
     $section.removeAttr('data-paginate')
     $section.removeAttr('data-marpit-pagination-total')
+    $section.removeAttr('data-class')
     $section.removeAttr('style')
 
     const backgroundImage = $section.attr('data-background-image')
