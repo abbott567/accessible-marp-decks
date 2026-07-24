@@ -37,9 +37,17 @@ runs:
 
     - name: Build decks
       shell: bash
+      # Inputs are passed through the environment rather than interpolated with
+      # ${{ }} inside the script — expression substitution happens before bash
+      # parses, so inline interpolation would allow shell injection via inputs.
+      env:
+        DECKS_DIR: ${{ inputs.decks-dir }}
+        OUT_DIR: ${{ inputs.out }}
+        THEME: ${{ inputs.theme }}
+        VERSION: ${{ inputs.version }}
       run: |
-        args=(build-all "${{ inputs.decks-dir }}" --out "${{ inputs.out }}")
-        if [ -n "${{ inputs.theme }}" ]; then
-          args+=(--theme "${{ inputs.theme }}")
+        args=(build-all "$DECKS_DIR" --out "$OUT_DIR")
+        if [ -n "$THEME" ]; then
+          args+=(--theme "$THEME")
         fi
-        npx --yes "accessible-marp-decks@${{ inputs.version }}" "${args[@]}"
+        npx --yes "accessible-marp-decks@$VERSION" "${args[@]}"

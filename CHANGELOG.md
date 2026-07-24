@@ -35,6 +35,10 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - The `css` render option no longer requires a `/* @theme */` comment — one is prepended automatically, instead of Marpit rejecting the CSS.
 - Slides in decks without `paginate: true` are now numbered by position instead of being labelled "Slide undefined".
 
+### Security
+
+- The GitHub Action passes its inputs to the build script via environment variables instead of interpolating `${{ }}` expressions into bash, closing a shell-injection surface.
+
 ### Removed
 
 - The `imageWidth` option (images are now sized responsively by CSS).
