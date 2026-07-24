@@ -1,0 +1,21 @@
+Accessible Marp Decks
+Copyright (c) 2026 Craig Abbott
+
+This product is licensed under the ISC License (see LICENSE).
+
+It builds on, and bundles or depends on, the following third-party work:
+
+- Marp / Marpit (https://marp.app/) — MIT License.
+  Used to render Marp markdown into slide HTML and CSS.
+
+- highlight.js (https://highlightjs.org/) — BSD 3-Clause License.
+  Used for syntax highlighting of fenced code blocks.
+
+- The "a11y-light" and "a11y-dark" syntax-highlighting colour schemes by
+  Eric Bailey (https://github.com/ericwbailey/a11y-syntax-highlighting) —
+  MIT License. The bundled themes' code colours are derived from these.
+
+The layout helpers in the bundled themes (box, stack, cluster, columns, grid,
+center, frame, cover, sidebar, overlay-centre) are original CSS written for this
+project using standard CSS grid and flexbox. They are conceptually inspired by
+common layout patterns but do not copy any third-party implementation.

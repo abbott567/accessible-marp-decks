@@ -13,7 +13,10 @@
   "files": [
     "src",
     "themes",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
   ],
   "engines": {
     "node": ">=20"
