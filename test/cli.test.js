@@ -128,6 +128,14 @@ test('legacy deck=/theme=/out= tokens still work', async () => {
   }
 })
 
+test('backslash-separated arguments are treated as paths, not deck names', async () => {
+  const stderr = await expectFailure(['build', 'no-such-dir\\talk'])
+  assert.match(stderr, /Deck not found/)
+  // As a path it is resolved directly — the CLI must NOT go looking for
+  // <decks-dir>/no-such-dir\talk/slides.md as if it were a deck name.
+  assert.ok(!stderr.includes('slides.md'), 'not resolved as a named deck under decks-dir')
+})
+
 test('errors: missing deck, no deck argument, no directory, empty directory', async () => {
   assert.match(await expectFailure(['build', 'does-not-exist']), /Deck not found/)
   assert.match(await expectFailure(['build', './nope']), /Deck not found/) // path (has "/", not ".md")

@@ -85,10 +85,12 @@ async function buildCommand (deckArg, opts) {
   const decksDir = opts['decks-dir'] || 'examples/decks'
 
   // Resolve the markdown source: a path, or a named deck under decksDir.
+  // Anything containing a separator (either flavour, so Windows paths work)
+  // or ending in .md is a path; a bare word is a deck name.
   let mdPath
   let deckName
   let sourceDir
-  if (deckArg.endsWith('.md') || deckArg.includes('/')) {
+  if (deckArg.endsWith('.md') || /[\\/]/.test(deckArg)) {
     mdPath = resolve(deckArg)
     sourceDir = dirname(mdPath)
     deckName = basename(mdPath, '.md')
