@@ -146,7 +146,7 @@ Publish decks to GitHub Pages on every push — no command line. Add one workflo
   with:
     decks-dir: decks
     out: _site
-- uses: actions/upload-pages-artifact@v3
+- uses: actions/upload-pages-artifact@v5
   with:
     path: _site
 ```
