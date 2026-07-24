@@ -61,27 +61,32 @@ The `section` layout divides the deck into parts — like PowerPoint's Section H
 
 - The `two-content` layout
 - The heading spans the slide
-- Each side is one block
+- Two blocks sit side by side
+- A block can be a list, a paragraph, an image…
 
-* This list is the second block
-* Blocks flow left to right
-* Use `columns` for more per side
+![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+
+<!-- _footer: 'Here the two blocks are a list and an image. Use `columns` for more blocks per side.' -->
 
 ---
 
 <!-- _class: comparison -->
 
-## Comparison — captioned sides
+## Comparison — two content, plus captions
 
 ### Slides-first
 
 - Start in a slides app
+- Fight the outline view
 - Export something inaccessible
 
 ### Content-first
 
 - Write Markdown
+- Pick a theme
 - Ship accessible HTML
+
+<!-- _footer: 'The only difference from `two-content`: an `###` heading captions each side.' -->
 
 ---
 
