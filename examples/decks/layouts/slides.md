@@ -2,7 +2,7 @@
 
 title: Layout gallery
 description: A single deck showing the layout primitives accessible-marp-decks can render.
-paginate: true
+paginate: false
 marp: true
 theme: basic
 
@@ -254,15 +254,15 @@ const html = await renderDeck(markdown, { theme: 'basic' })
 
 ---
 
-## Long code lines wrap
+## Scrolling code block
 
-A line too wide for the slide wraps onto the next line instead of scrolling — nothing hides offscreen, whether the deck is projected or read:
+When a line is too wide to fit, the block scrolls horizontally — so it becomes a focusable region you can reach with <kbd>Tab</kbd> and scroll with the arrow keys:
 
 ```js
 const html = await renderDeck(markdown, { theme: 'basic', basePath: './decks/my-talk', inlineAssets: true, lang: 'en-GB', prettify: true })
 ```
 
-Slides render at a fixed size, so what fits when presenting fits when sharing. A wrapped line is your cue to shorten it.
+Resize the window: a block that starts fitting drops out of the tab order, and one that starts overflowing joins it.
 
 ---
 
