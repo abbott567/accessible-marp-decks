@@ -1,4 +1,4 @@
-import { codeScrollScript } from './runtime-script.js'
+import { pageScript } from './runtime-script.js'
 
 /**
  * Escape a string for safe insertion into an HTML attribute value.
@@ -22,9 +22,11 @@ function escapeAttr (value) {
  * @param {string} params.css - Combined CSS to inline in the document head.
  * @param {object} [params.deckInfo] - Front-matter info (`title`, `description`).
  * @param {string} [params.lang] - Document language. Defaults to `"en"`.
+ * @param {boolean} [params.runtimeScript] - Inline the code-block scrolling
+ *   enhancement script. Defaults to `true`; set `false` for strict-CSP hosts.
  * @returns {string}
  */
-export function buildDocument ({ html, css, deckInfo = {}, lang = 'en' }) {
+export function buildDocument ({ html, css, deckInfo = {}, lang = 'en', runtimeScript = true }) {
   const title = escapeAttr(deckInfo.title)
   const description = escapeAttr(deckInfo.description)
 
@@ -41,7 +43,7 @@ export function buildDocument ({ html, css, deckInfo = {}, lang = 'en' }) {
     <main>
       ${html}
     </main>
-    ${codeScrollScript}
+    ${runtimeScript ? pageScript : ''}
   </body>
 </html>`
 }

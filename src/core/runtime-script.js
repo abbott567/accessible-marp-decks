@@ -1,23 +1,44 @@
 /**
- * A small progressive-enhancement script inlined into every rendered deck.
+ * The single progressive-enhancement script inlined into every rendered deck
+ * (unless `runtimeScript` is disabled). It does two things:
  *
- * Code blocks are given `tabindex="0"` (+ role/label) at build time so they are
- * keyboard-scrollable even without JavaScript — the safe, backwards-compatible
- * default. This script then *removes* those attributes from any block that does
- * not actually overflow, so only genuinely scrollable code stays in the tab
- * order. Adapted from the author's blog-v2 (`c-code-block-scrolling`); the
- * scroll container here is `pre > code` rather than `pre`.
+ *  1. Uniform scaling — sets `--slide-scale` on each `div.marpit` to
+ *     (container width / 1280) so the CSS `zoom` magnifies each fixed-size slide
+ *     as one rigid unit. Re-run on resize. Without it, slides render at their
+ *     full 1280px design size (the no-JS fallback).
+ *
+ *  2. Code-block focus — code blocks ship with `tabindex="0"` (+ role/label) so
+ *     they are keyboard-scrollable even without JS. This removes those from any
+ *     block that doesn't actually overflow, so only scrollable code stays in the
+ *     tab order. Adapted from the author's blog-v2 (`c-code-block-scrolling`).
  */
-export const codeScrollScript = `<script>
+export const pageScript = `<script>
   (() => {
     "use strict";
 
-    // A small tolerance avoids false positives from sub-pixel rounding.
+    const DESIGN_WIDTH = 1280;
     const OVERFLOW_TOLERANCE = 1;
 
-    const isOverflowing = (el) => el.scrollWidth - el.clientWidth > OVERFLOW_TOLERANCE;
+    // --- 1. Uniform whole-slide scaling ---------------------------------
+    // Fit-to-width alone would cancel browser zoom (Cmd/Ctrl and +): zooming
+    // shrinks the viewport in CSS pixels, so a purely width-derived scale
+    // re-fits and the text never gets bigger. Desktop page zoom shows up as a
+    // devicePixelRatio change, so we multiply the fit scale by the zoom factor
+    // since load — zooming then magnifies the deck (with scrollbars), as
+    // WCAG 1.4.4 expects. Known trade-off: dragging the window to a display
+    // with a different pixel density reads as a zoom until the next reload.
+    const baseDPR = window.devicePixelRatio || 1;
+    const decks = document.querySelectorAll("div.marpit");
+    const scale = (deck) => {
+      const zoomFactor = (window.devicePixelRatio || 1) / baseDPR;
+      const fit = deck.clientWidth / DESIGN_WIDTH;
+      deck.style.setProperty("--slide-scale", fit * zoomFactor);
+    };
+    const scaleAll = () => decks.forEach(scale);
 
-    const update = (code) => {
+    // --- 2. Focus only genuinely scrollable code blocks -----------------
+    const isOverflowing = (el) => el.scrollWidth - el.clientWidth > OVERFLOW_TOLERANCE;
+    const updateCode = (code) => {
       if (isOverflowing(code)) {
         if (!code.hasAttribute("tabindex")) {
           code.setAttribute("tabindex", "0");
@@ -30,29 +51,24 @@ export const codeScrollScript = `<script>
         code.removeAttribute("aria-label");
       }
     };
+    const blocks = document.querySelectorAll("pre > code");
+    const updateAllCode = () => blocks.forEach(updateCode);
+
+    const refresh = () => {
+      scaleAll();
+      updateAllCode();
+    };
 
     const init = () => {
-      const blocks = document.querySelectorAll("pre > code");
+      refresh();
 
-      if (!blocks.length) {
-        return;
-      }
-
-      const updateAll = () => blocks.forEach(update);
-
-      updateAll();
-
-      // Re-evaluate whenever a block's size changes (font load, dynamic
-      // content, the slide scaling, etc.). ResizeObserver batches for us.
+      // React to size changes (font load, dynamic content, the slide zoom).
       if ("ResizeObserver" in window) {
-        const observer = new window.ResizeObserver((entries) => {
-          entries.forEach((entry) => update(entry.target));
-        });
-
-        blocks.forEach((code) => observer.observe(code));
+        const observer = new window.ResizeObserver(() => refresh());
+        decks.forEach((deck) => observer.observe(deck));
       }
 
-      // Also re-evaluate on window resize, debounced to a single frame.
+      // Re-evaluate on window resize, debounced to one call per frame.
       let frame = null;
       window.addEventListener("resize", () => {
         if (frame !== null) {
@@ -61,7 +77,7 @@ export const codeScrollScript = `<script>
 
         frame = window.requestAnimationFrame(() => {
           frame = null;
-          updateAll();
+          refresh();
         });
       });
     };

@@ -4,7 +4,7 @@ import { listThemes, renderDeck } from '../src/index.js'
 
 test('listThemes returns the bundled themes', async () => {
   const themes = await listThemes()
-  assert.deepEqual(themes, ['basic'])
+  assert.deepEqual(themes, ['basic', 'high-contrast'])
   assert.ok(!themes.includes('document'), 'document.css is not a selectable theme')
   assert.ok(!themes.includes('_template'), '_template.css is a partial, not a theme')
 })

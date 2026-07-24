@@ -28,9 +28,9 @@ A theme controls colours, type, and element styling. The responsive 16:9 scaling
 
    or set `theme: midnight` in the deck's front matter.
 
-## The one rule: size things in `em`
+## Sizing
 
-Everything inside a slide must be sized in `em` or `%`, never `px`. The slide's font-size tracks the window width, so `em`-based sizes scale with it and the slide never reflows. The template already follows this — keep any new rules the same way.
+You can size things however you like — `px`, `em`, `%`. The whole slide is scaled to the window as one unit (via CSS `zoom`), so every unit shrinks together and nothing reflows. The bundled themes use `em` for a consistent scale, but that's a style choice, not a requirement.
 
 ## Colour tokens
 

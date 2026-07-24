@@ -8,12 +8,11 @@
 /*
  * A single, neutral theme. Colours come from custom properties so the whole
  * deck flips to dark mode automatically when the reader's OS prefers it — no
- * second stylesheet and no JavaScript. Override the variables below to rebrand.
+ * second stylesheet. Override the variables below to rebrand.
  *
- * Everything inside a slide is sized in `em`, relative to the slide font-size.
- * In an exported deck that font-size tracks the window width (see the
- * `div.marpit > section` scaling rules in document.css), so the whole slide
- * scales down proportionally without reflowing. Keep new rules in `em`/`%`.
+ * Sizes use `em` for a consistent scale, but any unit works: the whole slide is
+ * scaled to the window as one unit (see the `zoom` rule in document.css), so
+ * everything shrinks together and nothing reflows.
  */
 :root {
   /* Light mode (default) */

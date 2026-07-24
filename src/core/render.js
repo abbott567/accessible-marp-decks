@@ -17,6 +17,10 @@ const { html: beautifyHTML } = jsBeautify
  * @property {boolean} [inlineAssets=true] - Base64-inline local images so the
  *   output is a single self-contained file.
  * @property {string} [lang='en'] - Document language attribute.
+ * @property {boolean} [runtimeScript=true] - Inline the runtime script that
+ *   scales each slide to the window and refines code-block focus. Set `false`
+ *   for strict-CSP hosts: slides then render at full 1280px size (the page
+ *   scrolls) and every code block stays focusable.
  * @property {boolean} [prettify=true] - Pretty-print the HTML output.
  */
 
@@ -35,6 +39,7 @@ export async function renderDeck (markdown, options = {}) {
     basePath,
     inlineAssets = true,
     lang = 'en',
+    runtimeScript = true,
     prettify = true
   } = options
 
@@ -49,7 +54,7 @@ export async function renderDeck (markdown, options = {}) {
   const baseCSS = documentCss ?? await readDocumentCSS()
   const combinedCSS = `${marpitCSS}${baseCSS}`
 
-  const documentHTML = buildDocument({ html, css: combinedCSS, deckInfo, lang })
+  const documentHTML = buildDocument({ html, css: combinedCSS, deckInfo, lang, runtimeScript })
   const modifiedHTML = await applyTransforms(documentHTML, { basePath, inlineAssets })
 
   if (!prettify) return modifiedHTML

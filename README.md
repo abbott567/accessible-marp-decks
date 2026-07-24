@@ -89,7 +89,7 @@ const html = await renderDeck(markdownString, { theme: 'basic', basePath: './my-
 // or straight from a file (basePath defaults to the file's directory)
 const html2 = await renderDeckFile('./my-deck/slides.md', { theme: 'basic' })
 
-await listThemes() // ['basic']
+await listThemes() // ['basic', 'high-contrast']
 ```
 
 ### `renderDeck(markdown, options)` → `Promise<string>`
@@ -102,6 +102,7 @@ await listThemes() // ['basic']
 | `basePath` | — | Directory used to resolve and inline relative image paths. |
 | `inlineAssets` | `true` | Base64-inline local images for a single-file output. |
 | `lang` | `'en'` | Document `lang` attribute. |
+| `runtimeScript` | `true` | Inline the code-block scrolling enhancement script. Set `false` for strict-CSP hosts. |
 | `prettify` | `true` | Pretty-print the HTML output. |
 
 ## Eleventy plugin
@@ -147,7 +148,7 @@ Publish decks to GitHub Pages on every push — no command line. Add one workflo
 ## Layouts and themes
 
 - **Layout helpers** — `box`, `stack`, `cluster`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, `overlay-centre`. See [docs/layouts.md](docs/layouts.md).
-- **Themes** live in [`themes/`](themes). One is bundled: **`basic`** (the default), a neutral design with automatic light/dark modes via `prefers-color-scheme`, using the reader's `system-ui` font. To make your own, copy [`themes/_template.css`](themes/_template.css) and recolour it — see [docs/creating-themes.md](docs/creating-themes.md).
+- **Themes** live in [`themes/`](themes). Two are bundled: **`basic`** (the default) and **`high-contrast`** — both neutral designs with automatic light/dark modes via `prefers-color-scheme`, using the reader's `system-ui` font. To make your own, copy [`themes/_template.css`](themes/_template.css) and recolour it — see [docs/creating-themes.md](docs/creating-themes.md).
 
 ## Accessibility
 

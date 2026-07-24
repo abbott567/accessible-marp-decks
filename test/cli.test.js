@@ -108,7 +108,7 @@ test('build resolves a named deck under a custom --decks-dir', async () => {
 
 test('themes lists the bundled themes', async () => {
   const { stdout } = await node(['themes'])
-  assert.equal(stdout.trim(), 'basic')
+  assert.equal(stdout.trim(), 'basic\nhigh-contrast')
 })
 
 test('--help and no arguments print usage', async () => {

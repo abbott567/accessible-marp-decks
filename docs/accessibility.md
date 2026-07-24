@@ -19,7 +19,7 @@ The whole point of this project is that the shared slides are accessible. For ev
 
 ## Reading order and scaling
 
-- Slides scale down proportionally with the window using pure CSS (see [the 16:9 scaling notes](#responsive-scaling)); the DOM order is the reading order, unaffected by the visual scaling.
+- Slides scale down proportionally with the window (see [the 16:9 scaling notes](#responsive-scaling)); the DOM order is the reading order, unaffected by the visual scaling.
 - The output is a normal scrolling HTML document — not a JavaScript slideshow — so browser find, zoom, reader modes, and screen-reader navigation all work.
 
 ## Colour and motion
@@ -33,7 +33,9 @@ The whole point of this project is that the shared slides are accessible. For ev
 
 ## <a id="responsive-scaling"></a>Responsive scaling
 
-Marpit's own container (`div.marpit`) is capped at the 1280px design width and made a query container; each slide (`div.marpit > section`) fills it at a 16:9 ratio, and its font-size is derived from the container width with a container-query unit. Everything inside is sized in `em`/`%`, so the slide scales as a single unit and never reflows. This is why theme and helper CSS must be authored in relative units.
+Marpit renders every slide at a fixed 1280×720 design size. The inlined runtime script sets `--slide-scale` on `div.marpit` to (container width ÷ 1280), and the CSS `zoom` magnifies each slide — text, spacing, layout, everything — as one rigid unit. The layout is computed once at 1280px and simply scaled, so nothing reflows or shifts. Without JavaScript, slides render at full size and the page scrolls (a readable fallback).
+
+**Browser zoom is respected.** Fitting to the window width would normally cancel page zoom (the viewport shrinks in CSS pixels and the deck just re-fits), so the script also multiplies the fit scale by the page-zoom factor (detected via `devicePixelRatio`). Zooming with <kbd>Cmd</kbd>/<kbd>Ctrl</kbd> and <kbd>+</kbd> genuinely enlarges the slides — they overflow and scroll like any zoomed content — meeting WCAG 1.4.4 (Resize Text).
 
 ## Testing
 

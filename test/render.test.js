@@ -52,10 +52,21 @@ test('code blocks are exposed as focusable scrollable regions by default', async
   assert.equal(code.attr('tabindex'), '0')
 })
 
-test('the code-block scrolling enhancement script is inlined', async () => {
+test('the runtime script (scaling + code focus) is inlined', async () => {
   const html = await renderDeck(sample)
-  assert.match(html, /querySelectorAll\("pre > code"\)/)
+  assert.match(html, /--slide-scale/, 'sets the slide scale')
+  assert.match(html, /devicePixelRatio/, 'compensates for browser zoom')
+  assert.match(html, /querySelectorAll\("pre > code"\)/, 'refines code focus')
   assert.match(html, /removeAttribute\("tabindex"\)/)
+})
+
+test('runtimeScript:false omits the enhancement script', async () => {
+  const html = await renderDeck(sample, { runtimeScript: false })
+  assert.doesNotMatch(html, /querySelectorAll\("pre > code"\)/)
+  assert.doesNotMatch(html, /<script>/)
+  // The no-JS default still leaves every code block focusable.
+  const $ = cheerio.load(html)
+  assert.equal($('pre code').first().attr('tabindex'), '0')
 })
 
 test('slides stay direct children of div.marpit so theme scoping applies', async () => {
@@ -67,11 +78,10 @@ test('slides stay direct children of div.marpit so theme scoping applies', async
   assert.equal($('div.marpit > section').length, 2, 'sections are direct children')
 })
 
-test('document CSS provides the pure-CSS 16:9 scaling rules on div.marpit', async () => {
+test('document CSS scales slides uniformly via zoom on div.marpit > section', async () => {
   const html = await renderDeck(sample)
-  assert.match(html, /div\.marpit\s*\{[^}]*container-type:\s*inline-size/, 'container query context')
-  assert.match(html, /div\.marpit\s*>\s*section\s*\{[^}]*aspect-ratio:\s*16\s*\/\s*9/, '16:9 slide')
-  assert.match(html, /font-size:\s*calc\(100cqw/, 'font-size tracks container width')
+  assert.match(html, /div\.marpit\s*\{[^}]*max-width:\s*1280px/, 'container capped at the design width')
+  assert.match(html, /div\.marpit\s*>\s*section\s*\{[^}]*zoom:\s*var\(--slide-scale/, 'whole-slide zoom')
 })
 
 test('readDeckInfo extracts front matter without rendering', () => {
