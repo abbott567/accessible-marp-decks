@@ -62,10 +62,18 @@ export const pageScript = `<script>
     const init = () => {
       refresh();
 
-      // React to size changes (font load, dynamic content, the slide zoom).
+      // Fonts can finish loading after first paint and change what overflows.
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(refresh);
+      }
+
+      // React to size changes (dynamic content, the slide zoom). Code blocks
+      // are observed directly too: slides are fixed-size, so a block's
+      // overflow can change without the deck's own box ever resizing.
       if ("ResizeObserver" in window) {
         const observer = new window.ResizeObserver(() => refresh());
         decks.forEach((deck) => observer.observe(deck));
+        blocks.forEach((code) => observer.observe(code));
       }
 
       // Re-evaluate on window resize, debounced to one call per frame.

@@ -34,6 +34,7 @@ Version 2 is a ground-up modernisation. The rendered output is now a single, sel
 - Applying a helper to a whole slide with `<!-- _class: … -->` now actually works: Marpit scopes bare class selectors to descendants of the slide, so the documented pattern silently did nothing. Themes now ship slide-level variants (`cover`, `center`, `stack`) written as `section.X`, and Marpit's bookkeeping `data-class` attribute is stripped.
 - The `css` render option no longer requires a `/* @theme */` comment — one is prepended automatically, instead of Marpit rejecting the CSS.
 - Image srcs are treated as URLs when inlining: percent-escapes are decoded (`my%20image.png` finds `my image.png` on disk) and query strings/fragments are ignored, instead of silently leaving a broken reference.
+- The runtime script re-evaluates code-block focus after web fonts finish loading and observes the blocks directly — slides are fixed-size, so a block's overflow can change without the deck resizing.
 - Slides in decks without `paginate: true` are now numbered by position instead of being labelled "Slide undefined".
 
 ### Security

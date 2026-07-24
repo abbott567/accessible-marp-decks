@@ -58,6 +58,8 @@ test('the runtime script (scaling + code focus) is inlined', async () => {
   assert.match(html, /devicePixelRatio/, 'compensates for browser zoom')
   assert.match(html, /querySelectorAll\("pre > code"\)/, 'refines code focus')
   assert.match(html, /removeAttribute\("tabindex"\)/)
+  assert.match(html, /fonts\.ready/, 're-evaluates after fonts load')
+  assert.match(html, /blocks\.forEach\(\(code\) => observer\.observe\(code\)\)/, 'observes code blocks directly')
 })
 
 test('runtimeScript:false omits the enhancement script', async () => {
