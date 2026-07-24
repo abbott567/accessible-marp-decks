@@ -4,5 +4,6 @@ _private
 
 # Build output
 dist
+_site
 examples/eleventy-demo/_site
 *.tgz

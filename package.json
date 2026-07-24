@@ -20,8 +20,9 @@
   },
   "scripts": {
     "build": "node src/cli.js build",
+    "build:site": "node src/cli.js build-all examples/decks --out _site",
     "test": "node --test",
-    "lint": "standard src",
+    "lint": "standard src test",
     "demo": "cd examples/eleventy-demo && eleventy"
   },
   "keywords": [

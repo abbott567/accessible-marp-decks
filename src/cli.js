@@ -1,29 +1,33 @@
 #!/usr/bin/env node
 import { parseArgs } from 'node:util'
-import { readFile, writeFile, mkdir, cp, stat } from 'node:fs/promises'
+import { readFile, writeFile, mkdir, cp, stat, readdir } from 'node:fs/promises'
 import { dirname, join, basename, resolve } from 'node:path'
-import { renderDeck } from './core/render.js'
+import { renderDeck, readDeckInfo } from './core/render.js'
 import { listThemes } from './core/themes.js'
 
 const USAGE = `accessible-marp — build accessible HTML decks from Marp markdown
 
 Usage:
   accessible-marp build <deck|path> [--theme <name>] [--out <dir>] [--decks-dir <dir>]
+  accessible-marp build-all <dir> [--theme <name>] [--out <dir>]
   accessible-marp themes
   accessible-marp --help
 
 Arguments:
   <deck|path>          A deck name (resolved under --decks-dir) or a path to a .md file.
+  <dir>                A directory of decks (each a folder containing slides.md).
 
 Options:
   --theme, -t <name>   Theme to use. Defaults to the deck's front-matter theme.
-  --out, -o <dir>      Output directory. Defaults to dist/decks/<deck>.
+  --out, -o <dir>      Output directory. Defaults to dist/decks/<deck> (build)
+                       or dist/site (build-all).
   --decks-dir <dir>    Where named decks live. Defaults to examples/decks.
   --help, -h           Show this help.
 
 Examples:
   accessible-marp build layouts --theme basic
   accessible-marp build ./slides.md --out ./public
+  accessible-marp build-all examples/decks --out _site
   npm run build deck=layouts theme=basic`
 
 async function exists (p) {
@@ -33,6 +37,14 @@ async function exists (p) {
   } catch {
     return false
   }
+}
+
+function escapeHTML (value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
 }
 
 /** Accept legacy `key=value` tokens (e.g. `deck=x theme=y`) alongside flags. */
@@ -45,6 +57,28 @@ function extractLegacyTokens (argv) {
     else rest.push(arg)
   }
   return { legacy, rest }
+}
+
+/**
+ * Render one deck's markdown to `<outDir>/<htmlName>` and copy any `demos/`.
+ * Returns metadata about the built deck.
+ */
+async function buildOne ({ mdPath, sourceDir, deckName, outDir, theme, htmlName }) {
+  const markdown = await readFile(mdPath, 'utf8')
+  const html = await renderDeck(markdown, { theme, basePath: sourceDir })
+
+  await mkdir(outDir, { recursive: true })
+  await writeFile(join(outDir, htmlName), html)
+
+  // Images are base64-inlined into the page, so only companion `demos/`
+  // (standalone linked HTML pages) need copying next to the output.
+  const demosSrc = join(sourceDir, 'demos')
+  if (await exists(demosSrc)) {
+    await cp(demosSrc, join(outDir, 'demos'), { recursive: true })
+  }
+
+  const info = readDeckInfo(markdown)
+  return { deckName, title: info.title || deckName, description: info.description || '' }
 }
 
 async function buildCommand (deckArg, opts) {
@@ -69,20 +103,82 @@ async function buildCommand (deckArg, opts) {
   }
 
   const outDir = resolve(opts.out || join('dist', 'decks', deckName))
-  const markdown = await readFile(mdPath, 'utf8')
-  const html = await renderDeck(markdown, { theme: opts.theme, basePath: sourceDir })
+  await buildOne({ mdPath, sourceDir, deckName, outDir, theme: opts.theme, htmlName: 'slides.html' })
+  console.log(`Built "${deckName}" → ${join(outDir, 'slides.html')}`)
+}
 
-  await mkdir(outDir, { recursive: true })
-  await writeFile(join(outDir, 'slides.html'), html)
+async function buildAllCommand (dir, opts) {
+  const root = resolve(dir)
+  if (!(await exists(root))) throw new Error(`Directory not found: ${root}`)
 
-  // Images are base64-inlined into the page, so only companion `demos/`
-  // (standalone linked HTML pages) need copying next to the output.
-  const demosSrc = join(sourceDir, 'demos')
-  if (await exists(demosSrc)) {
-    await cp(demosSrc, join(outDir, 'demos'), { recursive: true })
+  const entries = await readdir(root, { withFileTypes: true })
+  const outRoot = resolve(opts.out || join('dist', 'site'))
+
+  const built = []
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue
+    const sourceDir = join(root, entry.name)
+    const mdPath = join(sourceDir, 'slides.md')
+    if (!(await exists(mdPath))) continue
+
+    // Each deck becomes /<name>/index.html for clean URLs on a static host.
+    const meta = await buildOne({
+      mdPath,
+      sourceDir,
+      deckName: entry.name,
+      outDir: join(outRoot, entry.name),
+      theme: opts.theme,
+      htmlName: 'index.html'
+    })
+    built.push(meta)
+    console.log(`Built "${entry.name}" → ${join(outRoot, entry.name, 'index.html')}`)
   }
 
-  console.log(`Built "${deckName}" → ${join(outDir, 'slides.html')}`)
+  if (built.length === 0) {
+    throw new Error(`No decks (folders containing slides.md) found in ${root}`)
+  }
+
+  await writeFile(join(outRoot, 'index.html'), renderIndex(built))
+  console.log(`Wrote index → ${join(outRoot, 'index.html')} (${built.length} decks)`)
+}
+
+/** A minimal, accessible landing page linking to each built deck. */
+function renderIndex (decks) {
+  const items = decks
+    .sort((a, b) => a.title.localeCompare(b.title))
+    .map(d => `      <li>
+        <a href="./${encodeURIComponent(d.deckName)}/">${escapeHTML(d.title)}</a>
+        ${d.description ? `<p>${escapeHTML(d.description)}</p>` : ''}
+      </li>`)
+    .join('\n')
+
+  return `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Slide decks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 44rem; margin: 0 auto; padding: 2rem 1rem; line-height: 1.5; }
+      ul { list-style: none; padding: 0; }
+      li { margin: 0 0 1.5rem; }
+      a { font-size: 1.25rem; }
+      p { margin: .25rem 0 0; color: #555; }
+      @media (prefers-color-scheme: dark) {
+        body { background: #111; color: #eee; } p { color: #aaa; } a { color: #8ab4f8; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Slide decks</h1>
+      <ul>
+${items}
+      </ul>
+    </main>
+  </body>
+</html>
+`
 }
 
 async function main () {
@@ -116,6 +212,13 @@ async function main () {
     theme: values.theme || legacy.theme,
     out: values.out || legacy.out,
     'decks-dir': values['decks-dir']
+  }
+
+  if (command === 'build-all') {
+    const dir = positionals[1]
+    if (!dir) throw new Error('No directory specified. See --help.')
+    await buildAllCommand(dir, opts)
+    return
   }
 
   if (command === 'build' || legacy.deck) {

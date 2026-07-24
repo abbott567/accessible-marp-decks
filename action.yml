@@ -1,0 +1,45 @@
+name: Accessible Marp Decks
+description: Build a folder of Marp markdown decks into accessible, self-contained HTML pages.
+author: Craig Abbott
+branding:
+  icon: monitor
+  color: purple
+
+inputs:
+  decks-dir:
+    description: Directory of decks (each a folder containing slides.md).
+    required: false
+    default: decks
+  out:
+    description: Output directory for the built site.
+    required: false
+    default: _site
+  theme:
+    description: Theme to force for every deck. Omit to honour each deck's front matter.
+    required: false
+    default: ''
+  version:
+    description: npm version or dist-tag of accessible-marp-decks to run.
+    required: false
+    default: latest
+  node-version:
+    description: Node.js version to set up.
+    required: false
+    default: '20'
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Build decks
+      shell: bash
+      run: |
+        args=(build-all "${{ inputs.decks-dir }}" --out "${{ inputs.out }}")
+        if [ -n "${{ inputs.theme }}" ]; then
+          args+=(--theme "${{ inputs.theme }}")
+        fi
+        npx --yes "accessible-marp-decks@${{ inputs.version }}" "${args[@]}"
