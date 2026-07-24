@@ -1,4 +1,59 @@
-# Layout helpers
+# Layouts
+
+There are three levels of layout, from zero effort to full control:
+
+1. **The slide template** — every slide already has a top zone, a body, and a bottom zone. Marp's `header:` and `footer:` directives fill the zones; you don't build anything.
+2. **Pre-built layouts** — pick a whole-slide look (`title`, `quote`, `full-image`, …) with the `layout:` directive.
+3. **Layout helpers** — compose your own arrangements from small CSS classes (`columns`, `grid`, `stack`, …).
+
+## The slide template
+
+Every slide is built on the cover shape: content pinned to the top and bottom edges, with the body centred between them. Marp's own [`header:` and `footer:` directives](https://marpit.marp.app/directives?id=header-and-footer) put content into those zones:
+
+```markdown
+<!-- header: 'Some header content' -->
+
+The body content
+
+<!-- footer: '[example.com](https://example.com)' -->
+```
+
+The zones are part of the slide's flow, not overlays, so body content can never collide with them. The injected slide number also lives in the bottom zone.
+
+Like all Marp directives, `header:` and `footer:` apply from that slide onward — every following slide keeps them until they're changed. Use `_header:` / `_footer:` (leading underscore, the "spot" form) to affect a single slide.
+
+## Pre-built layouts
+
+Pick a ready-made layout for a slide with the `layout` directive:
+
+```markdown
+<!-- _layout: quote -->
+
+> Accessibility is not a feature you bolt on at the end. It is a property of building things the right way.
+
+Someone wise
+```
+
+| Layout | What you get |
+| --- | --- |
+| `title` | A hero slide: everything centred, oversized heading — for the opening slide or section breaks. |
+| `quote` | One big centred quotation. A paragraph after the blockquote is styled as the attribution. |
+| `full-image` | One image fills the whole slide edge to edge. Header and footer sit on top with a solid backing strip. The image still needs real alt text. |
+
+```markdown
+<!-- _layout: full-image -->
+
+![A descriptive alt text.](./images/photo.jpg)
+```
+
+Notes on how the directive behaves:
+
+- `_layout:` applies to that slide only; plain `layout:` applies from that slide onward, like every Marp directive.
+- The slide-level helper classes (`cover`, `center`, `stack` — see below) are also valid values, e.g. `<!-- layout: center -->`.
+- `layout:` is sugar for Marp's class directive, so a layout is just a class on the slide. If a slide sets both `layout:` and `_class:`, the class directive wins.
+- The `layout:` directive is provided by this project's renderer, so the Marp VSCode preview ignores it. For preview parity write the equivalent `<!-- _class: quote -->` — the layouts are plain classes in the theme, and both forms produce identical slides.
+
+## Layout helpers
 
 Slides are composed with a small set of layout helper classes. Put them on raw HTML inside a slide (Marp allows HTML because the renderer enables it).
 
@@ -96,4 +151,4 @@ See the [`layouts` example deck](../examples/decks/layouts/slides.md) for all of
 
 ## Custom layouts
 
-These helpers are just CSS classes in the theme. To add your own, add a class to your theme file (keep it in `em`/`%`). See [creating-themes.md](creating-themes.md).
+Helpers and pre-built layouts are just CSS classes in the theme. To add your own helper, add a class to your theme file (keep it in `em`/`%`). To add your own pre-built layout, add a slide-level rule — written as `section.my-layout` because Marpit scopes bare classes to descendants — and select it with `<!-- layout: my-layout -->`. See [creating-themes.md](creating-themes.md).

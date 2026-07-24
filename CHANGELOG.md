@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] — Unreleased
+
+### Added
+
+- **Slide template zones** — every slide is built on the cover shape: Marp's `header:` and `footer:` directives fill real top and bottom zones in the slide's flow (not absolute overlays), with the body centred between them so content can never collide with a zone.
+- **Pre-built layouts** — pick a whole-slide look with the new `layout:` directive (`title`, `quote`, `full-image`, or any slide-level class). `layout:` is renderer-provided sugar for the class directive; `_layout:` is the one-slide form.
+
+### Fixed
+
+- The updated `.frame` helper (no forced centring) is carried to every bundled theme, not just `basic` — the cross-theme drift guard now delimits the shared layout block with an explicit end marker.
+
 ## [2.0.0] — 2026
 
 Version 2 is a ground-up modernisation. The rendered output is now a single, self-contained, responsive, accessible file, and the project ships as an ESM package usable as a CLI, a library, an Eleventy plugin, or a GitHub Action.

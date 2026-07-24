@@ -90,38 +90,89 @@ section {
   --space-l: 2.25em;
 }
 
+/* box — a padded container */
 .box { padding: var(--space-m); }
 .box-s { padding: var(--space-s); }
 .box-l { padding: var(--space-l); }
 
+/* stack — even vertical spacing between children */
 .stack { display: flex; flex-direction: column; gap: var(--space-s); }
 .stack-s { gap: var(--space-xs); }
 .stack-l { gap: var(--space-l); }
 
+/* cluster — a wrapping row of items with even gaps (tags, chips, buttons) */
 .cluster { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }
 
+/* columns — equal-width columns side by side */
 .columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-m); align-items: start; }
 .columns-3 { grid-template-columns: repeat(3, 1fr); }
 
+/* grid — as many equal cards as fit, each at least 14em wide */
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(14em, 1fr)); gap: var(--space-m); }
 
+/* center — a centred column at a comfortable reading measure */
 .center { max-inline-size: 40ch; margin-inline: auto; }
 
-.frame { display: grid; place-items: center; aspect-ratio: 16 / 9; overflow: hidden; }
+/* frame — crop media to a fixed aspect ratio (16:9 by default) */
+.frame { display: grid; aspect-ratio: 16 / 9; overflow: hidden; }
 .frame-square { aspect-ratio: 1; }
 .frame > img, .frame > video { inline-size: 100%; block-size: 100%; object-fit: cover; }
 
+/* cover — pin content to top and bottom, fill the slide height */
 .cover { display: flex; flex-direction: column; justify-content: space-between; block-size: 100%; }
 
+/* sidebar — a self-sized side column beside a flexible main column */
 .sidebar { display: grid; grid-template-columns: auto 1fr; gap: var(--space-m); align-items: start; }
 
+/* overlay-centre — centre an element over a positioned ancestor */
 .overlay-centre { position: absolute; inset: 0; display: grid; place-items: center; }
 
+/* Slide template zones. Every slide is built on the cover shape: a top zone
+   (filled by Marp's `header:` directive), the body, and a bottom zone
+   (`footer:`). The zones are flow children rather than overlays: flex auto
+   margins pin them to the slide edges and the body stays centred between
+   them. The :has() rules add a counterweight when only one zone is present —
+   a lone auto margin would otherwise drag the body to the opposite edge. */
+section > header { align-self: stretch; margin-block-end: auto; }
+section > footer { align-self: stretch; margin-block-start: auto; }
+section:has(> header):not(:has(> footer)) > :last-child { margin-block-end: auto; }
+section:has(> footer):not(:has(> header)) > :first-child { margin-block-start: auto; }
+
 /* Slide-level variants — apply to a whole slide with `<!-- _class: … -->`.
-   Written as section.X because Marpit scopes bare classes as descendants. */
+   Written as section.X because Marpit scopes bare classes as descendants.
+   cover and stack distribute the slide's height themselves, so the
+   template-zone auto margins are switched off for them. */
 section.cover { justify-content: space-between; }
+section.cover > header { margin-block-end: 0; }
+section.cover > footer { margin-block-start: 0; }
+section.cover > :first-child { margin-block-start: 0; }
+section.cover > :last-child { margin-block-end: 0; }
 section.center { align-items: center; text-align: center; }
 section.stack { justify-content: flex-start; gap: var(--space-s); }
+section.stack > header { margin-block-end: 0; }
+section.stack > :first-child { margin-block-start: 0; }
+
+/* Pre-built layouts — pick one for a whole slide with `<!-- layout: … -->`
+   (or `<!-- _class: … -->`, which the Marp VSCode preview also understands). */
+
+/* title — a hero slide: everything centred, oversized heading */
+section.title { align-items: center; text-align: center; }
+section.title h1, section.title h2 { font-size: 2.2em; max-width: 90%; margin-block: 0 0.3em; }
+section.title p { max-width: 80%; }
+
+/* quote — one big centred quotation, with an optional attribution line after */
+section.quote { align-items: center; text-align: center; }
+section.quote blockquote { border: none; padding: 0; font-size: 1.4em; max-inline-size: 85%; }
+section.quote blockquote p { max-width: 100%; }
+section.quote blockquote + p { color: var(--muted); }
+
+/* full-image — one image fills the whole slide; the zones sit on top of it */
+section.full-image { position: relative; overflow: hidden; padding: 0; }
+section.full-image p, section.full-image figure { margin: 0; max-width: 100%; }
+section.full-image img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; border: none; margin: 0; }
+section.full-image > header, section.full-image > footer { z-index: 1; padding: 0.5em 1em; background-color: var(--bg); }
+/* --- end shared layout block — keep identical across themes (drift guard in
+   test/layouts.test.js) --- */
 
 /* ===========================================================================
  * Element styles — tweak to taste.
@@ -208,18 +259,14 @@ img { border: 1px solid var(--border); }
 table { border-collapse: collapse; }
 th, td { border: 1px solid var(--border); padding: .4em .6em; text-align: left; }
 
-/* Header and footer */
+/* Header and footer — the slide's template zones. Their placement (pinned to
+   the top and bottom edges) comes from the shared layout block above; only
+   the look is set here. */
 header, footer {
   font-size: .75em;
   color: var(--muted);
-  margin: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  padding-inline: 1em;
+  position: relative;
   min-height: 1em; }
-header { top: 0.7em; }
-footer { bottom: 0.7em; }
 footer a, footer a:visited { color: var(--muted); }
 
 .pagination {

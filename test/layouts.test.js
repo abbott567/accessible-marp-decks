@@ -63,16 +63,69 @@ test('every bundled theme (and the template) defines the slide-level variants', 
   }
 })
 
+test('every bundled theme (and the template) defines the pre-built layouts', async () => {
+  const themes = await listThemes()
+  for (const name of [...themes, '_template']) {
+    const css = await readFile(join(themesDir, `${name}.css`), 'utf8')
+    for (const cls of ['section.title', 'section.quote', 'section.full-image']) {
+      assert.ok(css.includes(cls), `${name}.css defines ${cls}`)
+    }
+  }
+})
+
+test('the layout directive picks a pre-built layout for one slide', async () => {
+  const deck = '---\nmarp: true\ntheme: basic\n---\n\n<!-- _layout: quote -->\n\n> A quotation.\n\n---\n\n## Plain slide\n'
+  const html = await renderDeck(deck, { prettify: false })
+  const $ = cheerio.load(html)
+  assert.ok($('section').first().hasClass('quote'), 'the layout value lands on the slide class')
+  assert.ok(!$('section').last().hasClass('quote'), '_layout is a one-slide (spot) directive')
+  // The theme rule must be scoped so it can actually match the slide.
+  assert.match(html, /div\.marpit\s*>\s*section\.quote/)
+})
+
+test('a plain layout directive carries to the following slides', async () => {
+  const deck = '---\nmarp: true\ntheme: basic\n---\n\n<!-- layout: title -->\n\n# First\n\n---\n\n# Second\n'
+  const html = await renderDeck(deck, { prettify: false })
+  const $ = cheerio.load(html)
+  assert.equal($('section.title').length, 2)
+})
+
+test('a layout directive with no usable value is ignored', async () => {
+  // YAML parses a bare `layout:` as null and `layout: ' '` as blank — neither
+  // should put a class on the slide (or crash the render).
+  const deck = "---\nmarp: true\ntheme: basic\n---\n\n<!-- layout: -->\n\n# First\n\n---\n\n<!-- _layout: ' ' -->\n\n# Second\n"
+  const html = await renderDeck(deck, { prettify: false })
+  const $ = cheerio.load(html)
+  for (const el of $('section').toArray()) {
+    assert.equal($(el).attr('class') ?? '', '', 'no class lands on the slide')
+  }
+})
+
+test('header and footer directives fill the slide template zones', async () => {
+  const deck = "---\nmarp: true\ntheme: basic\n---\n\n<!-- header: 'Top zone' -->\n<!-- footer: 'Bottom zone' -->\n\n# Body\n"
+  const html = await renderDeck(deck, { prettify: false })
+  const $ = cheerio.load(html)
+  const $section = $('section').first()
+  const children = $section.children().toArray().map(el => el.tagName.toLowerCase())
+  assert.equal(children[0], 'header', 'header is the slide\'s first child (top zone)')
+  assert.equal(children[children.length - 1], 'footer', 'footer is the slide\'s last child (bottom zone)')
+  assert.equal($section.find('footer .pagination').length, 1, 'pagination joins the existing footer')
+  // The zones are pinned by flow-layout auto margins, not absolute overlays,
+  // and Marpit's scoping must keep the structural rules matchable.
+  assert.match(html, /div\.marpit\s*>\s*section\s*>\s*header\s*\{[^}]*margin-block-end:\s*auto/)
+  assert.match(html, /div\.marpit\s*>\s*section:has\(\s*>\s*footer\)/)
+})
+
 /**
- * The helper block (spacing scale → slide-level variants) — comments stripped
- * and whitespace collapsed, so comment styles may differ but the rules can't.
+ * The shared layout block (spacing scale → pre-built layouts) — comments
+ * stripped and whitespace collapsed, so comment styles may differ but the
+ * rules can't.
  */
 async function helperBlock (name) {
   const css = await readFile(join(themesDir, `${name}.css`), 'utf8')
   const start = css.indexOf('--space-xs')
-  const endAnchor = css.indexOf('section.stack')
-  const end = css.indexOf('}', endAnchor) + 1
-  assert.ok(start > -1 && endAnchor > start, `${name}.css contains the helper block`)
+  const end = css.indexOf('/* --- end shared layout block')
+  assert.ok(start > -1 && end > start, `${name}.css contains the shared layout block`)
   return css.slice(start, end)
     .replace(/\/\*[\s\S]*?\*\//g, '')
     .replace(/\s+/g, ' ')

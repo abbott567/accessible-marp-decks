@@ -9,7 +9,7 @@ import { escapeHtml } from './escape.js'
  * @returns {import('@marp-team/marpit').Marpit}
  */
 export function createMarpit () {
-  return new Marpit({
+  const marpit = new Marpit({
     markdown: {
       html: true,
       linkify: true,
@@ -26,4 +26,17 @@ export function createMarpit () {
       }
     }
   })
+
+  // `layout:` picks a pre-built slide layout. It is sugar for the class
+  // directive, so `<!-- layout: quote -->` puts `quote` on the slide's
+  // <section> and the theme's `section.quote` rules take over. Like Marp's own
+  // directives it applies to the following slides too; `_layout:` is the
+  // one-slide (spot) form. If a slide sets both, `_class:` wins — Marpit keeps
+  // one class value per slide.
+  marpit.customDirectives.local.layout = (value) => {
+    if (typeof value !== 'string' || value.trim() === '') return {}
+    return { class: value.trim() }
+  }
+
+  return marpit
 }

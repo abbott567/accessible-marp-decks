@@ -8,15 +8,42 @@ theme: basic
 
 ---
 
+<!-- _layout: title -->
+
 # Layout gallery
 
-A single deck that shows off the layout **primitives** in **accessible-marp-decks**.
+A single deck that shows off the slide template, the pre-built layouts, and the layout **primitives** in **accessible-marp-decks**. This slide uses `layout: title`.
 
-Each slide that follows is one layout. Build it with:
+---
+
+## The slide template
+
+Every slide is built on the cover shape: a top zone, the body, and a bottom zone.
+
+This slide fills both zones with Marp's own directives — the header above and the footer below are `_header:` and `_footer:`. Build the deck with:
 
 ```sh
 accessible-marp build layouts --theme basic
 ```
+
+<!-- _header: 'This is the header zone' -->
+<!-- _footer: 'This is the footer zone' -->
+
+---
+
+<!-- _layout: quote -->
+
+> Accessibility is not a feature you bolt on at the end. It is a property of building things the right way.
+
+A `layout: quote` slide, with this attribution line
+
+---
+
+<!-- _layout: full-image -->
+
+![A placeholder graphic with a circle and a rounded rectangle, filling the whole slide.](./images/placeholder.svg)
+
+<!-- _footer: 'A `layout: full-image` slide — the footer sits on a backing strip' -->
 
 ---
 
@@ -51,23 +78,21 @@ This is the default — write Markdown, get an accessible slide.
 
 ## Columns — split a slide in two
 
-Put `columns` around two blocks to place them side by side. A slide is a fixed canvas that scales as a whole, so columns stay columns — no reflow to reason about.
-
 <div class="columns">
-  <div class="box">
+<div class="box">
 
 ### Left
 
-One idea per column keeps the reading order clear.
+Put `columns` around two blocks to place them side by side. A slide is a fixed canvas that scales as a whole, so columns stay columns — no reflow to reason about.
 
-  </div>
-  <div class="box">
+</div>
+<div class="box">
 
 ### Right
 
 The columns share the width evenly.
 
-  </div>
+</div>
 </div>
 
 ---
@@ -77,10 +102,10 @@ The columns share the width evenly.
 A `grid` auto-fits as many equal cards as will fit, each at least `14em` wide.
 
 <div class="grid">
-  <div class="box">Discoverable</div>
-  <div class="box">Operable</div>
-  <div class="box">Understandable</div>
-  <div class="box">Robust</div>
+  <div class="box">1</div>
+  <div class="box">2</div>
+  <div class="box">3</div>
+  <div class="box">4</div>
 </div>
 
 ---

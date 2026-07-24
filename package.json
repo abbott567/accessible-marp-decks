@@ -1,6 +1,6 @@
 {
   "name": "accessible-marp-decks",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Render Marp markdown slide decks into a standalone, accessible HTML format. Usable as a CLI, an importable function, or an Eleventy plugin.",
   "type": "module",
   "exports": {
