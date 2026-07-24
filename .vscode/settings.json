@@ -1,7 +1,7 @@
 {
   "markdown.marp.themes": [
-    "themes/handwritten.css",
-    "themes/purple-theme.css",
-    "themes/black-yellow.css"
+    "themes/basic.css",
+    "themes/document.css",
+    "themes/high-contrast.css"
   ]
 }
