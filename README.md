@@ -1,19 +1,24 @@
 # Accessible Marp Decks
 
-Render [Marp](https://marp.app/) markdown slide decks into a **single, self-contained, accessible HTML page** — every slide is a labelled landmark, headings have stable ids, long code lines wrap instead of scrolling, pagination is announced to screen readers, images are inlined, and the whole thing scales to any window in 16:9 without reflowing.
+Render [Marp](https://marp.app/) markdown slide decks into a single, self-contained, accessible HTML page.
+
+Every slide is a labelled landmark, headings have stable ids, long code lines wrap instead of scrolling, pagination is announced to screen readers, images are inlined, and the whole thing scales to any window in 16:9 without reflowing.
 
 Use it four ways:
 
-- **CLI** — build a deck (or a whole folder) into shareable HTML.
-- **Library** — `import { renderDeck }` and render Marp markdown anywhere.
-- **Eleventy plugin** — drop deck files into an [Eleventy](https://www.11ty.dev/) site.
-- **GitHub Action** — publish decks to GitHub Pages on push, no command line.
+- **CLI**: Build a deck (or a whole folder) into shareable HTML.
+- **Library**: `import { renderDeck }` and render accessible Marp markdown anywhere.
+- **Eleventy plugin**: Drop deck files into an [Eleventy](https://www.11ty.dev/) site.
+- **GitHub Action**: Publish decks to GitHub Pages on push, no command line.
 
-This project isn't a replacement for Marp or the VSCode preview extension — it's for **sharing** your slides in an accessible format.
+> [!IMPORTANT]
+> This project is not a replacement for Marp or it's VSCode preview extension. It's to transform your Marp slides into an accessible format for **sharing**.
 
 ## Requirements
 
-- Node.js 24 (LTS) — the version pinned in [`.nvmrc`](.nvmrc). Older versions may work but aren't tested.
+- Node.js 24 (LTS)
+
+The node version is pinned in [`.nvmrc`](.nvmrc). Older versions may work but aren't tested.
 
 ## Install
 
@@ -45,11 +50,15 @@ Intro text.
 More content.
 ```
 
-Every slide is built on a template with a top and bottom zone — Marp's `header:` and `footer:` directives fill them. Pick a whole-slide look with `<!-- layout: title -->` (`title`, `quote`, `full-image`, …), or compose richer slides with the [layout helpers](docs/layouts.md) (`columns`, `grid`, `frame`, …). To preview as you write, install the [Marp for VSCode extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
+Every slide is built on a template with a top and bottom zone using Marp's `header:` and `footer:` directives.
+
+You can change the whole-slide layout with `<!-- _class: ... -->`, or compose richer slides with the [layout helpers](docs/layouts.md). 
+
+To preview as you write, install the [Marp for VSCode extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
 
 ## What you get out
 
-A built deck is **one HTML file**. CSS is inlined, images are base64-encoded into the page, and the slides scale to fit the window. Nothing else needs to ship alongside it (except any linked `demos/` pages), so it's trivial to email, host, or attach.
+A built deck as a single sharable HTML file. CSS is inlined, images are base64-encoded into the page, and the slides scale to fit the window. Nothing else needs to ship alongside it, so it's trivial to email, host, or attach.
 
 ## CLI usage
 
@@ -77,7 +86,11 @@ Options:
 | `--out`, `-o` | Output directory. Defaults to `dist/decks/<deck>` (or `dist/site` for `build-all`). |
 | `--decks-dir` | Where named decks live. Defaults to `examples/decks`. |
 
-`build` writes a single `slides.html` (plus any `demos/` folder). `build-all` writes each deck to `<out>/<name>/index.html` and an accessible landing page at `<out>/index.html`; if a deck fails, the rest are still built and the command exits non-zero with a summary. The legacy `npm run build deck=<name> theme=<name>` form still works.
+`build` writes a single `slides.html`.
+
+`build-all` writes each deck to `<out>/<name>/index.html` and a landing page at `<out>/index.html`.
+
+If a deck fails, the rest are still built and the command exits non-zero with a summary.
 
 ## Library usage
 
@@ -134,11 +147,11 @@ Images are inlined into each page automatically. Companion `demos/` folders (sta
 eleventyConfig.addPassthroughCopy('content/**/demos/**')
 ```
 
-A working demo lives in [`examples/eleventy-demo`](examples/eleventy-demo) — run it with `npm run demo`.
+A working demo lives in [`examples/eleventy-demo`](examples/eleventy-demo). Run it with `npm run demo`.
 
 ## GitHub Action
 
-Publish decks to GitHub Pages on every push — no command line. Add one workflow and enable Pages; full walkthrough in [docs/github-action.md](docs/github-action.md).
+Publish decks to GitHub Pages on every push, with no command line. Add one workflow and enable Pages. Full walkthrough in [docs/github-action.md](docs/github-action.md).
 
 ```yaml
 - name: Build decks
@@ -153,30 +166,30 @@ Publish decks to GitHub Pages on every push — no command line. Add one workflo
 
 ## Layouts and themes
 
-- **Slide template** — every slide has a top and bottom zone filled by Marp's `header:`/`footer:` directives; the body is centred between them.
-- **Pre-built layouts** — `title`, `quote`, `full-image` via the `layout:` directive. See [docs/layouts.md](docs/layouts.md).
-- **Layout helpers** — `box`, `stack`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, `overlay-centre`. See [docs/layouts.md](docs/layouts.md).
-- **Themes** live in [`themes/`](themes). Two are bundled: **`basic`** (the default) and **`high-contrast`** — both neutral designs with automatic light/dark modes via `prefers-color-scheme`, using the reader's `system-ui` font. To make your own, copy [`themes/_template.css`](themes/_template.css) and recolour it — see [docs/creating-themes.md](docs/creating-themes.md).
+- **Slide template**: Every slide has a top and bottom zone filled by Marp's `header:`/`footer:` directives. The body content is centred between them.
+- **Pre-built layouts**: `title`, `quote`, `full-image` via the `layout:` directive. See [docs/layouts.md](docs/layouts.md).
+- **Layout helpers**: `box`, `stack`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, `overlay-centre`. See [docs/layouts.md](docs/layouts.md).
+- **Themes**: Live in [`themes/`](themes). Two are bundled: **`basic`** (the default) and **`high-contrast`**. Both are neutral designs with automatic light/dark modes via `prefers-color-scheme`, using the reader's `system-ui` font. To make your own, copy [`themes/_template.css`](themes/_template.css) and recolour it. See [docs/creating-themes.md](docs/creating-themes.md).
 
 ## Accessibility
 
-Every rendered deck is a labelled-landmark structure with screen-reader pagination, wrap-by-default code blocks (with a keyboard-scrollable safety net for custom themes), and reflow-free 16:9 scaling. The full list of guarantees is in [docs/accessibility.md](docs/accessibility.md).
+Every rendered deck is a labelled-landmark structure with screen-reader pagination, wrap-by-default code blocks, and reflow-free 16:9 scaling. The full list of guarantees is in [docs/accessibility.md](docs/accessibility.md).
 
 ## Development
 
 ```sh
 npm install
-npm test        # node:test — accessibility, images, scaling, layouts, CLI, Eleventy
-npm run lint    # standard
-npm run build:site   # build the example decks into _site/
-npm run demo    # build the Eleventy demo site
+npm test
+npm run lint
+npm run build:site
+npm run demo
 ```
 
 The publishable package is the engine (`src/`) and `themes/`. The `layouts` deck under `examples/decks` is a demo of the layouts the renderer supports and is excluded from the npm tarball.
 
 ## Contributing
 
-Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md) and our [Code of Conduct](CODE_OF_CONDUCT.md). Security reports: [SECURITY.md](SECURITY.md).
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and our [Code of Conduct](CODE_OF_CONDUCT.md). Security reports: [SECURITY.md](SECURITY.md).
 
 ## License
 
