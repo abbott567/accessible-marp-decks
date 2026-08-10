@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="280" viewBox="0 0 500 280" role="img" aria-label="Placeholder graphic">
-  <rect width="500" height="280" rx="12" fill="#2e1a47"/>
-  <circle cx="150" cy="140" r="70" fill="#9d7bd8"/>
-  <rect x="250" y="80" width="170" height="120" rx="10" fill="#f5b1ff"/>
-  <text x="250" y="250" fill="#ffffff" font-family="sans-serif" font-size="22" text-anchor="middle">Placeholder image</text>
-</svg>

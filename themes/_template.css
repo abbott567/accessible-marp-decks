@@ -110,7 +110,7 @@ section {
 .center { max-inline-size: 40ch; margin-inline: auto; }
 
 /* frame — crop media to a fixed aspect ratio (16:9 by default) */
-.frame { display: grid; aspect-ratio: 16 / 9; overflow: hidden; }
+.frame { display: grid; aspect-ratio: 16 / 9; overflow: hidden; min-block-size: 0; }
 .frame-square { aspect-ratio: 1; }
 .frame > img, .frame > video { inline-size: 100%; block-size: 100%; object-fit: cover; }
 

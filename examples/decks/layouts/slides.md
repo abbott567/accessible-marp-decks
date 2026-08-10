@@ -51,7 +51,7 @@ The `section` layout is used to break your talk into distinct parts.
 The `two-content` layout is used to split a slide in half. The heading spans the full width of the slide, then two blocks sit side by side underneath. A block can be a list, a paragraph, an image etc.
 
 
-![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+![An empty placeholder image.](./images/placeholder.png)
 
 <!-- _footer: '`_class: two-content`' -->
 
@@ -105,7 +105,7 @@ The content block sits beside it. It gets two thirds of the width. The built dec
 
 ## Picture with caption
 
-![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+![An empty placeholder image.](./images/placeholder.png)
 
 The muted caption sits under the picture, like PowerPoint's Picture with Caption. The built deck renders a `<figure>` with a `<figcaption>`.
 
@@ -125,7 +125,7 @@ The muted caption sits under the picture, like PowerPoint's Picture with Caption
 
 <!-- _class: full-image -->
 
-![A placeholder graphic with a circle and a rounded rectangle, filling the whole slide.](./images/placeholder.svg)
+![A placeholder graphic with a circle and a rounded rectangle, filling the whole slide.](./images/placeholder.png)
 
 <!-- _footer: '`_class: full-image`' -->
 
@@ -247,9 +247,9 @@ A `grid` auto-fits as many equal cards as will fit, each at least `14em` wide.
 
 A `frame` crops an image or video to a fixed ratio.
 
-<div class="frame">
+<div class="frame" style="max-inline-size: 55%">
 
-![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
+![An empty placeholder image.](./images/placeholder.png)
 
 </div>
 
