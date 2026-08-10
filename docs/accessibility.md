@@ -17,6 +17,11 @@ The whole point of this project is that the shared slides are accessible. For ev
 - Long code lines **wrap** in the bundled themes instead of scrolling — slides render at a fixed size, so an overflowing block would hide the same content from every viewer (and a projected slide can't be scrolled at all). Nothing needs interaction to be read.
 - A scrolling safety net remains for themes that restore `nowrap`: `pre code` blocks ship marked `role="region"` with an `aria-label` and `tabindex="0"` (the no-JavaScript default), and the inlined script *removes* those from any block that does not actually overflow — so with the bundled themes nothing is focusable, and a genuinely scrollable block in a custom theme is keyboard-operable rather than a trap. A visible focus outline is applied.
 
+## Caption and quote layouts
+
+- The `picture-caption` and `content-caption` layouts emit a real `<figure>` with the caption paragraph as its `<figcaption>` — the caption/content relationship is programmatically determinable (WCAG 1.3.1, Info and Relationships), not just a visual pairing of styled paragraphs.
+- The `quote` layout emits the HTML spec's attributed-quote shape — `<figure><blockquote><figcaption>` — so the attribution is programmatically tied to the quotation, and a link in the attribution becomes the machine-readable `cite` URL on the `<blockquote>`. The attribution is authored as a single-item list, an explicit marker that can't be confused with body paragraphs.
+
 ## Reading order and scaling
 
 - Slides scale down proportionally with the window (see [the 16:9 scaling notes](#responsive-scaling)); the DOM order is the reading order, unaffected by the visual scaling.

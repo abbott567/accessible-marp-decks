@@ -31,7 +31,7 @@ Pick a ready-made layout for a slide with the `layout` directive:
 
 > Accessibility is not a feature you bolt on at the end. It is a property of building things the right way.
 
-Someone wise
+- Someone wise
 ```
 
 | Layout | What you get |
@@ -39,12 +39,12 @@ Someone wise
 | `title` | A hero slide: everything centred, oversized heading — for the opening slide. |
 | `section` | A section-break divider: oversized left-aligned heading with a muted lead-in. |
 | `title-only` | A heading pinned to the top; the rest of the slide is free space. |
-| `quote` | One big centred quotation. A paragraph after the blockquote is styled as the attribution. |
+| `quote` | One big centred quotation. Write the attribution as a single-item list (`- Name`) after the blockquote. |
 | `full-image` | One image fills the whole slide edge to edge. Header and footer sit on top with a solid backing strip. The image still needs real alt text. |
 | `two-content` | A heading over two equal side-by-side content blocks. |
 | `comparison` | Like `two-content`, with an `###` caption heading over each side. |
 | `content-caption` | A narrow muted caption column beside the content. Write the caption paragraph first, then the content. |
-| `picture-caption` | A picture with a muted caption paragraph underneath. |
+| `picture-caption` | A picture with a muted caption underneath. |
 
 ```markdown
 <!-- _layout: full-image -->
@@ -73,6 +73,18 @@ The two-column layouts (`two-content`, `comparison`, `content-caption`) are CSS 
 ```
 
 For more than one block per side, use the `columns` helper (below) instead.
+
+The caption layouts are more than styling: the renderer pairs the caption with its picture (or content blocks) into a real `<figure>` with the caption paragraph as its `<figcaption>`, so the relationship is programmatically determinable — a screen-reader user hears the caption *as* the caption, not as an unrelated paragraph. The Marp VSCode preview (where the renderer doesn't run) styles the raw paragraphs the same way, so the slides look identical while you write.
+
+The `quote` layout gets the same treatment: the blockquote and its attribution are paired into the HTML spec's own attributed-quote shape — `<figure><blockquote><figcaption>` — and if the attribution contains a link, its URL also becomes the machine-readable `cite` attribute on the `<blockquote>`. The attribution is written as a **single-item list** directly after the quote — an explicit marker, so a quote can have as many paragraphs as it likes and ordinary body text after it is never mistaken for an attribution. To name the quoted *work*, put an inline `<cite>` element in the attribution (in HTML, `<cite>` marks the title of a work, not a person's name):
+
+```markdown
+<!-- _layout: quote -->
+
+> The power of the Web is in its universality.
+
+- [Tim Berners-Lee](https://www.w3.org/press-releases/), <cite>W3C press release</cite>
+```
 
 ### Coming from PowerPoint
 

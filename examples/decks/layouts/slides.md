@@ -12,7 +12,7 @@ theme: basic
 
 # Layout gallery
 
-A single deck that shows off the slide template, the pre-built layouts, and the layout **primitives** in **accessible-marp-decks**. This slide uses the `title` layout — applied with `_class:` throughout this deck so the VSCode preview shows every layout too (`layout:` works the same when building).
+A single deck that shows off the slide template, the pre-built layouts, and the layout **primitives** in **accessible-marp-decks**.
 
 <!-- _footer: 'The first nine slides follow the order of the standard PowerPoint layout picker.' -->
 
@@ -20,15 +20,17 @@ A single deck that shows off the slide template, the pre-built layouts, and the 
 
 <!-- _class: title -->
 
-# Title slide
+## Title slide
 
-A title slide, usually used as the very first slide in the talk.
+This slide uses the `title` layout, which is usually the first slide to introduce your talk.
+
+<!-- _footer: `_class: title` -->
 
 ---
 
 ## Title and content
 
-The default slide. A heading followed by content in a single column, with no Marp `_class` / directive needed.
+The default slide. A heading followed by content in a single column. No Marp `_class` / directive needed to use this layout.
 
 ---
 
@@ -36,7 +38,9 @@ The default slide. A heading followed by content in a single column, with no Mar
 
 ## Section header
 
-The `section` layout divides your talk into distinct parts.
+The `section` layout is used to break your talk into distinct parts.
+
+<!-- _footer: `_class: section` -->
 
 ---
 
@@ -44,14 +48,12 @@ The `section` layout divides your talk into distinct parts.
 
 ## Two content
 
-- The `two-content` layout
-- The heading spans the slide
-- Two blocks sit side by side
-- A block can be a list, a paragraph, an image etc
+The `two-content` layout is used to split a slide in half. The heading spans the full width of the slide, then two blocks sit side by side underneath. A block can be a list, a paragraph, an image etc.
+
 
 ![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
 
-<!-- _footer: 'Here the two blocks are a list and an image. Use `columns` primative for more than two per side.' -->
+<!-- _footer: `_class: two-content` -->
 
 ---
 
@@ -59,19 +61,19 @@ The `section` layout divides your talk into distinct parts.
 
 ## Comparison
 
-### Heading which is long and wraps onto two lines
+### Similar to two-content, but the body content is kept aligned
 
 - Bullet point 1
 - Bullet point 2
 - Bullet point 3
 
-### Shorter heading
+### This helps for comparisons
 
 - Bullet point 4
 - Bullet point 5
 - Bullet point 6
 
-<!-- _footer: 'The only difference from `two-content`: `###` headings push both columns down together.' -->
+<!-- _footer: `_class: comparison` -->
 
 ---
 
@@ -79,11 +81,11 @@ The `section` layout divides your talk into distinct parts.
 
 ## Title only
 
-<!-- _footer: 'The `title-only` layout pins the heading to the top and leaves the canvas free.' -->
+<!-- _footer: `_class: title-only` -->
 
 ---
 
-<!-- _footer: 'Blank — an empty slide needs no directive.' -->
+<!-- _footer: 'Blank slide example.' -->
 
 ---
 
@@ -91,11 +93,11 @@ The `section` layout divides your talk into distinct parts.
 
 ## Content with caption
 
-This muted paragraph is the caption — it comes first in the source and takes the narrow column.
+This muted paragraph is the caption. It comes first in the source and takes the narrow column.
 
-- The content block sits beside it
-- It gets two thirds of the width
-- Like PowerPoint's Content with Caption
+The content block sits beside it. It gets two thirds of the width. The built deck renders a true `<figure>` with a `<figcaption>`.
+
+<!-- _footer: `_class: content-with-caption` -->
 
 ---
 
@@ -105,30 +107,19 @@ This muted paragraph is the caption — it comes first in the source and takes t
 
 ![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
 
-The muted caption sits under the picture — like PowerPoint's Picture with Caption.
+The muted caption sits under the picture, like PowerPoint's Picture with Caption. The built deck renders a `<figure>` with a `<figcaption>`.
 
----
-
-## The slide template
-
-Every slide is built on the cover shape: a top zone, the body, and a bottom zone.
-
-This slide fills both zones with Marp's own directives — the header above and the footer below are `_header:` and `_footer:`. Build the deck with:
-
-```sh
-accessible-marp build layouts --theme basic
-```
-
-<!-- _header: 'This is the header zone' -->
-<!-- _footer: 'This is the footer zone' -->
+<!-- _footer: `_class: picture-caption` -->
 
 ---
 
 <!-- _class: quote -->
 
-> Accessibility is not a feature you bolt on at the end. It is a property of building things the right way.
+> Quotes with an attribution are rendered as a `<figure>` with a nested `<blockquote>`. To add an attribution, add it as a list with a single item in your Markdown. In the built deck the it becomes a `<figcaption>`. Also, if you make the attribution a link, it will be added as the blockquote's `cite` URL.
 
-The `quote` layout, with this attribution line
+- [Craig Abbott](https://www.craigabbott.co.uk)
+
+<!-- _footer: `_class: quote` -->
 
 ---
 
@@ -136,24 +127,51 @@ The `quote` layout, with this attribution line
 
 ![A placeholder graphic with a circle and a rounded rectangle, filling the whole slide.](./images/placeholder.svg)
 
-<!-- _footer: 'The `full-image` layout — the footer sits on a backing strip' -->
+<!-- _footer: '`_class: full-image`' -->
 
 ---
 
-## Bulleted list
+<!-- _class: quote -->
+
+> Quotes will be rendered as a `<blockquote>` if they do not have an attribution. If you want to add an attribution, you can add a single list item. See the next slide for more details.
+
+<!-- _footer: `_class: quote` -->
+
+---
+
+<!-- _class: section -->
+
+## How it works
+
+Now that you've seen the layouts, this section explains a little more about how it works and how to get the most out of this project. Each slide is built to showcase the different HTML elements you can use.
+
+---
+
+## The slide template
+
+<!-- _header: 'The `_header` content will render at the top' -->
+
+The slide template is the main container for the slides. It's built to use Marp's own `_header` and `_footer` directives. The regular slide content will render in the middle.
+
+<!-- _footer: 'The `_footer` content will render at the bottom' -->
+
+---
+
+## Some accessibility features
 
 - Every slide is a labelled landmark
 - Headings have stable ids
 - Code blocks are keyboard-focusable figures
 - Pagination is announced to screen readers
 - Images keep their alt text
+- Figures are generated automatically
 
 ---
 
-## Numbered steps
+## How to use it
 
 1. Write your slides in Marp markdown
-2. Pick a bundled theme
+2. Pick (or build) a theme
 3. Run the CLI, library, or Eleventy plugin
 4. Ship a single, standalone accessible HTML page
 
@@ -163,20 +181,20 @@ The `quote` layout, with this attribution line
 
 ## Primitives
 
-The slides before this one are whole-slide **layouts**, picked with a directive. From here on, each slide is composed by hand from the layout **helper classes** — small bits of CSS you put on raw HTML inside the slide.
+We've looked at **layouts** already, picked with a directive. From here on, each slide is composed by hand from the layout using **helper classes**. These are small bits of CSS you put on raw HTML inside the slide, if you need more control.
 
 ---
 
-## Columns — when a layout isn't enough
+## Columns, for when a layout isn't enough
 
-The `two-content` layout places one block per side. The `columns` helper covers the rest — like this intro paragraph above three columns:
+The `two-content` layout places one block per side. The `columns` helper gives you more control over which part of the page is in columns.
 
 <div class="columns columns-3">
 <div class="box">
 
 ### Any count
 
-Add `columns-3` for three across; plain `columns` gives two.
+Add `columns-3` for three columns.
 
 </div>
 <div class="box">
@@ -197,15 +215,15 @@ Columns can sit under other content, or inside another helper.
 
 ---
 
-## Grid — responsive cards
+## Grid, creating responsive cards
 
 A `grid` auto-fits as many equal cards as will fit, each at least `14em` wide.
 
 <div class="grid">
-  <div class="box">1</div>
-  <div class="box">2</div>
-  <div class="box">3</div>
-  <div class="box">4</div>
+  <div class="box">Card 1</div>
+  <div class="box">Card 2</div>
+  <div class="box">Card 3</div>
+  <div class="box">Card 4</div>
 </div>
 
 ---
@@ -226,7 +244,7 @@ A `cluster` lays out a wrapping row of items with even gaps.
 
 ---
 
-## Stack — even vertical rhythm
+## Stack, for even vertical rhythm
 
 A `stack` puts a consistent space between each child, whatever they are.
 

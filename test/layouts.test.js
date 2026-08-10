@@ -106,6 +106,45 @@ test('a layout directive with no usable value is ignored', async () => {
   }
 })
 
+test('the caption layouts render as a figure with a true figcaption', async () => {
+  const deck = '---\nmarp: true\ntheme: basic\n---\n\n' +
+    '<!-- _class: picture-caption -->\n\n## Picture\n\n' +
+    '![A placeholder.](./missing.png)\n\nThe picture caption.\n\n---\n\n' +
+    '<!-- _class: content-caption -->\n\n## Content\n\n' +
+    'The content caption.\n\n- One\n- Two\n'
+  const html = await renderDeck(deck, { prettify: false })
+  const $ = cheerio.load(html)
+
+  const $picture = $('section.picture-caption > figure')
+  assert.equal($picture.length, 1)
+  assert.equal($picture.children('img').length, 1)
+  assert.equal($picture.children('figcaption').text(), 'The picture caption.')
+
+  const $content = $('section.content-caption > figure')
+  assert.equal($content.length, 1)
+  assert.ok($content.children().first().is('figcaption'), 'the caption paragraph leads the figure')
+  assert.equal($content.children('figcaption').text(), 'The content caption.')
+  assert.equal($content.children('ul').find('li').length, 2, 'the content block joins the figure')
+  // The figure/figcaption styling is part of the shared theme block.
+  assert.match(html, /section\.picture-caption\s+figcaption/)
+  assert.match(html, /section\.content-caption\s+figcaption/)
+})
+
+test('the quote layout renders the attributed-quote shape with a cite URL', async () => {
+  const deck = '---\nmarp: true\ntheme: basic\n---\n\n' +
+    '<!-- _class: quote -->\n\n> A quotation.\n\n' +
+    '- [Someone](https://example.com/source)\n'
+  const html = await renderDeck(deck, { prettify: false })
+  const $ = cheerio.load(html)
+
+  const $figure = $('section.quote > figure')
+  assert.equal($figure.length, 1)
+  assert.equal($figure.children('blockquote').attr('cite'), 'https://example.com/source')
+  assert.equal($figure.children('blockquote + figcaption').text(), 'Someone')
+  // The figcaption styling is part of the shared theme block.
+  assert.match(html, /section\.quote\s+figcaption/)
+})
+
 test('header and footer directives fill the slide template zones', async () => {
   const deck = "---\nmarp: true\ntheme: basic\n---\n\n<!-- header: 'Top zone' -->\n<!-- footer: 'Bottom zone' -->\n\n# Body\n"
   const html = await renderDeck(deck, { prettify: false })

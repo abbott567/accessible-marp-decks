@@ -151,11 +151,18 @@ section.title { align-items: center; text-align: center; }
 section.title h1, section.title h2 { font-size: 2.2em; max-width: 90%; margin-block: 0 0.3em; }
 section.title p { max-width: 80%; }
 
-/* quote — one big centred quotation, with an optional attribution line after */
+/* quote — one big centred quotation, with an optional attribution after it,
+   written as a single-item list (`- Name`). The renderer pairs quote and
+   attribution into the spec's attributed-quote shape,
+   <figure><blockquote><figcaption>; the sibling selectors cover the
+   untransformed Marp VSCode preview. */
 section.quote { align-items: center; text-align: center; }
+section.quote figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
 section.quote blockquote { border: none; padding: 0; font-size: 1.4em; max-inline-size: 85%; }
 section.quote blockquote p { max-width: 100%; }
-section.quote blockquote + p { color: var(--muted); }
+section.quote blockquote + ul { list-style: none; margin: 0; padding: 0; }
+section.quote blockquote + ul li { padding: 0; margin: 0; max-width: 100%; }
+section.quote figcaption, section.quote blockquote + ul { color: var(--muted); }
 
 /* full-image — one image fills the whole slide; the zones sit on top of it */
 section.full-image { position: relative; overflow: hidden; padding: 0; }
@@ -204,18 +211,25 @@ section.comparison > footer { grid-row: 5; }
 section.comparison > :not(header):not(h1):not(h2):not(h3):not(footer) { grid-row: 4; }
 
 /* content-caption — a narrow caption column beside the content block.
-   Write the caption paragraph first, then the content block. */
+   Write the caption paragraph first, then the content block. The renderer
+   rewrites the pair into a <figure> with a true <figcaption>; the paragraph
+   selectors keep the untransformed Marp VSCode preview looking the same. */
 section.content-caption { grid-template-columns: 1fr 2fr; grid-template-rows: auto auto 1fr auto; }
 section.content-caption > header { grid-row: 1; }
 section.content-caption > h1, section.content-caption > h2 { grid-row: 2; }
 section.content-caption > footer { grid-row: 4; }
 section.content-caption > :not(header):not(h1):not(h2):not(footer) { grid-row: 3; }
-section.content-caption > p:first-of-type { font-size: .85em; color: var(--muted); }
+section.content-caption > figure { grid-column: 1 / -1; margin: 0; display: grid; grid-template-columns: 1fr 2fr; column-gap: var(--space-l); align-items: start; }
+section.content-caption > figure > :not(figcaption) { grid-column: 2; }
+section.content-caption figcaption, section.content-caption > p:first-of-type { font-size: .85em; color: var(--muted); }
 
-/* picture-caption — a picture with a muted caption underneath */
+/* picture-caption — a picture with a muted caption underneath. The renderer
+   pairs picture and caption into a <figure>/<figcaption>; the sibling
+   selector covers the untransformed preview. */
 section.picture-caption p { max-width: 100%; }
+section.picture-caption figure { margin: 0; }
 section.picture-caption img { display: block; max-block-size: 12em; inline-size: auto; }
-section.picture-caption p:has(> img) + p { font-size: .85em; color: var(--muted); }
+section.picture-caption figcaption, section.picture-caption p:has(> img) + p { font-size: .85em; color: var(--muted); }
 
 /* --- end shared layout block — keep identical across themes (drift guard in
    test/layouts.test.js) --- */

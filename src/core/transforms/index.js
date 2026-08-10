@@ -1,5 +1,6 @@
 import * as cheerio from 'cheerio'
 import { modifySection } from './_section.js'
+import { modifyCaptions } from './_captions.js'
 import { modifyImg } from './_img.js'
 import { modifyCodeBlocks } from './_code.js'
 
@@ -15,9 +16,10 @@ import { modifyCodeBlocks } from './_code.js'
 export async function applyTransforms (documentHTML, options = {}) {
   const $ = cheerio.load(documentHTML)
   modifySection($)
+  modifyCaptions($)
   await modifyImg($, options)
   modifyCodeBlocks($)
   return $.html()
 }
 
-export { modifySection, modifyImg, modifyCodeBlocks }
+export { modifySection, modifyCaptions, modifyImg, modifyCodeBlocks }
