@@ -243,19 +243,9 @@ A `grid` auto-fits as many equal cards as will fit, each at least `14em` wide.
 
 ---
 
-<!-- _class: cover -->
+## Frame, maintain the aspect ratio on media
 
-## Cover — style a whole slide
-
-This slide uses the class directive `<!-- _class: cover -->`, which pins the heading to the top of the slide…
-
-…and this closing line to the bottom. The `center` and `stack` slide classes work the same way.
-
----
-
-## Frame — crop media to an aspect ratio
-
-A `frame` crops an image or video to a fixed ratio (16:9 by default) so mixed media lines up.
+A `frame` crops an image or video to a fixed ratio.
 
 <div class="frame">
 
@@ -267,7 +257,7 @@ A `frame` crops an image or video to a fixed ratio (16:9 by default) so mixed me
 
 ## Code block
 
-Fenced code is syntax-highlighted. A short block that fits needs no keyboard interaction, so it stays out of the tab order:
+Fenced code blocks. Add the language to the opening backticks for syntax highlighting.
 
 ```js
 import { renderDeck } from 'accessible-marp-decks'
@@ -277,21 +267,7 @@ const html = await renderDeck(markdown, { theme: 'basic' })
 
 ---
 
-## Scrolling code block
-
-When a line is too wide to fit, the block scrolls horizontally — so it becomes a focusable region you can reach with <kbd>Tab</kbd> and scroll with the arrow keys:
-
-```js
-const html = await renderDeck(markdown, { theme: 'basic', basePath: './decks/my-talk', inlineAssets: true, lang: 'en-GB', prettify: true })
-```
-
-Resize the window: a block that starts fitting drops out of the tab order, and one that starts overflowing joins it.
-
----
-
-## Quote and keystrokes
-
-> Accessibility is not a feature you bolt on at the end. It is a property of building things the right way.
+## Keystrokes
 
 Press <kbd>Tab</kbd> to move forward and <kbd>Shift</kbd> + <kbd>Tab</kbd> to move back.
 
@@ -304,13 +280,3 @@ Press <kbd>Tab</kbd> to move forward and <kbd>Shift</kbd> + <kbd>Tab</kbd> to mo
 | `columns`  | Splitting a slide into equal columns     |
 | `grid`     | A set of equal cards                     |
 | `frame`    | Cropping media to a fixed aspect ratio   |
-
----
-
-## Footer and links
-
-Add a per-slide footer for sources and references.
-
-It renders below the content and is kept out of the screen-reader pagination announcement.
-
-<!-- _footer: '[accessible-marp-decks on npm](https://www.npmjs.com/package/accessible-marp-decks)' -->
