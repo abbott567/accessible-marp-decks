@@ -30,7 +30,8 @@ export function modifySection ($) {
 
     // Marpit only sets data-marpit-pagination when `paginate: true`; fall back
     // to the slide's position so labels never read "Slide undefined".
-    const pageNo = $section.attr('data-marpit-pagination') ?? String(index + 1)
+    const marpitPageNo = $section.attr('data-marpit-pagination')
+    const pageNo = marpitPageNo ?? String(index + 1)
     $section.removeAttr('data-marpit-pagination')
 
     // Only the slide's FIRST heading gets the stable id and describedby —
@@ -46,13 +47,16 @@ export function modifySection ($) {
       $section.attr('aria-label', `Slide ${pageNo}`)
     }
 
+    // With `paginate: false` the number paragraph stays in the markup (the
+    // heading's aria-describedby points at it) but is hidden visually too.
+    const numberClass = marpitPageNo === undefined ? ' class="visually-hidden"' : ''
     $footer.append(`
       <div class="pagination">
-        <p class="visually-hidden">End of slide ${pageNo}</p>
-        <p id="page-number-${pageNo}" aria-hidden="true">
+        <p id="page-number-${pageNo}"${numberClass} aria-hidden="true">
           <span class="visually-hidden">slide </span>
           <span>${pageNo}</span>
         </p>
+        <p class="visually-hidden">End of slide ${pageNo}</p>
       </div>
     `)
   })

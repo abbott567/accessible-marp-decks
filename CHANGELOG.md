@@ -13,6 +13,10 @@ All notable changes to this project are documented here. The format is based on 
 
 - The **`cluster` layout helper** (a wrapping row of items with even gaps). Decks that used `class="cluster"` should switch to another helper or define the one-line rule in a custom theme: `.cluster { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }`
 
+### Fixed
+
+- `paginate: false` is now honoured: the page-number chip is visually hidden when pagination is off. The slide `aria-label`s, stable heading ids, and visually-hidden "End of slide N" announcements remain either way — the directive controls visible page numbers, not the accessibility machinery.
+
 ## [2.1.0] — 10 August 2026
 
 ### Added

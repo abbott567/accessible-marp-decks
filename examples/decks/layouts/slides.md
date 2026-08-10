@@ -2,7 +2,7 @@
 
 title: Layout gallery
 description: A single deck showing the layout primitives accessible-marp-decks can render.
-paginate: false
+paginate: true
 marp: true
 theme: basic
 
@@ -24,7 +24,7 @@ A single deck that shows off the slide template, the pre-built layouts, and the 
 
 This slide uses the `title` layout, which is usually the first slide to introduce your talk.
 
-<!-- _footer: `_class: title` -->
+<!-- _footer: '`_class: title`' -->
 
 ---
 
@@ -40,7 +40,7 @@ The default slide. A heading followed by content in a single column. No Marp `_c
 
 The `section` layout is used to break your talk into distinct parts.
 
-<!-- _footer: `_class: section` -->
+<!-- _footer: '`_class: section`' -->
 
 ---
 
@@ -53,7 +53,7 @@ The `two-content` layout is used to split a slide in half. The heading spans the
 
 ![A placeholder graphic with a circle and a rounded rectangle.](./images/placeholder.svg)
 
-<!-- _footer: `_class: two-content` -->
+<!-- _footer: '`_class: two-content`' -->
 
 ---
 
@@ -73,7 +73,7 @@ The `two-content` layout is used to split a slide in half. The heading spans the
 - Bullet point 5
 - Bullet point 6
 
-<!-- _footer: `_class: comparison` -->
+<!-- _footer: '`_class: comparison`' -->
 
 ---
 
@@ -81,7 +81,7 @@ The `two-content` layout is used to split a slide in half. The heading spans the
 
 ## Title only
 
-<!-- _footer: `_class: title-only` -->
+<!-- _footer: '`_class: title-only`' -->
 
 ---
 
@@ -97,7 +97,7 @@ This muted paragraph is the caption. It comes first in the source and takes the 
 
 The content block sits beside it. It gets two thirds of the width. The built deck renders a true `<figure>` with a `<figcaption>`.
 
-<!-- _footer: `_class: content-with-caption` -->
+<!-- _footer: '`_class: content-caption`' -->
 
 ---
 
@@ -109,7 +109,7 @@ The content block sits beside it. It gets two thirds of the width. The built dec
 
 The muted caption sits under the picture, like PowerPoint's Picture with Caption. The built deck renders a `<figure>` with a `<figcaption>`.
 
-<!-- _footer: `_class: picture-caption` -->
+<!-- _footer: '`_class: picture-caption`' -->
 
 ---
 
@@ -119,7 +119,7 @@ The muted caption sits under the picture, like PowerPoint's Picture with Caption
 
 - [Craig Abbott](https://www.craigabbott.co.uk)
 
-<!-- _footer: `_class: quote` -->
+<!-- _footer: '`_class: quote`' -->
 
 ---
 
@@ -135,7 +135,7 @@ The muted caption sits under the picture, like PowerPoint's Picture with Caption
 
 > Quotes will be rendered as a `<blockquote>` if they do not have an attribution. If you want to add an attribution, you can add a single list item. See the next slide for more details.
 
-<!-- _footer: `_class: quote` -->
+<!-- _footer: '`_class: quote`' -->
 
 ---
 

@@ -11,6 +11,7 @@ The whole point of this project is that the shared slides are accessible. For ev
 ## Pagination for screen readers
 
 - Each slide gets a `<footer>` containing a visually-hidden "End of slide N" and a page-number chip. The end-of-slide text is announced to screen readers; the visible chip is `aria-hidden` so it isn't read twice.
+- Marp's `paginate` directive controls only the *visible* chip: with `paginate: false` the number is visually hidden as well, while the slide labels and end-of-slide announcements remain — turning off page numbers never turns off the accessibility machinery.
 
 ## Code blocks
 

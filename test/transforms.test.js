@@ -21,6 +21,20 @@ test('modifySection honours an existing footer and a background image', () => {
   assert.equal($section.find('footer').length, 1)
   // Pagination markup is still injected into that footer.
   assert.equal($section.find('footer .pagination').length, 1)
+  // With `paginate: true` the page-number chip is visible.
+  assert.ok(!$section.find('#page-number-1').hasClass('visually-hidden'))
+})
+
+test('modifySection hides the visible page number when pagination is off', () => {
+  const $ = cheerio.load('<section><h2>One</h2></section>')
+  modifySection($)
+  // The paragraph stays (the heading's aria-describedby points at it)…
+  assert.equal($('h2').attr('aria-describedby'), 'page-number-1')
+  assert.equal($('#page-number-1').length, 1)
+  // …but nothing is shown on the slide.
+  assert.ok($('#page-number-1').hasClass('visually-hidden'))
+  // The end-of-slide announcement is unaffected.
+  assert.match($('.pagination').text(), /End of slide 1/)
 })
 
 test('modifyImg leaves section styles without a url() token alone', async () => {
