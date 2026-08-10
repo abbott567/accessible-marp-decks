@@ -56,7 +56,6 @@ export function modifySection ($) {
           <span class="visually-hidden">slide </span>
           <span>${pageNo}</span>
         </p>
-        <p class="visually-hidden">End of slide ${pageNo}</p>
       </div>
     `)
   })

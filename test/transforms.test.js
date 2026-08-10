@@ -33,8 +33,6 @@ test('modifySection hides the visible page number when pagination is off', () =>
   assert.equal($('#page-number-1').length, 1)
   // …but nothing is shown on the slide.
   assert.ok($('#page-number-1').hasClass('visually-hidden'))
-  // The end-of-slide announcement is unaffected.
-  assert.match($('.pagination').text(), /End of slide 1/)
 })
 
 test('modifyImg leaves section styles without a url() token alone', async () => {
