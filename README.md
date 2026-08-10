@@ -45,7 +45,7 @@ Intro text.
 More content.
 ```
 
-Every slide is built on a template with a top and bottom zone — Marp's `header:` and `footer:` directives fill them. Pick a whole-slide look with `<!-- layout: title -->` (`title`, `quote`, `full-image`, …), or compose richer slides with the [layout helpers](docs/layouts.md) (`columns`, `grid`, `cluster`, `frame`, …). To preview as you write, install the [Marp for VSCode extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
+Every slide is built on a template with a top and bottom zone — Marp's `header:` and `footer:` directives fill them. Pick a whole-slide look with `<!-- layout: title -->` (`title`, `quote`, `full-image`, …), or compose richer slides with the [layout helpers](docs/layouts.md) (`columns`, `grid`, `frame`, …). To preview as you write, install the [Marp for VSCode extension](https://marketplace.visualstudio.com/items?itemName=marp-team.marp-vscode).
 
 ## What you get out
 
@@ -155,7 +155,7 @@ Publish decks to GitHub Pages on every push — no command line. Add one workflo
 
 - **Slide template** — every slide has a top and bottom zone filled by Marp's `header:`/`footer:` directives; the body is centred between them.
 - **Pre-built layouts** — `title`, `quote`, `full-image` via the `layout:` directive. See [docs/layouts.md](docs/layouts.md).
-- **Layout helpers** — `box`, `stack`, `cluster`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, `overlay-centre`. See [docs/layouts.md](docs/layouts.md).
+- **Layout helpers** — `box`, `stack`, `columns`, `grid`, `center`, `frame`, `cover`, `sidebar`, `overlay-centre`. See [docs/layouts.md](docs/layouts.md).
 - **Themes** live in [`themes/`](themes). Two are bundled: **`basic`** (the default) and **`high-contrast`** — both neutral designs with automatic light/dark modes via `prefers-color-scheme`, using the reader's `system-ui` font. To make your own, copy [`themes/_template.css`](themes/_template.css) and recolour it — see [docs/creating-themes.md](docs/creating-themes.md).
 
 ## Accessibility

@@ -9,6 +9,10 @@ All notable changes to this project are documented here. The format is based on 
 - The caption layouts now carry **true caption semantics**: the renderer pairs the caption with its picture (`picture-caption`) or content blocks (`content-caption`) into a `<figure>` with the caption paragraph as a real `<figcaption>`, so the relationship is programmatically determinable (WCAG 1.3.1) instead of purely visual. Slides that don't follow a layout's documented shape are left untouched, and the Marp VSCode preview (where the transforms don't run) keeps the previous paragraph styling.
 - The `quote` layout now emits the HTML spec's **attributed-quote shape** — `<figure><blockquote><figcaption>` — pairing the quotation with its attribution, and a link in the attribution doubles as the machine-readable `cite` URL on the `<blockquote>`. The attribution is written as a single-item list (`- Name`) after the quote — an explicit marker, so multi-paragraph quotes and body text after a quote are never misread as an attribution.
 
+### Removed
+
+- The **`cluster` layout helper** (a wrapping row of items with even gaps). Decks that used `class="cluster"` should switch to another helper or define the one-line rule in a custom theme: `.cluster { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }`
+
 ## [2.1.0] — 10 August 2026
 
 ### Added

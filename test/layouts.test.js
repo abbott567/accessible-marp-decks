@@ -32,7 +32,7 @@ test('the theme carries its own layout helpers (so the VSCode preview works)', a
   const themes = await listThemes()
   for (const name of themes) {
     const css = await readFile(join(themesDir, `${name}.css`), 'utf8')
-    for (const cls of ['.box', '.stack', '.cluster', '.columns', '.grid', '.frame']) {
+    for (const cls of ['.box', '.stack', '.columns', '.grid', '.frame']) {
       assert.match(css, new RegExp(`\\${cls}\\s*\\{`), `${name}.css defines ${cls}`)
     }
   }

@@ -228,30 +228,17 @@ A `grid` auto-fits as many equal cards as will fit, each at least `14em` wide.
 
 ---
 
-## Cluster — tags and chips
-
-A `cluster` lays out a wrapping row of items with even gaps.
-
-<ul class="cluster" role="list">
-  <li><code>box</code></li>
-  <li><code>stack</code></li>
-  <li><code>cluster</code></li>
-  <li><code>columns</code></li>
-  <li><code>grid</code></li>
-  <li><code>cover</code></li>
-  <li><code>frame</code></li>
-</ul>
-
----
-
-## Stack, for even vertical rhythm
-
-A `stack` puts a consistent space between each child, whatever they are.
-
 <div class="stack">
-  <h3>First</h3>
-  <p>The gap between items is the same all the way down.</p>
-  <p>Change the rhythm with <code>stack--s</code> or <code>stack--l</code>.</p>
+  <h2>Stack, for even vertical rhythm</h2>
+  <p>
+    A `stack` puts a consistent space between each child, whatever they are.
+  </p>
+  <p>
+    The gap between items is the same all the way down.
+  </p>
+  <p>
+    Change the rhythm with <code>stack--s</code> or <code>stack--l</code>.
+  </p>
 </div>
 
 ---
@@ -316,7 +303,6 @@ Press <kbd>Tab</kbd> to move forward and <kbd>Shift</kbd> + <kbd>Tab</kbd> to mo
 | ---------- | ---------------------------------------- |
 | `columns`  | Splitting a slide into equal columns     |
 | `grid`     | A set of equal cards                     |
-| `cluster`  | Tags, chips, button rows                 |
 | `frame`    | Cropping media to a fixed aspect ratio   |
 
 ---

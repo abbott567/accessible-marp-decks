@@ -154,7 +154,6 @@ The other helpers lay out elements *inside* a slide and have no slide-level vari
 | --- | --- |
 | `box`, `box-s`, `box-l` | Padded container (three padding sizes). |
 | `stack`, `stack-s`, `stack-l` | Vertical flow with an even gap between children. |
-| `cluster` | A wrapping row of items with even gaps — tags, chips, buttons. |
 | `columns`, `columns-3` | Two (or three) equal columns side by side. |
 | `grid` | As many equal cards as fit, each at least `14em` wide. |
 | `center` | A centred column capped at a comfortable reading measure. |
@@ -183,16 +182,6 @@ The other helpers lay out elements *inside* a slide and have no slide-level vari
   <div class="box">Understandable</div>
   <div class="box">Robust</div>
 </div>
-```
-
-**Tags**
-
-```html
-<ul class="cluster" role="list">
-  <li><code>grid</code></li>
-  <li><code>stack</code></li>
-  <li><code>cluster</code></li>
-</ul>
 ```
 
 **Cropped media**

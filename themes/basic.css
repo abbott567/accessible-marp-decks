@@ -88,9 +88,6 @@
 .stack-s { gap: var(--space-xs); }
 .stack-l { gap: var(--space-l); }
 
-/* cluster — a wrapping row of items with even gaps (tags, chips, buttons) */
-.cluster { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }
-
 /* columns — equal-width columns side by side */
 .columns { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-m); align-items: start; }
 .columns-3 { grid-template-columns: repeat(3, 1fr); }
